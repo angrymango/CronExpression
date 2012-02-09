@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "HoursFieldTests.h"
+#import "HoursFieldTest.h"
 #import "HoursField.h"
 
-@implementation HoursFieldTests
+@implementation HoursFieldTest
 
 - (void)setUp
 {

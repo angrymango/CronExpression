@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "FieldFactoryTests.h"
+#import "FieldFactoryTest.h"
 #import "FieldFactory.h"
 
-@implementation FieldFactoryTests
+@implementation FieldFactoryTest
 
 - (void)setUp
 {

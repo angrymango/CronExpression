@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "YearFieldTests.h"
+#import "YearFieldTest.h"
 #import "YearField.h"
 
-@implementation YearFieldTests
+@implementation YearFieldTest
 
 - (void)setUp
 {

@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "DayOfMonthFieldTests.h"
+#import "DayOfMonthFieldTest.h"
 #import "DayOfMonthField.h"
 
-@implementation DayOfMonthFieldTests
+@implementation DayOfMonthFieldTest
 
 - (void)setUp
 {

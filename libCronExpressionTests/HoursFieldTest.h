@@ -1,5 +1,5 @@
 //
-//  YearFieldTests.h
+//  HoursFieldTests.h
 //  libCronExpression
 //
 //  Created by c 4 on 14/08/11.
@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface YearFieldTests : SenTestCase
+@interface HoursFieldTest : SenTestCase
 
 @end

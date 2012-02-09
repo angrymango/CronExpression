@@ -1,5 +1,5 @@
 //
-//  DayOfMonthFieldTests.h
+//  FieldFactoryTests.h
 //  libCronExpression
 //
 //  Created by c 4 on 14/08/11.
@@ -8,6 +8,6 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@interface DayOfMonthFieldTests : SenTestCase
+@interface FieldFactoryTest : SenTestCase
 
 @end

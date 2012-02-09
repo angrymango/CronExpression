@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B310809913FD3E5F00D67AC4 /* MonthFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B310809813FD3E5F00D67AC4 /* MonthFieldTest.m */; };
+		B310809C13FD42F300D67AC4 /* CronExpressionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B310809B13FD42F300D67AC4 /* CronExpressionTest.m */; };
+		B310809F13FD431A00D67AC4 /* FieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B310809E13FD431A00D67AC4 /* FieldTest.m */; };
 		B3CF23BF13F7A1FF00A4E532 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CF23BE13F7A1FF00A4E532 /* Foundation.framework */; };
 		B3CF23CD13F7A1FF00A4E532 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CF23CC13F7A1FF00A4E532 /* SenTestingKit.framework */; };
 		B3CF23CF13F7A1FF00A4E532 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3CF23CE13F7A1FF00A4E532 /* UIKit.framework */; };
@@ -32,13 +35,13 @@
 		B3CF241113F7A2D000A4E532 /* MonthField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF23FE13F7A2D000A4E532 /* MonthField.m */; };
 		B3CF241213F7A2D000A4E532 /* YearField.h in Headers */ = {isa = PBXBuildFile; fileRef = B3CF23FF13F7A2D000A4E532 /* YearField.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		B3CF241313F7A2D000A4E532 /* YearField.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF240013F7A2D000A4E532 /* YearField.m */; };
-		B3CF241813F7A49400A4E532 /* YearFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF241513F7A3B700A4E532 /* YearFieldTests.m */; };
-		B3CF241913F7A49F00A4E532 /* YearFieldTests.h in Resources */ = {isa = PBXBuildFile; fileRef = B3CF241413F7A3B700A4E532 /* YearFieldTests.h */; };
+		B3CF241813F7A49400A4E532 /* YearFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF241513F7A3B700A4E532 /* YearFieldTest.m */; };
+		B3CF241913F7A49F00A4E532 /* YearFieldTest.h in Resources */ = {isa = PBXBuildFile; fileRef = B3CF241413F7A3B700A4E532 /* YearFieldTest.h */; };
 		B3CF241C13F7A88500A4E532 /* MinutesFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF241B13F7A88500A4E532 /* MinutesFieldTest.m */; };
-		B3CF241F13F7A92C00A4E532 /* HoursFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF241E13F7A92C00A4E532 /* HoursFieldTests.m */; };
-		B3CF242213F7A99700A4E532 /* FieldFactoryTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242113F7A99700A4E532 /* FieldFactoryTests.m */; };
-		B3CF242513F7C4EB00A4E532 /* DayOfWeekFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTests.m */; };
-		B3CF242813F7F02800A4E532 /* DayOfMonthFieldTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242713F7F02700A4E532 /* DayOfMonthFieldTests.m */; };
+		B3CF241F13F7A92C00A4E532 /* HoursFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF241E13F7A92C00A4E532 /* HoursFieldTest.m */; };
+		B3CF242213F7A99700A4E532 /* FieldFactoryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242113F7A99700A4E532 /* FieldFactoryTest.m */; };
+		B3CF242513F7C4EB00A4E532 /* DayOfWeekFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTest.m */; };
+		B3CF242813F7F02800A4E532 /* DayOfMonthFieldTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CF242713F7F02700A4E532 /* DayOfMonthFieldTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +55,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B310809713FD3E5F00D67AC4 /* MonthFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MonthFieldTest.h; sourceTree = "<group>"; };
+		B310809813FD3E5F00D67AC4 /* MonthFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthFieldTest.m; sourceTree = "<group>"; };
+		B310809A13FD42F300D67AC4 /* CronExpressionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CronExpressionTest.h; sourceTree = "<group>"; };
+		B310809B13FD42F300D67AC4 /* CronExpressionTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CronExpressionTest.m; sourceTree = "<group>"; };
+		B310809D13FD431A00D67AC4 /* FieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldTest.h; sourceTree = "<group>"; };
+		B310809E13FD431A00D67AC4 /* FieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldTest.m; sourceTree = "<group>"; };
 		B3CF23BB13F7A1FF00A4E532 /* liblibCronExpression.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = liblibCronExpression.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3CF23BE13F7A1FF00A4E532 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		B3CF23C213F7A1FF00A4E532 /* libCronExpression-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "libCronExpression-Prefix.pch"; sourceTree = "<group>"; };
@@ -80,18 +89,18 @@
 		B3CF23FE13F7A2D000A4E532 /* MonthField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MonthField.m; sourceTree = "<group>"; };
 		B3CF23FF13F7A2D000A4E532 /* YearField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YearField.h; sourceTree = "<group>"; };
 		B3CF240013F7A2D000A4E532 /* YearField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YearField.m; sourceTree = "<group>"; };
-		B3CF241413F7A3B700A4E532 /* YearFieldTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YearFieldTests.h; sourceTree = "<group>"; };
-		B3CF241513F7A3B700A4E532 /* YearFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YearFieldTests.m; sourceTree = "<group>"; };
+		B3CF241413F7A3B700A4E532 /* YearFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YearFieldTest.h; sourceTree = "<group>"; };
+		B3CF241513F7A3B700A4E532 /* YearFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YearFieldTest.m; sourceTree = "<group>"; };
 		B3CF241A13F7A88500A4E532 /* MinutesFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MinutesFieldTest.h; sourceTree = "<group>"; };
 		B3CF241B13F7A88500A4E532 /* MinutesFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MinutesFieldTest.m; sourceTree = "<group>"; };
-		B3CF241D13F7A92C00A4E532 /* HoursFieldTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoursFieldTests.h; sourceTree = "<group>"; };
-		B3CF241E13F7A92C00A4E532 /* HoursFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HoursFieldTests.m; sourceTree = "<group>"; };
-		B3CF242013F7A99700A4E532 /* FieldFactoryTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldFactoryTests.h; sourceTree = "<group>"; };
-		B3CF242113F7A99700A4E532 /* FieldFactoryTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldFactoryTests.m; sourceTree = "<group>"; };
-		B3CF242313F7C4EB00A4E532 /* DayOfWeekFieldTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayOfWeekFieldTests.h; sourceTree = "<group>"; };
-		B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayOfWeekFieldTests.m; sourceTree = "<group>"; };
-		B3CF242613F7F02700A4E532 /* DayOfMonthFieldTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayOfMonthFieldTests.h; sourceTree = "<group>"; };
-		B3CF242713F7F02700A4E532 /* DayOfMonthFieldTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayOfMonthFieldTests.m; sourceTree = "<group>"; };
+		B3CF241D13F7A92C00A4E532 /* HoursFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HoursFieldTest.h; sourceTree = "<group>"; };
+		B3CF241E13F7A92C00A4E532 /* HoursFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HoursFieldTest.m; sourceTree = "<group>"; };
+		B3CF242013F7A99700A4E532 /* FieldFactoryTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FieldFactoryTest.h; sourceTree = "<group>"; };
+		B3CF242113F7A99700A4E532 /* FieldFactoryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FieldFactoryTest.m; sourceTree = "<group>"; };
+		B3CF242313F7C4EB00A4E532 /* DayOfWeekFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayOfWeekFieldTest.h; sourceTree = "<group>"; };
+		B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayOfWeekFieldTest.m; sourceTree = "<group>"; };
+		B3CF242613F7F02700A4E532 /* DayOfMonthFieldTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayOfMonthFieldTest.h; sourceTree = "<group>"; };
+		B3CF242713F7F02700A4E532 /* DayOfMonthFieldTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayOfMonthFieldTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,18 +195,24 @@
 		B3CF23D613F7A1FF00A4E532 /* libCronExpressionTests */ = {
 			isa = PBXGroup;
 			children = (
-				B3CF242613F7F02700A4E532 /* DayOfMonthFieldTests.h */,
-				B3CF242713F7F02700A4E532 /* DayOfMonthFieldTests.m */,
-				B3CF242313F7C4EB00A4E532 /* DayOfWeekFieldTests.h */,
-				B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTests.m */,
-				B3CF242013F7A99700A4E532 /* FieldFactoryTests.h */,
-				B3CF242113F7A99700A4E532 /* FieldFactoryTests.m */,
-				B3CF241D13F7A92C00A4E532 /* HoursFieldTests.h */,
-				B3CF241E13F7A92C00A4E532 /* HoursFieldTests.m */,
+				B310809A13FD42F300D67AC4 /* CronExpressionTest.h */,
+				B310809B13FD42F300D67AC4 /* CronExpressionTest.m */,
+				B3CF242613F7F02700A4E532 /* DayOfMonthFieldTest.h */,
+				B3CF242713F7F02700A4E532 /* DayOfMonthFieldTest.m */,
+				B3CF242313F7C4EB00A4E532 /* DayOfWeekFieldTest.h */,
+				B3CF242413F7C4EB00A4E532 /* DayOfWeekFieldTest.m */,
+				B310809D13FD431A00D67AC4 /* FieldTest.h */,
+				B310809E13FD431A00D67AC4 /* FieldTest.m */,
+				B3CF242013F7A99700A4E532 /* FieldFactoryTest.h */,
+				B3CF242113F7A99700A4E532 /* FieldFactoryTest.m */,
+				B3CF241D13F7A92C00A4E532 /* HoursFieldTest.h */,
+				B3CF241E13F7A92C00A4E532 /* HoursFieldTest.m */,
 				B3CF241A13F7A88500A4E532 /* MinutesFieldTest.h */,
 				B3CF241B13F7A88500A4E532 /* MinutesFieldTest.m */,
-				B3CF241413F7A3B700A4E532 /* YearFieldTests.h */,
-				B3CF241513F7A3B700A4E532 /* YearFieldTests.m */,
+				B310809713FD3E5F00D67AC4 /* MonthFieldTest.h */,
+				B310809813FD3E5F00D67AC4 /* MonthFieldTest.m */,
+				B3CF241413F7A3B700A4E532 /* YearFieldTest.h */,
+				B3CF241513F7A3B700A4E532 /* YearFieldTest.m */,
 				B3CF23D713F7A1FF00A4E532 /* Supporting Files */,
 			);
 			path = libCronExpressionTests;
@@ -298,7 +313,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3CF241913F7A49F00A4E532 /* YearFieldTests.h in Resources */,
+				B3CF241913F7A49F00A4E532 /* YearFieldTest.h in Resources */,
 				B3CF23DB13F7A1FF00A4E532 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -342,12 +357,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B3CF241813F7A49400A4E532 /* YearFieldTests.m in Sources */,
+				B3CF241813F7A49400A4E532 /* YearFieldTest.m in Sources */,
 				B3CF241C13F7A88500A4E532 /* MinutesFieldTest.m in Sources */,
-				B3CF241F13F7A92C00A4E532 /* HoursFieldTests.m in Sources */,
-				B3CF242213F7A99700A4E532 /* FieldFactoryTests.m in Sources */,
-				B3CF242513F7C4EB00A4E532 /* DayOfWeekFieldTests.m in Sources */,
-				B3CF242813F7F02800A4E532 /* DayOfMonthFieldTests.m in Sources */,
+				B3CF241F13F7A92C00A4E532 /* HoursFieldTest.m in Sources */,
+				B3CF242213F7A99700A4E532 /* FieldFactoryTest.m in Sources */,
+				B3CF242513F7C4EB00A4E532 /* DayOfWeekFieldTest.m in Sources */,
+				B3CF242813F7F02800A4E532 /* DayOfMonthFieldTest.m in Sources */,
+				B310809913FD3E5F00D67AC4 /* MonthFieldTest.m in Sources */,
+				B310809C13FD42F300D67AC4 /* CronExpressionTest.m in Sources */,
+				B310809F13FD431A00D67AC4 /* FieldTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +504,7 @@
 				B3CF23E413F7A1FF00A4E532 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B3CF23E513F7A1FF00A4E532 /* Build configuration list for PBXNativeTarget "libCronExpressionTests" */ = {
 			isa = XCConfigurationList;
@@ -494,6 +513,7 @@
 				B3CF23E713F7A1FF00A4E532 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
