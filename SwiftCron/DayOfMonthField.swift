@@ -83,7 +83,7 @@ class DayOfMonthField: Field, FieldInterface
 				return false
 			}
 		}
-		return self.isSatisfied(String(format: "%02d", components.day), value: value)
+		return self.isSatisfied(String(components.day), value: value)
 	}
 
 	func increment(date: NSDate) -> NSDate

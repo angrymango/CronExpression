@@ -1,26 +1,39 @@
 import Foundation
+/*
+ * * * * *
+ | | | | |
+ | | | | ---- Weekday
+ | | | ------ Month
+ | | -------- Day
+ | ---------- Hour
+ ------------ Minute
 
-class CronExpression
+ * * * * * *
+ | | | | | |
+ | | | | | ---- Year
+ | | | | ------ Weekday
+ | | | -------- Month
+ | | ---------- Day
+ | ------------ Hour
+ -------------- Minute
+ */
+public class CronExpression
 {
+	enum CronPart: Int
+	{
+		case Minute, Hour, Day, Month, Weekday, Year
+		private static let fields: Array<FieldInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
 
-	let MINUTE = 0
-	let HOUR = 1
-	let DAY = 2
-	let MONTH = 3
-	let WEEKDAY = 4
-	let YEAR = 5
+		func getField() -> FieldInterface
+		{
+			return CronPart.fields[rawValue]
+		}
+	}
 
 	var cronParts: Array<String>
 
-	var _fieldFactory: FieldFactory
-
-	var order: Array<NSNumber>
-
-	init?(schedule: String, fieldFactory: FieldFactory)
+	init?(schedule: String)
 	{
-		order = [NSNumber(integer: YEAR), NSNumber(integer: MONTH), NSNumber(integer: DAY), NSNumber(integer: WEEKDAY), NSNumber(integer: HOUR), NSNumber(integer: MINUTE)]
-		_fieldFactory = fieldFactory
-
 		cronParts = schedule.componentsSeparatedByString(" ")
 
 		if cronParts.count < 5
@@ -31,7 +44,8 @@ class CronExpression
 
 		for i: Int in 0 ..< cronParts.count
 		{
-			if _fieldFactory.getField(i)?.validate(cronParts[i]) == false
+			let part = CronPart(rawValue: i)!
+			if part.getField().validate(cronParts[i]) == false
 			{
 				NSLog("\(#function): Invalid cron field value \(cronParts[i]) at position \(i)")
 				return nil
@@ -39,7 +53,7 @@ class CronExpression
 		}
 	}
 
-	static func expressionWithString(expression: String, andFactory fieldFactory: FieldFactory) -> CronExpression?
+	public static func expressionWithString(expression: String) -> CronExpression?
 	{
 		var cronExpressionString = expression
 
@@ -50,7 +64,19 @@ class CronExpression
 			cronExpressionString = mappedExpression
 		}
 
-		return CronExpression(schedule: cronExpressionString, fieldFactory: fieldFactory)
+		return CronExpression(schedule: cronExpressionString)
+	}
+
+	// MARK: - Get Next Run Date
+
+	public func getNextRunDateFromNow() -> NSDate?
+	{
+		return getNextRunDate(NSDate())
+	}
+
+	public func getNextRunDate(date: NSDate) -> NSDate?
+	{
+		return getNextRunDate(date, skip: 0)
 	}
 
 	func getNextRunDate(date: NSDate, skip: Int) -> NSDate?
@@ -59,20 +85,23 @@ class CronExpression
 		let calendar = NSCalendar.currentCalendar()
 		let components = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Weekday], fromDate: date)
 		components.second = 0
-		guard let nextRun = calendar.dateFromComponents(components) else
-        {
-            NSLog("\(#function): could not get a date from components \(components)")
-            return nil
-        }
+		guard var nextRun = calendar.dateFromComponents(components) else
+		{
+			NSLog("\(#function): could not get a date from components \(components)")
+			return nil
+		}
+
+		let allPartsInExpression: Array<CronPart> = [.Minute, .Hour, .Day, .Month, .Weekday, .Year]
 
 		// Set a hard limit to bail on an impossible date
-        for _: Int in 0 ..< 1000
+		iteration: for _: Int in 0 ..< 1000
 		{
-			for position: NSNumber in order
+			var satisfied = false
+
+			currentFieldLoop: for cronPart: CronPart in allPartsInExpression
 			{
-				let part: String = getExpression(position.integerValue)!
-				var satisfied = false
-				let field: FieldInterface = _fieldFactory.getField(position.integerValue)!
+				let part = getExpression(cronPart.rawValue)!
+				let field = cronPart.getField()
 
 				if part.containsString(",") == false
 				{
@@ -83,32 +112,32 @@ class CronExpression
 					for listPart: String in part.componentsSeparatedByString(",")
 					{
 						satisfied = field.isSatisfiedBy(nextRun, value: listPart) ? true : satisfied
-						break
+						continue iteration
 					}
 				}
 
 				// If the field is not satisfied, then start over
 				if (satisfied == false)
 				{
-					field.increment(nextRun)
-					break
+					nextRun = field.increment(nextRun)
+					continue iteration
 				}
 
 				// Skip this match if needed
 				if (timesToSkip > 0)
 				{
-					_fieldFactory.getField(0)!.increment(nextRun)
+					CronPart(rawValue: 0)!.getField().increment(nextRun)
 					timesToSkip -= 1
-					continue
 				}
-				return nextRun;
+				continue currentFieldLoop
 			}
+			return satisfied ? nextRun : nil
 		}
 		NSLog("Impossible CRON expression")
 		return nil
 	}
 
-	func getExpression(part: Int) -> String?
+	public func getExpression(part: Int) -> String?
 	{
 		if part < 0
 		{
@@ -122,7 +151,7 @@ class CronExpression
 		return nil
 	}
 
-	func isDue(currentTime: NSDate) -> Bool
+	public func isDue(currentTime: NSDate) -> Bool
 	{
 		NSLog("\(#function): Not implemented from legacy project")
 		return true

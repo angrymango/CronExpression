@@ -5,10 +5,12 @@ class MonthField: Field, FieldInterface
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool
 	{
-		var monthMap = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
-		var indexOfMonth = Int(value)!
-		indexOfMonth -= 1
-		return isSatisfied(String(format: "%d", monthMap[indexOfMonth]), value: value)
+//		var monthMap = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"]
+//		var indexOfMonth = Int(value)!
+//		indexOfMonth -= 1
+        let calendar = NSCalendar.currentCalendar()
+        let month = calendar.component(.Month, fromDate: date)
+		return isSatisfied(String(month), value: value)
 	}
 
 	func increment(date: NSDate) -> NSDate
