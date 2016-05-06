@@ -1,54 +1,33 @@
-#import "HoursField.h"
+import Foundation
 
-@implementation HoursField
-
-	- (id) init
+class HoursField: Field, FieldInterface
 {
-	self = [super init];
-	if (self) {
-		// Initialization code here.
-	}
 
-	return self;
-}
-
-	- (BOOL) isSatisfiedBy: (NSDate *) date byValue: (NSString *) value
-{
-	/*return $this->isSatisfied($date->format('H'), $value);*/
-
-	NSCalendar * calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-	NSDateComponents * components = [[calendar components: NSHourCalendarUnit fromDate: date] autorelease];
-
-	return [self isSatisfied: [NSString stringWithFormat: @"%d", components.hour] withValue: value];
-}
-
-	- (NSDate *) increment: (NSDate *) date
-{
-	/*$date->add(new DateInterval('PT1H'));
-	 $date->setTime($date->format('H'), 0, 0);
-
-	 return $this;*/
-
-	NSCalendar * calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-	NSDateComponents * components = [[[NSDateComponents alloc] init] autorelease];
-	components.hour = 1;
-
-	return [calendar dateByAddingComponents: components toDate: date options: 0];
-}
-
-	- (BOOL) validate: (NSString *) value
-{
-	/*return (bool) preg_match('/[\*,\/\-0-9]+/', $value);*/
-
-	NSError * error = NULL;
-	NSRegularExpression * regex = [NSRegularExpression regularExpressionWithPattern: @"[\\*,\\/\\-0-9]+" options: NSRegularExpressionCaseInsensitive error: &error];
-
-	if (error != NULL)
+	func isSatisfiedBy(date: NSDate, value: String) -> Bool
 	{
-		NSLog(@"%@", error);
+
+		let calendar = NSCalendar.currentCalendar()
+		let components = calendar.components([.Hour], fromDate: date)
+
+		return isSatisfied(String(format: "%d", components.hour), value: value)
 	}
 
-	return [regex numberOfMatchesInString: value options: 0 range: NSMakeRange(0, [value length])] > 0;
-}
+	func increment(date: NSDate) -> NSDate
+	{
+		let calendar = NSCalendar.currentCalendar()
+		let components = NSDateComponents()
+		components.hour = 1;
+		return calendar.dateByAddingComponents(components, toDate: date, options: [])!
+	}
 
-@end
+	func validate(value: String) -> Bool
+	{
+		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .CaseInsensitive) else
+		{
+			NSLog("\(#function): Cannot create regular expression")
+			return false
+		}
+
+		return regex.numberOfMatchesInString(value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+	}
+}

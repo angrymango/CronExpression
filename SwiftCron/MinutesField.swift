@@ -1,53 +1,33 @@
-#import "MinutesField.h"
+import Foundation
 
-@implementation MinutesField
-
-- (id)init
+class MinutesField: Field, FieldInterface
 {
-    self = [super init];
-    if (self) {
-        // Initialization code here.
-    }
-    
-    return self;
-}
 
--(BOOL)isSatisfiedBy: (NSDate*)date byValue:(NSString*)value
-{
-     /*return $this->isSatisfied($date->format('i'), $value);*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-    NSDateComponents *components = [[calendar components: NSMinuteCalendarUnit fromDate: date] autorelease];
-    
-    return [self isSatisfied: [NSString stringWithFormat:@"%d", components.minute] withValue:value];
-}
+	func isSatisfiedBy(date: NSDate, value: String) -> Bool
+	{
+		let calendar = NSCalendar.currentCalendar()
+		let components = calendar.components([.Minute], fromDate: date)
 
--(NSDate*) increment:(NSDate*)date
-{
-    /*$date->add(new DateInterval('PT1M'));
-     
-     return $this;*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-    NSDateComponents* components = [[[NSDateComponents alloc] init] autorelease];
-    components.minute = 1;
-    
-    return [calendar dateByAddingComponents: components toDate: date options: 0];
-}
+		return self.isSatisfied(String(format: "%d", components.minute), value: value)
+	}
 
--(BOOL) validate:(NSString*)value
-{
-     /*return (bool) preg_match('/[\*,\/\-0-9]+/', $value);*/
-    
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[\\*,\\/\\-0-9]+" options:NSRegularExpressionCaseInsensitive error:&error];
-    
-    if(error != NULL)
-    {
-        NSLog(@"%@", error);
-    }
-    
-    return [regex numberOfMatchesInString:value options:0 range:NSMakeRange(0, [value length])] > 0;
-}
+	func increment(date: NSDate) -> NSDate
+	{
+		let calendar = NSCalendar.currentCalendar()
+		let components = NSDateComponents()
+		components.minute = 1;
 
-@end
+		return calendar.dateByAddingComponents(components, toDate: date, options: [])!
+	}
+
+	func validate(value: String) -> Bool
+	{
+		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: []) else
+		{
+			NSLog("\(#function): Could not create regex")
+            return false
+		}
+
+		return regex.numberOfMatchesInString(value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+	}
+}
