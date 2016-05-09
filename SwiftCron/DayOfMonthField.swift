@@ -1,6 +1,6 @@
 import Foundation
 
-class DayOfMonthField: Field, FieldInterface
+class DayOfMonthField: Field, FieldCheckerInterface
 {
 
 	static func getLastDayOfMonth(date: NSDate) -> Int

@@ -1,6 +1,6 @@
 import Foundation
 
-class YearField: Field, FieldInterface
+class YearField: Field, FieldCheckerInterface
 {
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool

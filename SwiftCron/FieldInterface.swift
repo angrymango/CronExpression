@@ -1,5 +1,5 @@
 //
-//  FieldInterface.swift
+//  FieldCheckerInterface.swift
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/05.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol FieldInterface {
+protocol FieldCheckerInterface {
 	/**
 	 * Check if the respective value of a DateTime field satisfies a CRON exp
 	 *
@@ -25,7 +25,7 @@ protocol FieldInterface {
 	 *
 	 * @param DateTime date DateTime object to increment
 	 *
-	 * @return FieldInterface
+	 * @return FieldCheckerInterface
 	 */
 	func increment(date: NSDate) -> NSDate
 

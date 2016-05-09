@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import SwiftCron
 
 class WeekdayTests: XCTestCase {
 
@@ -20,16 +21,15 @@ class WeekdayTests: XCTestCase {
 		super.tearDown()
 	}
 
-	func testExample() {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct results.
-	}
+	func testEveryWeekOnMonday() {
+		let calendar = NSCalendar.currentCalendar()
+		let dateToTestFrom = TestData.may11
+		let nextMonday = TestData.may16
 
-	func testPerformanceExample() {
-		// This is an example of a performance test case.
-		self.measureBlock {
-			// Put the code you want to measure the time of here.
-		}
+		let everyMondayCron = CronExpression(weekday: "2")
+		let nextRunDate = everyMondayCron?.getNextRunDate(dateToTestFrom)
+
+		XCTAssertTrue(calendar.isDate(nextMonday, inSameDayAsDate: nextRunDate!))
 	}
 
 }

@@ -23,17 +23,12 @@ class MonthTests: XCTestCase {
 
 	func testEveryMonthOn1stRunsNextMonth() {
 		let calendar = NSCalendar.currentCalendar()
-		let dateToTestFrom = calendar.dateWithEra(1, year: 2016, month: 05, day: 11, hour: 0, minute: 0, second: 0, nanosecond: 0)!
 
-		let cronString = "* * 1 * * *"
-		let firstDayOfMonthCron = CronExpression(schedule: cronString)
+		let dateToTestFrom = TestData.may11
+
+		let firstDayOfMonthCron = CronExpression(day: "1")
 		let nextRunDate = firstDayOfMonthCron?.getNextRunDate(dateToTestFrom)
 
-		let firstDayOfMonthComponents = NSDateComponents()
-		firstDayOfMonthComponents.day = 1
-		let firstDayOfNextMonth = calendar.nextDateAfterDate(dateToTestFrom, matchingComponents: firstDayOfMonthComponents, options: [.MatchNextTime])
-
-		XCTAssertTrue(calendar.isDate(firstDayOfNextMonth!, inSameDayAsDate: nextRunDate!))
+		XCTAssertTrue(calendar.isDate(TestData.june1, inSameDayAsDate: nextRunDate!))
 	}
-
 }

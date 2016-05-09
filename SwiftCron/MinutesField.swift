@@ -1,6 +1,6 @@
 import Foundation
 
-class MinutesField: Field, FieldInterface
+class MinutesField: Field, FieldCheckerInterface
 {
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool

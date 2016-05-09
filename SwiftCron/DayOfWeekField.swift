@@ -1,6 +1,6 @@
 import Foundation
 
-class DayOfWeekField: Field, FieldInterface
+class DayOfWeekField: Field, FieldCheckerInterface
 {
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool
@@ -92,16 +92,13 @@ class DayOfWeekField: Field, FieldInterface
 		}
 
 		let components = calendar.components(units, fromDate: date)
-		return self.isSatisfied(String(format: "%d", components), value: value)
+		return self.isSatisfied(String(format: "%d", components.weekday), value: value)
 	}
 
 	func increment(date: NSDate) -> NSDate
 	{
 		let calendar = NSCalendar.currentCalendar()
-		let midnightComponents = calendar.components([.Hour, .Minute, .Second], fromDate: date)
-		midnightComponents.hour = 0
-		midnightComponents.minute = 0
-		midnightComponents.second = 0
+		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
 		let components = NSDateComponents()
 		components.day = 1
 		return calendar.dateByAddingComponents(components, toDate: calendar.dateFromComponents(midnightComponents)!, options: [])!

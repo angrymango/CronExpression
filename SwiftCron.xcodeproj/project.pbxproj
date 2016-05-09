@@ -18,7 +18,8 @@
 		8609048B1CDB66110053A1BB /* MinutesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 860904781CDB66110053A1BB /* MinutesField.swift */; };
 		8609048D1CDB66110053A1BB /* MonthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609047A1CDB66110053A1BB /* MonthField.swift */; };
 		8609048F1CDB66110053A1BB /* YearField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8609047C1CDB66110053A1BB /* YearField.swift */; };
-		8671DBAD1CDCC481009FFA5B /* CronStringBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671DBAC1CDCC481009FFA5B /* CronStringBuilder.swift */; };
+		8671DBAD1CDCC481009FFA5B /* CronRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671DBAC1CDCC481009FFA5B /* CronRepresentation.swift */; };
+		8671DBAF1CDCCDDE009FFA5B /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8671DBAE1CDCCDDE009FFA5B /* TestData.swift */; };
 		86F11F211CDB7D99003BE19E /* FieldInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F11F201CDB7D99003BE19E /* FieldInterface.swift */; };
 		86F11F271CDC86F2003BE19E /* MonthTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F11F261CDC86F2003BE19E /* MonthTests.swift */; };
 		86F11F291CDC8710003BE19E /* WeekdayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86F11F281CDC8710003BE19E /* WeekdayTests.swift */; };
@@ -53,7 +54,8 @@
 		860904781CDB66110053A1BB /* MinutesField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinutesField.swift; sourceTree = "<group>"; };
 		8609047A1CDB66110053A1BB /* MonthField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthField.swift; sourceTree = "<group>"; };
 		8609047C1CDB66110053A1BB /* YearField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearField.swift; sourceTree = "<group>"; };
-		8671DBAC1CDCC481009FFA5B /* CronStringBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CronStringBuilder.swift; sourceTree = "<group>"; };
+		8671DBAC1CDCC481009FFA5B /* CronRepresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CronRepresentation.swift; sourceTree = "<group>"; };
+		8671DBAE1CDCCDDE009FFA5B /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		86F11F201CDB7D99003BE19E /* FieldInterface.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldInterface.swift; sourceTree = "<group>"; };
 		86F11F261CDC86F2003BE19E /* MonthTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthTests.swift; sourceTree = "<group>"; };
 		86F11F281CDC8710003BE19E /* WeekdayTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdayTests.swift; sourceTree = "<group>"; };
@@ -114,7 +116,7 @@
 				860904531CDB65EE0053A1BB /* SwiftCron.h */,
 				860904551CDB65EE0053A1BB /* Info.plist */,
 				86F11F201CDB7D99003BE19E /* FieldInterface.swift */,
-				8671DBAC1CDCC481009FFA5B /* CronStringBuilder.swift */,
+				8671DBAC1CDCC481009FFA5B /* CronRepresentation.swift */,
 			);
 			path = SwiftCron;
 			sourceTree = "<group>";
@@ -130,6 +132,7 @@
 				86F11F2C1CDC874E003BE19E /* DayTests.swift */,
 				86F11F2E1CDC875A003BE19E /* HourTests.swift */,
 				86F11F301CDC8766003BE19E /* MinuteTests.swift */,
+				8671DBAE1CDCCDDE009FFA5B /* TestData.swift */,
 			);
 			path = SwiftCronTests;
 			sourceTree = "<group>";
@@ -244,7 +247,7 @@
 			files = (
 				8609048D1CDB66110053A1BB /* MonthField.swift in Sources */,
 				860904821CDB66110053A1BB /* DayOfWeekField.swift in Sources */,
-				8671DBAD1CDCC481009FFA5B /* CronStringBuilder.swift in Sources */,
+				8671DBAD1CDCC481009FFA5B /* CronRepresentation.swift in Sources */,
 				8609047E1CDB66110053A1BB /* CronExpression.swift in Sources */,
 				86F11F211CDB7D99003BE19E /* FieldInterface.swift in Sources */,
 				860904841CDB66110053A1BB /* Field.swift in Sources */,
@@ -262,6 +265,7 @@
 				86F11F2D1CDC874E003BE19E /* DayTests.swift in Sources */,
 				86F11F291CDC8710003BE19E /* WeekdayTests.swift in Sources */,
 				86F11F311CDC8766003BE19E /* MinuteTests.swift in Sources */,
+				8671DBAF1CDCCDDE009FFA5B /* TestData.swift in Sources */,
 				86F11F271CDC86F2003BE19E /* MonthTests.swift in Sources */,
 				86F11F2B1CDC8730003BE19E /* YearTests.swift in Sources */,
 				860904601CDB65EE0053A1BB /* SwiftCronTests.swift in Sources */,

@@ -7,6 +7,7 @@
 //
 
 import XCTest
+@testable import SwiftCron
 
 class YearTests: XCTestCase {
 
@@ -20,16 +21,16 @@ class YearTests: XCTestCase {
 		super.tearDown()
 	}
 
-	func testExample() {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct results.
-	}
+	func testEveryYearOn1stJanRunsNextYear() {
+		let calendar = NSCalendar.currentCalendar()
 
-	func testPerformanceExample() {
-		// This is an example of a performance test case.
-		self.measureBlock {
-			// Put the code you want to measure the time of here.
-		}
+		let dateToTestFrom = TestData.may11
+
+		let cronString = "* * 1 1 * *"
+		let firstDayOfMonthCron = CronExpression(cronString: cronString)
+		let nextRunDate = firstDayOfMonthCron?.getNextRunDate(dateToTestFrom)
+
+		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAsDate: nextRunDate!))
 	}
 
 }

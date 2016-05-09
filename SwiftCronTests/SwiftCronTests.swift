@@ -22,13 +22,18 @@ class SwiftCronTests: XCTestCase {
 	}
 
 	func testGetCronWithValidExpression() {
-		let cron = CronExpression.expressionWithString("1 * * * * *")
+		let cron = CronExpression(cronString: "1 * * * * *")
 		XCTAssertNotNil(cron)
 	}
 
 	func testGetCronWithInvalidExpression() {
-		let cron = CronExpression.expressionWithString("foo")
+		let cron = CronExpression(cronString: "foo")
 		XCTAssertNil(cron)
+	}
+
+	func testListFields()
+	{
+
 	}
 
 }

@@ -19,52 +19,48 @@ import Foundation
  */
 public class CronExpression
 {
-	enum CronPart: Int
+	enum CronField: Int
 	{
 		case Minute, Hour, Day, Month, Weekday, Year
-		private static let fields: Array<FieldInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
+		private static let fieldCheckers: Array<FieldCheckerInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
 
-		func getField() -> FieldInterface
+		func getFieldChecker() -> FieldCheckerInterface
 		{
-			return CronPart.fields[rawValue]
+			return CronField.fieldCheckers[rawValue]
 		}
 	}
 
-	var cronParts: Array<String>
+	var cronRepresentation: CronRepresentation
 
-	init?(schedule: String)
+	public convenience init?(cronString: String)
 	{
-		cronParts = schedule.componentsSeparatedByString(" ")
-
-		if cronParts.count < 5
+		guard let cronRepresentation = CronRepresentation(cronString: cronString) else
 		{
-			NSLog("\(#function): \(schedule) is not a valid cron expression")
 			return nil
 		}
+		self.init(cronRepresentaion: cronRepresentation)
+	}
 
-		for i: Int in 0 ..< cronParts.count
+	public convenience init?(minute: String = "*", hour: String = "*", day: String = "*", month: String = "*", weekday: String = "*", year: String = "*")
+	{
+		let cronRepresentation = CronRepresentation(minute: minute, hour: hour, day: day, month: month, weekday: weekday, year: year)
+		self.init(cronRepresentaion: cronRepresentation)
+	}
+
+	private init?(cronRepresentaion theCronRepresentation: CronRepresentation)
+	{
+		cronRepresentation = theCronRepresentation
+
+		let parts = cronRepresentation.cronParts
+		for i: Int in 0 ..< parts.count
 		{
-			let part = CronPart(rawValue: i)!
-			if part.getField().validate(cronParts[i]) == false
+			let field = CronField(rawValue: i)!
+			if field.getFieldChecker().validate(parts[i]) == false
 			{
-				NSLog("\(#function): Invalid cron field value \(cronParts[i]) at position \(i)")
+				NSLog("\(#function): Invalid cron field value \(parts[i]) at position \(i)")
 				return nil
 			}
 		}
-	}
-
-	public static func expressionWithString(expression: String) -> CronExpression?
-	{
-		var cronExpressionString = expression
-
-		let mappings = ["yearly": "0 0 1 1 *", "annually": "0 0 1 1 *", "monthly": "0 0 1 * *", "weekly": "0 0 * * 0", "daily": "0 0 * * *", "hourly": "0 * * * *"]
-
-		if let mappedExpression = mappings[cronExpressionString]
-		{
-			cronExpressionString = mappedExpression
-		}
-
-		return CronExpression(schedule: cronExpressionString)
 	}
 
 	// MARK: - Get Next Run Date
@@ -91,27 +87,29 @@ public class CronExpression
 			return nil
 		}
 
-		let allPartsInExpression: Array<CronPart> = [.Minute, .Hour, .Day, .Month, .Weekday, .Year]
+		// MARK: Issue 3: Instantiate enum instances with the right value
+		let allFieldsInExpression: Array<CronField> = [.Minute, .Hour, .Day, .Month, .Weekday, .Year]
 
 		// Set a hard limit to bail on an impossible date
 		iteration: for _: Int in 0 ..< 1000
 		{
 			var satisfied = false
 
-			currentFieldLoop: for cronPart: CronPart in allPartsInExpression
+			currentFieldLoop: for cronField: CronField in allFieldsInExpression
 			{
-				let part = getExpression(cronPart.rawValue)!
-				let field = cronPart.getField()
+				// MARK: Issue 3: just call cronField.isSatisfiedBy, or getNextApplicableDate as specified in Issue 2
+				let part = cronRepresentation[cronField.rawValue]
+				let fieldChecker = cronField.getFieldChecker()
 
 				if part.containsString(",") == false
 				{
-					satisfied = field.isSatisfiedBy(nextRun, value: part)
+					satisfied = fieldChecker.isSatisfiedBy(nextRun, value: part)
 				}
 				else
 				{
 					for listPart: String in part.componentsSeparatedByString(",")
 					{
-						satisfied = field.isSatisfiedBy(nextRun, value: listPart) ? true : satisfied
+						satisfied = fieldChecker.isSatisfiedBy(nextRun, value: listPart) ? true : satisfied
 						continue iteration
 					}
 				}
@@ -119,14 +117,14 @@ public class CronExpression
 				// If the field is not satisfied, then start over
 				if (satisfied == false)
 				{
-					nextRun = field.increment(nextRun)
+					nextRun = fieldChecker.increment(nextRun)
 					continue iteration
 				}
 
 				// Skip this match if needed
 				if (timesToSkip > 0)
 				{
-					CronPart(rawValue: 0)!.getField().increment(nextRun)
+					CronField(rawValue: 0)!.getFieldChecker().increment(nextRun)
 					timesToSkip -= 1
 				}
 				continue currentFieldLoop
@@ -134,20 +132,6 @@ public class CronExpression
 			return satisfied ? nextRun : nil
 		}
 		NSLog("Impossible CRON expression")
-		return nil
-	}
-
-	public func getExpression(part: Int) -> String?
-	{
-		if part < 0
-		{
-			return cronParts.joinWithSeparator(" ")
-		}
-		else if part < cronParts.count
-		{
-			return cronParts[part]
-		}
-
 		return nil
 	}
 
