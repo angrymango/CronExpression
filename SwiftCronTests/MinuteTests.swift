@@ -3,10 +3,11 @@
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/06.
-//  Copyright © 2016 Krush 42. All rights reserved.
+//  Copyright © 2016 Rush42. All rights reserved.
 //
 
 import XCTest
+@testable import SwiftCron
 
 class MinuteTests: XCTestCase {
 
@@ -20,16 +21,19 @@ class MinuteTests: XCTestCase {
 		super.tearDown()
 	}
 
-	func testExample() {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct results.
-	}
+	func testEvery30thMinute() {
+		let calendar = NSCalendar.currentCalendar()
 
-	func testPerformanceExample() {
-		// This is an example of a performance test case.
-		self.measureBlock {
-			// Put the code you want to measure the time of here.
-		}
+		let dateToTestFrom = TestData.may11
+
+		let components = calendar.components([.Day, .Year, .Month, .Hour], fromDate: dateToTestFrom)
+		components.minute = 30
+		let expectedDate = calendar.dateFromComponents(components)
+
+		let every30thMinuteCron = CronExpression(minute: "30")
+		let nextRunDate = every30thMinuteCron?.getNextRunDate(dateToTestFrom)
+
+		XCTAssertTrue(calendar.isDate(nextRunDate!, equalToDate: expectedDate!, toUnitGranularity: .Minute))
 	}
 
 }

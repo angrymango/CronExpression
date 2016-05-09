@@ -3,7 +3,7 @@
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/06.
-//  Copyright © 2016 Krush 42. All rights reserved.
+//  Copyright © 2016 Rush42. All rights reserved.
 //
 
 import XCTest
@@ -26,7 +26,7 @@ class WeekdayTests: XCTestCase {
 		let dateToTestFrom = TestData.may11
 		let nextMonday = TestData.may16
 
-		let everyMondayCron = CronExpression(weekday: "2")
+		let everyMondayCron = CronExpression(minute: "0", hour: "0", weekday: "2")
 		let nextRunDate = everyMondayCron?.getNextRunDate(dateToTestFrom)
 
 		XCTAssertTrue(calendar.isDate(nextMonday, inSameDayAsDate: nextRunDate!))

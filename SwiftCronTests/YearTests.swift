@@ -3,7 +3,7 @@
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/06.
-//  Copyright © 2016 Krush 42. All rights reserved.
+//  Copyright © 2016 Rush42. All rights reserved.
 //
 
 import XCTest
@@ -26,8 +26,7 @@ class YearTests: XCTestCase {
 
 		let dateToTestFrom = TestData.may11
 
-		let cronString = "* * 1 1 * *"
-		let firstDayOfMonthCron = CronExpression(cronString: cronString)
+		let firstDayOfMonthCron = CronExpression(minute: "0", hour: "0", day: "1", month: "1")
 		let nextRunDate = firstDayOfMonthCron?.getNextRunDate(dateToTestFrom)
 
 		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAsDate: nextRunDate!))

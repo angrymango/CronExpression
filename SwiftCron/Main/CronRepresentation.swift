@@ -3,7 +3,7 @@
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/06.
-//  Copyright © 2016 Krush 42. All rights reserved.
+//  Copyright © 2016 Rush42. All rights reserved.
 //
 
 import Foundation

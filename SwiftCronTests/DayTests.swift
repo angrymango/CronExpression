@@ -3,10 +3,11 @@
 //  SwiftCron
 //
 //  Created by Keegan Rush on 2016/05/06.
-//  Copyright © 2016 Krush 42. All rights reserved.
+//  Copyright © 2016 Rush42. All rights reserved.
 //
 
 import XCTest
+@testable import SwiftCron
 
 class DayTests: XCTestCase {
 
@@ -20,16 +21,15 @@ class DayTests: XCTestCase {
 		super.tearDown()
 	}
 
-	func testExample() {
-		// This is an example of a functional test case.
-		// Use XCTAssert and related functions to verify your tests produce the correct results.
-	}
+	func testEvery8thDayOfMonth() {
+		let calendar = NSCalendar.currentCalendar()
 
-	func testPerformanceExample() {
-		// This is an example of a performance test case.
-		self.measureBlock {
-			// Put the code you want to measure the time of here.
-		}
+		let dateToTestFrom = TestData.may11
+
+		let every8thDayCron = CronExpression(minute: "0", hour: "0", day: "8")
+		let nextRunDate = every8thDayCron?.getNextRunDate(dateToTestFrom)
+
+		XCTAssertTrue(calendar.isDate(TestData.june8, inSameDayAsDate: nextRunDate!))
 	}
 
 }
