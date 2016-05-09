@@ -135,7 +135,7 @@ public class CronExpression
 		return nil
 	}
 
-	public func isDue(currentTime: NSDate) -> Bool
+	func isDue(currentTime: NSDate) -> Bool
 	{
 		NSLog("\(#function): Not implemented from legacy project")
 		return true
