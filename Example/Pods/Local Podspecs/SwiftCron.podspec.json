@@ -1,17 +1,18 @@
 {
   "name": "SwiftCron",
   "version": "0.1.0",
-  "summary": "A short description of SwiftCron.",
-  "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/<GITHUB_USERNAME>/SwiftCron",
+  "summary": "Cron expression parser.",
+  "description": "A cron expression parser written in Swift that can take a cron string and give you the next run date and time specified in the string.",
+  "homepage": "https://github.com/Rush42/SwiftCron",
   "license": "MIT",
   "authors": {
-    "Keegan Rush": "keegan.rush@gregschroder-pc.entelect.local"
+    "Keegan Rush": "galaxyplansoftware@gmail.com"
   },
   "source": {
-    "git": "https://github.com/<GITHUB_USERNAME>/SwiftCron.git",
+    "git": "https://github.com/Rush42/SwiftCron.git",
     "tag": "0.1.0"
   },
+  "social_media_url": "https://twitter.com/RushKeegan",
   "platforms": {
     "ios": "8.0"
   },

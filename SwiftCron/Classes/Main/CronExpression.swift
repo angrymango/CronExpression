@@ -19,16 +19,6 @@ import Foundation
  */
 public class CronExpression
 {
-	enum CronField: Int
-	{
-		case Minute, Hour, Day, Month, Weekday, Year
-		private static let fieldCheckers: Array<FieldCheckerInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
-
-		func getFieldChecker() -> FieldCheckerInterface
-		{
-			return CronField.fieldCheckers[rawValue]
-		}
-	}
 
 	var cronRepresentation: CronRepresentation
 
@@ -60,6 +50,32 @@ public class CronExpression
 				NSLog("\(#function): Invalid cron field value \(parts[i]) at position \(i)")
 				return nil
 			}
+		}
+	}
+
+	// MARK: - Description
+
+	public var shortDescription: String
+	{
+		get
+		{
+			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
+		}
+	}
+
+	public var mediumDescription: String
+	{
+		get
+		{
+			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Medium)
+		}
+	}
+
+	public var longDescription: String
+	{
+		get
+		{
+			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
 		}
 	}
 
