@@ -5,46 +5,46 @@ import Nimble
 import SwiftCron
 
 class TableOfContentsSpec: QuickSpec {
-    override func spec() {
-        describe("these will fail") {
+	override func spec() {
+		describe("these will fail") {
 
-            it("can do maths") {
-                expect(1) == 2
-            }
+			it("can do maths") {
+				expect(1) == 2
+			}
 
-            it("can read") {
-                expect("number") == "string"
-            }
+			it("can read") {
+				expect("number") == "string"
+			}
 
-            it("will eventually fail") {
-                expect("time").toEventually( equal("done") )
-            }
-            
-            context("these will pass") {
+			it("will eventually fail") {
+				expect("time").toEventually(equal("done"))
+			}
 
-                it("can do maths") {
-                    expect(23) == 23
-                }
+			context("these will pass") {
 
-                it("can read") {
-                    expect("🐮") == "🐮"
-                }
+				it("can do maths") {
+					expect(23) == 23
+				}
 
-                it("will eventually pass") {
-                    var time = "passing"
+				it("can read") {
+					expect("🐮") == "🐮"
+				}
 
-                    dispatch_async(dispatch_get_main_queue()) {
-                        time = "done"
-                    }
+				it("will eventually pass") {
+					var time = "passing"
 
-                    waitUntil { done in
-                        NSThread.sleepForTimeInterval(0.5)
-                        expect(time) == "done"
+					dispatch_async(dispatch_get_main_queue()) {
+						time = "done"
+					}
 
-                        done()
-                    }
-                }
-            }
-        }
-    }
+					waitUntil { done in
+						NSThread.sleepForTimeInterval(0.5)
+						expect(time) == "done"
+
+						done()
+					}
+				}
+			}
+		}
+	}
 }
