@@ -6,6 +6,32 @@ A cron expression parser that can take a cron string and give you the next run d
 <br/>
 SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://www.prolificidea.com/)**. You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
 
+## Installation
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 0.39.0+ is required to build SwiftCron.
+
+To integrate SwiftCron into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '9.0'
+use_frameworks!
+
+pod 'SwiftCron'
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
 
 How to
 --------
