@@ -1,29 +1,49 @@
-# SwiftCron
+SwiftCron
+==============
 
-[![CI Status](http://img.shields.io/travis/Keegan Rush/SwiftCron.svg?style=flat)](https://travis-ci.org/Keegan Rush/SwiftCron)
-[![Version](https://img.shields.io/cocoapods/v/SwiftCron.svg?style=flat)](http://cocoapods.org/pods/SwiftCron)
-[![License](https://img.shields.io/cocoapods/l/SwiftCron.svg?style=flat)](http://cocoapods.org/pods/SwiftCron)
-[![Platform](https://img.shields.io/cocoapods/p/SwiftCron.svg?style=flat)](http://cocoapods.org/pods/SwiftCron)
+A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 8.0 and above.
 
-## Example
+<br/>
+SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://www.prolificidea.com/)**. You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
-## Requirements
-
-## Installation
-
-SwiftCron is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
-pod "SwiftCron"
+How to
+--------
+##### Create a Cron Expression
+Creating a cron expression is easy. Just invoke the initializer with the fields you want.
+```swift
+// Midnight every 8th day of the month
+let myCronExpression = CronExpression(minute: "0", hour: "0", day: "8")
+```
+```swift
+// Executes May 9th, 2024 at 11:30am
+let anotherExpression = CronExpression(minute: "30", hour: "11", day: "9", month: "5", year: "2024") 
+```
+```swift
+// Every tuesday at 6:00pm
+let everyTuesday = CronExpression(minute: "0", hour: "18", weekday: "3")
 ```
 
-## Author
+<br/>
+##### Manually create an expression
+If you'd like to manually write the expression yourself, The cron format is as follows:
 
-Keegan Rush, keegan.rush@gregschroder-pc.entelect.local
+> \* \* \* \* \* \*
+<br/>(Minute) (Hour) (Day) (Month) (Weekday) (Year)
 
-## License
+Initialize an instance of CronExpression with a string specifying the format.
+```swift
+// Every 11th May at midnight
+let every11May = CronExpression(cronString: "0 0 11 5 * *")
+```
 
-SwiftCron is available under the MIT license. See the LICENSE file for more info.
+<br/>
+##### Get the next run date
+Once you have your CronExpression, you can get the next time the cron will run. Call the getNextRunDate(_:) method and pass in the date to begin the search on.
+```swift
+// Every Friday 13th at midday
+let myCronExpression = CronExpression(minute: "0", hour: "12", day: "13", weekday: "5")
+
+let dateToStartSearchOn = NSDate()
+let nextRunDate = myCronExpression.getNextRunDate(dateToStartSearchOn)
+```
