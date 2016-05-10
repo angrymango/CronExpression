@@ -1,0 +1,19 @@
+{
+  "name": "SwiftCron",
+  "version": "0.1.0",
+  "summary": "A short description of SwiftCron.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/SwiftCron",
+  "license": "MIT",
+  "authors": {
+    "Keegan Rush": "keegan.rush@gregschroder-pc.entelect.local"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/SwiftCron.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "SwiftCron/Classes/**/*"
+}
