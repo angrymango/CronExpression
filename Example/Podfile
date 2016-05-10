@@ -1,9 +1,0 @@
-use_frameworks!
-
-
-target 'SwiftCron_Tests', :exclusive => true do
-  pod 'SwiftCron', :path => '../'
-
-  pod 'Quick', '~> 0.8'
-  pod 'Nimble', '~> 3.0'
-end
