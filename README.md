@@ -73,3 +73,8 @@ let myCronExpression = CronExpression(minute: "0", hour: "12", day: "13", weekda
 let dateToStartSearchOn = NSDate()
 let nextRunDate = myCronExpression.getNextRunDate(dateToStartSearchOn)
 ```
+
+## Requirements
+
+- iOS 8.0+
+- Xcode 7.0+
