@@ -14,7 +14,7 @@ A cron expression parser written in Swift that can take a cron string and give y
   s.source           = { :git => "https://github.com/Rush42/SwiftCron.git", :tag => "#{s.version}" }
   s.social_media_url = 'https://twitter.com/RushKeegan'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
 
   s.source_files = 'SwiftCron/Classes/**/*'
   
