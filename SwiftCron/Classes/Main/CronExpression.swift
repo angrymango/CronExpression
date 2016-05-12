@@ -59,15 +59,7 @@ public class CronExpression
 	{
 		get
 		{
-			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
-		}
-	}
-
-	public var mediumDescription: String
-	{
-		get
-		{
-			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Medium)
+			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
 		}
 	}
 
@@ -75,7 +67,7 @@ public class CronExpression
 	{
 		get
 		{
-			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
+			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
 		}
 	}
 

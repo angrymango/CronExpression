@@ -39,7 +39,6 @@ public struct CronRepresentation
 		if day != defaultValue { return CronField.Day }
 		if hour != defaultValue { return CronField.Hour }
 		if minute != defaultValue { return CronField.Minute }
-		if weekday != defaultValue { return CronField.Weekday }
 		return nil
 	}
 
@@ -71,6 +70,12 @@ public struct CronRepresentation
 		}
 
 		self.init(minute: parts[0], hour: parts[1], day: parts[2], month: parts[3], weekday: parts[4], year: parts[5])
+	}
+
+	// MARK: Issue 3: pass in enum. Get value out of enum and check if it matches the default value?
+	static func isDefault(field: String) -> Bool
+	{
+		return field == CronRepresentation.defaultValue
 	}
 
 	public var cronString: String

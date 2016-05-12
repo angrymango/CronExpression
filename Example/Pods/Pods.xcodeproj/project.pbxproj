@@ -15,6 +15,8 @@
 		69940CE9D38888A86D59FAB4B3D2A0B0 /* SwiftCron-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B9F67F8F7B19DCB609B0186DF1666BE /* SwiftCron-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		82CEBCA8387B5EFF0E3D0C22D6C9D9DD /* DayOfMonthField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C02FF9EB834AD1AB1803D9A8ABD7D87 /* DayOfMonthField.swift */; };
 		8679D2BB1CE204150071D783 /* CronDescriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8679D2B91CE1FF430071D783 /* CronDescriptionBuilder.swift */; };
+		86E803871CE43C80005494A6 /* NSDateFormatter+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E803861CE43C80005494A6 /* NSDateFormatter+Extensions.swift */; };
+		86E803891CE44756005494A6 /* Int+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86E803881CE44756005494A6 /* Int+Extensions.swift */; };
 		8B932A4C5A86CDCB8920E9CFD20184E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
 		B885C313548BD086821F5641D8FAE2AA /* CronRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F340B9D035829E2FAA4A49D38F41DBEB /* CronRepresentation.swift */; };
 		C277A8918568226F091209818BA92925 /* MinutesField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C6F91342AFA8067CFDF7B288A96320 /* MinutesField.swift */; };
@@ -51,6 +53,8 @@
 		6B9F67F8F7B19DCB609B0186DF1666BE /* SwiftCron-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwiftCron-umbrella.h"; sourceTree = "<group>"; };
 		791BACF412E138746C2C2A0EFEFA30D7 /* Field.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		8679D2B91CE1FF430071D783 /* CronDescriptionBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CronDescriptionBuilder.swift; sourceTree = "<group>"; };
+		86E803861CE43C80005494A6 /* NSDateFormatter+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDateFormatter+Extensions.swift"; path = "Extensions/NSDateFormatter+Extensions.swift"; sourceTree = "<group>"; };
+		86E803881CE44756005494A6 /* Int+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Int+Extensions.swift"; path = "Extensions/Int+Extensions.swift"; sourceTree = "<group>"; };
 		95C6F91342AFA8067CFDF7B288A96320 /* MinutesField.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MinutesField.swift; sourceTree = "<group>"; };
 		A0CE0366DE0AF16689A68A69EAA9B495 /* SwiftCron.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = SwiftCron.xcconfig; sourceTree = "<group>"; };
 		A2200B718498EC33BA5745E0A49FF0DD /* Pods-SwiftCronExample-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftCronExample-umbrella.h"; sourceTree = "<group>"; };
@@ -163,6 +167,8 @@
 		8679D2BC1CE207A10071D783 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				86E803861CE43C80005494A6 /* NSDateFormatter+Extensions.swift */,
+				86E803881CE44756005494A6 /* Int+Extensions.swift */,
 			);
 			name = Extensions;
 			sourceTree = "<group>";
@@ -345,10 +351,12 @@
 				D51B0157CC5C1FAFD01F32B21C02A6F8 /* DayOfWeekField.swift in Sources */,
 				FD87B34F4C4EAE8D565F43C924C33548 /* Field.swift in Sources */,
 				F268AB5D77EC12AA509EE40630B38597 /* FieldInterface.swift in Sources */,
+				86E803891CE44756005494A6 /* Int+Extensions.swift in Sources */,
 				5D2524E7B70B26379A6BA67CAD5A226D /* HoursField.swift in Sources */,
 				C277A8918568226F091209818BA92925 /* MinutesField.swift in Sources */,
 				8679D2BB1CE204150071D783 /* CronDescriptionBuilder.swift in Sources */,
 				F14C78B8D7650AA9494B2123E4BC8B75 /* MonthField.swift in Sources */,
+				86E803871CE43C80005494A6 /* NSDateFormatter+Extensions.swift in Sources */,
 				E4143F4F9BAE78BD3BC9321A3F9A00E0 /* SwiftCron-dummy.m in Sources */,
 				49F7AF28792244745EDFBCE8F3D15190 /* YearField.swift in Sources */,
 			);

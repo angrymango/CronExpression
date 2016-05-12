@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum CronDescriptionLength { case Short, Medium, Long }
+enum CronDescriptionLength { case Short, Long }
 
 class CronDescriptionBuilder
 {
@@ -18,67 +18,116 @@ class CronDescriptionBuilder
 		{
 			switch biggestField {
 			case .Minute:
-				return descriptionWithMinuteBiggest(cronRepresentation)
+				return descriptionWithMinuteBiggest(cronRepresentation, length: length)
 			case .Hour:
 				return descriptionWithHourBiggest(cronRepresentation, length: length)
 			case .Day:
-				return descriptionWithDayBiggest(cronRepresentation)
+				return descriptionWithDayBiggest(cronRepresentation, length: length)
 			case .Month:
-				return descriptionWithMonthBiggest(cronRepresentation)
+				return descriptionWithMonthBiggest(cronRepresentation, length: length)
 			case .Weekday:
-				return descriptionWithWeekdayBiggest(cronRepresentation)
+				return descriptionWithNoneBiggest(cronRepresentation, length: length)
 			case .Year:
-				return descriptionWithYearBiggest(cronRepresentation)
+				return descriptionWithYearBiggest(cronRepresentation, length: length)
 			}
 		}
-		return "Every Minute"
+		return "Every minute"
 	}
 
-	private static func descriptionWithMinuteBiggest(cronRepresentation: CronRepresentation) -> String
+	private static func descriptionWithNoneBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
-		return ""
+		if CronRepresentation.isDefault(cronRepresentation.weekday)
+		{
+			return "Every minute"
+		}
+		else
+		{
+			let weekday = Int(cronRepresentation.weekday)!.convertToDayOfWeek()
+			return "Every minute on a \(weekday)"
+		}
+	}
+
+	private static func descriptionWithMinuteBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
+	{
+		let minutes = NSDateFormatter.minuteStringWithMinute(cronRepresentation.minute)
+		if CronRepresentation.isDefault(cronRepresentation.weekday)
+		{
+			return "Every hour at \(minutes) minutes"
+		}
+		else
+		{
+			let weekday = Int(cronRepresentation.weekday)!.convertToDayOfWeek()
+			return "Every hour at \(minutes) on a \(weekday)"
+		}
 	}
 
 	private static func descriptionWithHourBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
-		let hour = Int(cronRepresentation.hour)!
-		let minute = Int(cronRepresentation.minute)!
 
-		let calendar = NSCalendar.currentCalendar()
-		let dateFormatter = NSDateFormatter()
-		dateFormatter.dateFormat = "HH:mm"
-		let components = NSDateComponents()
-		components.hour = hour
-		components.minute = minute
-		let date = calendar.dateFromComponents(components)!
-		let time = dateFormatter.stringFromDate(date)
+		let time = NSDateFormatter.timeStringWithHour(cronRepresentation.hour, minute: cronRepresentation.minute)
 
 		switch length {
 		case .Long:
 			return "Every day at \(time)"
-		case .Medium:
-			return "Every day"
 		case .Short:
-			return time
+			return "Every day"
 		}
 	}
 
-	private static func descriptionWithDayBiggest(cronRepresentation: CronRepresentation) -> String
+	private static func descriptionWithDayBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
-		return ""
+		let time = NSDateFormatter.timeStringWithHour(cronRepresentation.hour, minute: cronRepresentation.minute)
+		let day = Int(cronRepresentation.day)!.ordinal
+
+		if CronRepresentation.isDefault(cronRepresentation.weekday)
+		{
+			switch length {
+			case .Long:
+				return "Every \(day) of the month at \(time)"
+			case .Short:
+				return "Every \(day) of the month"
+			}
+		}
+		else
+		{
+			let weekday = Int(cronRepresentation.weekday)!.convertToDayOfWeek()
+			switch length {
+			case .Long:
+				return "Every \(weekday) the \(day) at \(time)"
+			case .Short:
+				return "Every \(weekday) the \(day)"
+			}
+		}
 	}
 
-	private static func descriptionWithMonthBiggest(cronRepresentation: CronRepresentation) -> String
+	private static func descriptionWithMonthBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
-		return ""
+		let time = NSDateFormatter.timeStringWithHour(cronRepresentation.hour, minute: cronRepresentation.minute)
+		let day = Int(cronRepresentation.day)!.ordinal
+		let month = Int(cronRepresentation.month)!.convertToMonth()
+
+		if CronRepresentation.isDefault(cronRepresentation.weekday)
+		{
+			switch length {
+			case .Long:
+				return "Every \(day) of \(month) at \(time)"
+			case .Short:
+				return "Every \(day) of \(month)"
+			}
+		}
+		else
+		{
+			let weekday = Int(cronRepresentation.weekday)!.convertToDayOfWeek()
+			switch length {
+			case .Short:
+				return "Every \(weekday) the \(day) of \(month)"
+			case .Long:
+				return "Every \(weekday) the \(day) of \(month) at \(time)"
+			}
+		}
 	}
 
-	private static func descriptionWithWeekdayBiggest(cronRepresentation: CronRepresentation) -> String
-	{
-		return ""
-	}
-
-	private static func descriptionWithYearBiggest(cronRepresentation: CronRepresentation) -> String
+	private static func descriptionWithYearBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
 		return ""
 	}
