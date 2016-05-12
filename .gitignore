@@ -1,7 +1,8 @@
 .DS_Store
 *.swp
 *~.nib
-
+*/Pods/**
+Pods/**
 build/
 
 *.pbxuser
