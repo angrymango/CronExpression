@@ -23,6 +23,9 @@ public struct CronRepresentation
 {
 	static let NumberOfComponentsInValidString = 6
 	static let defaultValue = "*"
+	static let stepIdentifier = "/"
+	static let listIdentifier = ","
+
 	var year: String
 	var weekday: String
 	var month: String

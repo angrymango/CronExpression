@@ -31,10 +31,4 @@ class DayTests: XCTestCase {
 
 		XCTAssertTrue(calendar.isDate(TestData.june8, inSameDayAsDate: nextRunDate!))
 	}
-
-	func testBogusDay() {
-		let cronExpression = CronExpression(day: "32")
-		XCTAssertNil(cronExpression)
-	}
-
 }

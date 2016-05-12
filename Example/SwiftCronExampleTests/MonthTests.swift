@@ -31,9 +31,4 @@ class MonthTests: XCTestCase {
 
 		XCTAssertTrue(calendar.isDate(TestData.june1, inSameDayAsDate: nextRunDate!))
 	}
-    
-    func testBogusMonth() {
-        let cronExpression = CronExpression(month: "13")
-        XCTAssertNil(cronExpression)
-    }
 }

@@ -24,6 +24,13 @@ extension NSDateFormatter
 			return dateFormatter
 	}()
 
+	private static let weekdayFormatter: NSDateFormatter =
+		{
+			let formatter = NSDateFormatter()
+			formatter.dateFormat = "EEEE"
+			return formatter
+	}()
+
 	static func timeStringWithHour(hour: String, minute: String) -> String
 	{
 		let theHour = Int(hour)!
@@ -49,5 +56,42 @@ extension NSDateFormatter
 		components.minute = theMinute
 		let date = calendar.dateFromComponents(components)!
 		return minuteDateFormatter.stringFromDate(date)
+	}
+
+	static func convertStringToDaysOfWeek(weekdaysString: String) -> String
+	{
+		if weekdaysString == "2,3,4,5,6"
+		{
+			return "weekday"
+		}
+
+		var daysOfWeekArray: Array<String> = []
+		let days = weekdaysString.componentsSeparatedByString(CronRepresentation.listIdentifier)
+
+		let calendar = NSCalendar.currentCalendar()
+		let searchDate = NSDate(timeIntervalSince1970: 0)
+		let components = NSDateComponents()
+		for day in days
+		{
+			let dayNumber = Int(day)!
+			assert(dayNumber > 0 && dayNumber < 8, "Day does not fit in week")
+			components.weekday = dayNumber
+			let date = calendar.nextDateAfterDate(searchDate, matchingComponents: components, options: .MatchStrictly)!
+			let dayString = NSDateFormatter.weekdayFormatter.stringFromDate(date)
+			if (days.contains(dayString) == false)
+			{
+				daysOfWeekArray.append(dayString)
+			}
+		}
+
+		// Sunday will be first. Make it last
+		let sunday = "Sunday"
+		if daysOfWeekArray.contains(sunday)
+		{
+			daysOfWeekArray.removeAtIndex(daysOfWeekArray.indexOf(sunday)!)
+			daysOfWeekArray.append(sunday)
+		}
+
+		return daysOfWeekArray.joinWithSeparator(", ")
 	}
 }

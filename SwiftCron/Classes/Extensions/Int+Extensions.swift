@@ -23,13 +23,6 @@ extension Int
 			return formatter
 	}()
 
-	private static let weekdayFormatter: NSDateFormatter =
-		{
-			let formatter = NSDateFormatter()
-			formatter.dateFormat = "EEEE"
-			return formatter
-	}()
-
 	var ordinal: String
 	{
 		return Int.ordinalNumberFormatter.stringFromNumber(self)!
@@ -44,17 +37,5 @@ extension Int
 		components.month = self
 		let date = calendar.dateFromComponents(components)!
 		return Int.monthFormatter.stringFromDate(date)
-	}
-
-	func convertToDayOfWeek() -> String
-	{
-		assert(self > 0 && self < 8, "Not a valid day of week")
-
-		let calendar = NSCalendar.currentCalendar()
-		let components = NSDateComponents()
-		components.weekday = self
-		let searchDate = NSDate(timeIntervalSince1970: 0)
-		let date = calendar.nextDateAfterDate(searchDate, matchingComponents: components, options: .MatchStrictly)
-		return Int.weekdayFormatter.stringFromDate(date!)
 	}
 }
