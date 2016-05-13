@@ -53,22 +53,21 @@ public class CronExpression
 		}
 	}
 
+	public var stringRepresentation: String
+	{
+		return cronRepresentation.cronString
+	}
+
 	// MARK: - Description
 
 	public var shortDescription: String
 	{
-		get
-		{
-			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
-		}
+		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
 	}
 
 	public var longDescription: String
 	{
-		get
-		{
-			return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
-		}
+		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
 	}
 
 	// MARK: - Get Next Run Date
