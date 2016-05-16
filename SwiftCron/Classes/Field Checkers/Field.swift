@@ -15,7 +15,7 @@ class Field
 			return isInRange(dateValue, withValue: value)
 		}
 
-		return value == "*" || dateValue == value;
+		return value == "*" || dateValue == value
 	}
 
 	func isRange(value: String) -> Bool

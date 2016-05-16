@@ -116,8 +116,11 @@ public class CronExpression
 				{
 					for listPart: String in part.componentsSeparatedByString(",")
 					{
-						satisfied = fieldChecker.isSatisfiedBy(nextRun, value: listPart) ? true : satisfied
-						continue iteration
+						satisfied = fieldChecker.isSatisfiedBy(nextRun, value: listPart)
+						if satisfied
+						{
+							break
+						}
 					}
 				}
 

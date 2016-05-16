@@ -23,6 +23,8 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("SAT", withString: "6")
 
 		let calendar = NSCalendar.currentCalendar()
+		calendar.firstWeekday = 2
+		var weekdayWithMondayAsFirstDay = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: date)
 
 		var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 
@@ -33,16 +35,16 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			let tcomponents = calendar.components(units, fromDate: date)
 			tcomponents.day = lastDayOfMonth
 			var tdate = calendar.dateFromComponents(tcomponents)!
+			var tcomponentsWeekdayWithMondayFirst = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
 
-			var wcomponents: NSDateComponents = calendar.components(units, fromDate: tdate)
-			while wcomponents.weekday != Int(weekday) {
+			while tcomponentsWeekdayWithMondayFirst != Int(weekday) {
 				lastDayOfMonth -= 1
 				tcomponents.day = lastDayOfMonth
 				tdate = calendar.dateFromComponents(tcomponents)!
-				wcomponents = calendar.components(units, fromDate: tdate)
+				tcomponentsWeekdayWithMondayFirst = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
 			}
-			wcomponents = calendar.components(units, fromDate: date)
-			return wcomponents.day == lastDayOfMonth
+			let componentsToMatch = calendar.components(units, fromDate: date)
+			return componentsToMatch.day == lastDayOfMonth
 		}
 
 		// Handle # hash tokens
@@ -51,11 +53,6 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			var parts = valueToSatisfy.componentsSeparatedByString("#")
 			let weekday = Int(parts[0])!
 			let nth = Int(parts[1])!
-			guard weekday > 1 && weekday < 5 else
-			{
-				NSLog("Invalid Argument: Weekday must be a value between 1 and 5. \(weekday) given")
-				return false
-			}
 
 			guard nth < 5 else
 			{
@@ -64,7 +61,8 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			}
 			var tcomponents = calendar.components(units, fromDate: date)
 			// The current weekday must match the targeted weekday to proceed
-			if tcomponents.weekday != weekday {
+			if weekdayWithMondayAsFirstDay != weekday
+			{
 				return false
 			}
 
@@ -74,7 +72,8 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			var currentDay = 1
 			while currentDay < lastDayOfMonth + 1
 			{
-				if tcomponents.weekday == weekday
+				let ordinalWeekday = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
+				if ordinalWeekday == weekday
 				{
 					dayCount += 1
 					if dayCount >= nth
@@ -91,8 +90,17 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			return tcomponents.day == currentDay
 		}
 
-		let components = calendar.components(units, fromDate: date)
-		return self.isSatisfied(String(format: "%d", components.weekday), value: value)
+		if Int(valueToSatisfy) == 0
+		{
+			weekdayWithMondayAsFirstDay = 0
+		}
+
+		return self.isSatisfied(String(format: "%d", weekdayWithMondayAsFirstDay), value: valueToSatisfy)
+	}
+
+	private func isSunday(components: NSDateComponents) -> Bool
+	{
+		return components.weekday == 1
 	}
 
 	func increment(date: NSDate) -> NSDate
