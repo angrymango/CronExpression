@@ -92,7 +92,7 @@ class DescriptionTests: XCTestCase {
 	// 0 0 13 * 6 *
 	func testDescriptionOfEveryFriday13th()
 	{
-		let cronExpression = CronExpression(minute: "0", hour: "0", day: "13", weekday: "6")!
+		let cronExpression = CronExpression(minute: "0", hour: "0", day: "13", weekday: "5")!
 
 		let description = cronExpression.shortDescription
 		let expectedDescription = "Every Friday the 13th"
@@ -106,7 +106,7 @@ class DescriptionTests: XCTestCase {
 	// 0 0 * * 2,3,4,5,6 *
 	func testDescriptionOfWeekdays()
 	{
-		let cronExpression = CronExpression(minute: "0", hour: "0", weekday: "2,3,4,5,6")!
+		let cronExpression = CronExpression(minute: "0", hour: "0", weekday: "1,2,3,4,5")!
 
 		let description = cronExpression.shortDescription
 		let expectedDescription = "Every weekday"
@@ -120,7 +120,7 @@ class DescriptionTests: XCTestCase {
 	// 0 12 * * 1,7 *
 	func testDescriptionOfWeekend()
 	{
-		let cronExpression = CronExpression(minute: "0", hour: "12", weekday: "1,7")!
+		let cronExpression = CronExpression(minute: "0", hour: "12", weekday: "6,7")!
 
 		let description = cronExpression.shortDescription
 		let expectedDescription = "Every Saturday, Sunday"
@@ -134,7 +134,7 @@ class DescriptionTests: XCTestCase {
 	// * * * * 2 *
 	func testDescriptionOfOnlyWeekdaySpecified()
 	{
-		let cronExpression = CronExpression(weekday: "2")!
+		let cronExpression = CronExpression(weekday: "1")!
 
 		let description = cronExpression.shortDescription
 		let expectedDescription = "Every minute on a Monday"
@@ -155,6 +155,20 @@ class DescriptionTests: XCTestCase {
 
 		let longDesc = cronExpression.longDescription
 		let expectedLongDesc = "11th of May 2026 at 00:00"
+		XCTAssertEqual(longDesc, expectedLongDesc)
+	}
+
+	// 0 0 * * 1,3 *
+	func testDescriptionOfMondayAndWednesday()
+	{
+		let cronExpression = CronExpression(minute: "0", hour: "0", weekday: "1,3")!
+
+		let description = cronExpression.shortDescription
+		let expectedDescription = "Every Monday, Wednesday"
+		XCTAssertEqual(description, expectedDescription)
+
+		let longDesc = cronExpression.longDescription
+		let expectedLongDesc = "Every Monday, Wednesday at 00:00"
 		XCTAssertEqual(longDesc, expectedLongDesc)
 	}
 

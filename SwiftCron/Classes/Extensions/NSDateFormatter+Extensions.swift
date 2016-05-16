@@ -60,10 +60,6 @@ extension NSDateFormatter
 
 	static func convertStringToDaysOfWeek(weekdaysString: String) -> String
 	{
-		if weekdaysString == "2,3,4,5,6"
-		{
-			return "weekday"
-		}
 
 		var daysOfWeekArray: Array<String> = []
 		let days = weekdaysString.componentsSeparatedByString(CronRepresentation.listIdentifier)
@@ -71,10 +67,20 @@ extension NSDateFormatter
 		let calendar = NSCalendar.currentCalendar()
 		let searchDate = NSDate(timeIntervalSince1970: 0)
 		let components = NSDateComponents()
+
+		let sundayInNSDate = 1
+		let sundayInCronAfterAddingOne = 8
 		for day in days
 		{
-			let dayNumber = Int(day)!
-			assert(dayNumber > 0 && dayNumber < 8, "Day does not fit in week")
+			// Currently arranged from 1-7 starting at Sunday. Rearrange to 1-7 starting at Monday.
+			var dayNumber = Int(day)! + 1
+
+			if dayNumber == sundayInCronAfterAddingOne
+			{
+				dayNumber = sundayInNSDate
+			}
+
+			assert(dayNumber >= 1 && dayNumber <= 7, "Day does not fit in week")
 			components.weekday = dayNumber
 			let date = calendar.nextDateAfterDate(searchDate, matchingComponents: components, options: .MatchStrictly)!
 			let dayString = NSDateFormatter.weekdayFormatter.stringFromDate(date)

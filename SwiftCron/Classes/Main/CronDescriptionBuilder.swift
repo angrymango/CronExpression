@@ -12,6 +12,18 @@ enum CronDescriptionLength { case Short, Long }
 
 class CronDescriptionBuilder
 {
+	static let EveryWeekday: String =
+		{
+			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5 *")!
+			return NSDateFormatter.convertStringToDaysOfWeek(cronExp.cronRepresentation.weekday)
+	}()
+
+	static let EveryDay: String =
+		{
+			let cronExp = CronExpression(cronString: "0 0 * * 1,2,3,4,5,6,7 *")!
+			return NSDateFormatter.convertStringToDaysOfWeek(cronExp.cronRepresentation.weekday)
+	}()
+
 	static func buildDescription(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
 		if let biggestField = cronRepresentation.biggestField
@@ -78,11 +90,24 @@ class CronDescriptionBuilder
 		else
 		{
 			let weekday = NSDateFormatter.convertStringToDaysOfWeek(cronRepresentation.weekday)
+			var desc: String
+			if weekday == EveryDay
+			{
+				desc = "Every day"
+			}
+			else if weekday == EveryWeekday
+			{
+				desc = "Every weekday"
+			}
+			else
+			{
+				desc = "Every \(weekday)"
+			}
 			switch length {
 			case .Long:
-				return "Every \(weekday) at \(time)"
+				return "\(desc) at \(time)"
 			case .Short:
-				return "Every \(weekday)"
+				return desc
 			}
 		}
 
@@ -90,8 +115,6 @@ class CronDescriptionBuilder
 
 	private static func descriptionWithDayBiggest(cronRepresentation: CronRepresentation, length: CronDescriptionLength) -> String
 	{
-		// "Every hour at 30 minutes on the 11th"
-
 		let day = Int(cronRepresentation.day)!.ordinal
 
 		if CronRepresentation.isDefault(cronRepresentation.hour)

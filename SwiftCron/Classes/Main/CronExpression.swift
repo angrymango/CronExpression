@@ -141,7 +141,6 @@ public class CronExpression
 			}
 			return satisfied ? nextRun : nil
 		}
-		NSLog("Impossible CRON expression")
 		return nil
 	}
 
