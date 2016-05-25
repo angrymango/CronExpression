@@ -10,10 +10,14 @@ class YearField: Field, FieldCheckerInterface
 		return self.isSatisfied(String(format: "%d", components.year), value: value)
 	}
 
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 	{
-		let calendar = NSCalendar.currentCalendar()
+		if let nextDate = date.nextDate(matchingUnit: .Year, value: toMatchValue)
+		{
+			return nextDate
+		}
 
+		let calendar = NSCalendar.currentCalendar()
 		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
 
 		let components = NSDateComponents()

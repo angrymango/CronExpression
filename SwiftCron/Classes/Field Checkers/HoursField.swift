@@ -12,8 +12,13 @@ class HoursField: Field, FieldCheckerInterface
 		return isSatisfied(String(format: "%d", components.hour), value: value)
 	}
 
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 	{
+		if let nextDate = date.nextDate(matchingUnit: .Hour, value: toMatchValue)
+		{
+			return nextDate
+		}
+
 		let calendar = NSCalendar.currentCalendar()
 		let components = NSDateComponents()
 		components.hour = 1;

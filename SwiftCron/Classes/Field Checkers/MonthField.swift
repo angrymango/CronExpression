@@ -5,13 +5,18 @@ class MonthField: Field, FieldCheckerInterface
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool
 	{
-        let calendar = NSCalendar.currentCalendar()
-        let month = calendar.component(.Month, fromDate: date)
+		let calendar = NSCalendar.currentCalendar()
+		let month = calendar.component(.Month, fromDate: date)
 		return isSatisfied(String(month), value: value)
 	}
 
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 	{
+		if let nextDate = date.nextDate(matchingUnit: .Month, value: toMatchValue)
+		{
+			return nextDate
+		}
+
 		let calendar = NSCalendar.currentCalendar()
 		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
 

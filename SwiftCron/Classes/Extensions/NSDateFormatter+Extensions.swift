@@ -68,17 +68,10 @@ extension NSDateFormatter
 		let searchDate = NSDate(timeIntervalSince1970: 0)
 		let components = NSDateComponents()
 
-		let sundayInNSDate = 1
-		let sundayInCronAfterAddingOne = 8
 		for day in days
 		{
 			// Currently arranged from 1-7 starting at Sunday. Rearrange to 1-7 starting at Monday.
-			var dayNumber = Int(day)! + 1
-
-			if dayNumber == sundayInCronAfterAddingOne
-			{
-				dayNumber = sundayInNSDate
-			}
+			let dayNumber = NSDate.convertWeekdayWithMondayFirstToSundayFirst(Int(day)!)
 
 			assert(dayNumber >= 1 && dayNumber <= 7, "Day does not fit in week")
 			components.weekday = dayNumber

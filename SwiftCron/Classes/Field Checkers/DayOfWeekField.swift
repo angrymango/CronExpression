@@ -103,9 +103,20 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		return components.weekday == 1
 	}
 
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 	{
 		let calendar = NSCalendar.currentCalendar()
+
+		// TODO issue 13: handle list items
+		if let toMatchInt = Int(toMatchValue)
+		{
+			let converted = NSDate.convertWeekdayWithMondayFirstToSundayFirst(toMatchInt)
+			if let nextDate = date.nextDate(matchingUnit: .Weekday, value: String(converted))
+			{
+				return nextDate
+			}
+		}
+
 		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
 		let components = NSDateComponents()
 		components.day = 1

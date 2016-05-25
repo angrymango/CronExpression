@@ -86,9 +86,14 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		return self.isSatisfied(String(components.day), value: value)
 	}
 
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 	{
-		let calendar = NSCalendar.currentCalendar()
+		if let nextDate = date.nextDate(matchingUnit: .Day, value: toMatchValue)
+		{
+			return nextDate
+		}
+        
+        let calendar = NSCalendar.currentCalendar()
 		let midnightComponents = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Weekday], fromDate: date)
 		midnightComponents.hour = 0
 		midnightComponents.minute = 0
@@ -96,7 +101,6 @@ class DayOfMonthField: Field, FieldCheckerInterface
 
 		let components = NSDateComponents()
 		components.day = 1;
-
 		return calendar.dateByAddingComponents(components, toDate: calendar.dateFromComponents(midnightComponents)!, options: [])!
 	}
 

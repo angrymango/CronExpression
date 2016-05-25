@@ -31,8 +31,15 @@ class SwiftCronTests: XCTestCase {
 		XCTAssertNil(cron)
 	}
 
-	func testListFields()
+	func testPerformance()
 	{
+		measureBlock({
+			let cron = CronExpression(cronString: "32 4 8 12 3 *")
+			var runDate: NSDate?
+
+			runDate = cron?.getNextRunDate(TestData.jan1_2017)
+			XCTAssertNotNil(runDate)
+		})
 
 	}
 

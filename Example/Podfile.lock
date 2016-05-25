@@ -1,5 +1,5 @@
 PODS:
-  - SwiftCron (0.1.0)
+  - SwiftCron (0.3.2)
 
 DEPENDENCIES:
   - SwiftCron (from `../`)
@@ -9,6 +9,8 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-  SwiftCron: 89f69df432d10f8efa1c846e216ef29621720bd9
+  SwiftCron: 003f7b9f80ef2180a508870233ca536f8b3bd9a9
 
-COCOAPODS: 0.39.0
+PODFILE CHECKSUM: 1527c42e7b5e5dcb4df9f775083e325d3af81865
+
+COCOAPODS: 1.0.0

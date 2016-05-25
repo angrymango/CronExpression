@@ -27,7 +27,7 @@ protocol FieldCheckerInterface {
 	 *
 	 * @return FieldCheckerInterface
 	 */
-	func increment(date: NSDate) -> NSDate
+	func increment(date: NSDate, toMatchValue: String) -> NSDate
 
 	/**
 	 * Validates a CRON expression for a given field
