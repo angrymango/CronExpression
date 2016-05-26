@@ -2,13 +2,20 @@ import Foundation
 
 class DayOfMonthField: Field, FieldCheckerInterface
 {
-
 	static func getLastDayOfMonth(date: NSDate) -> Int
 	{
 		let calendar = NSCalendar.currentCalendar()
 		let monthUnit = calendar.components([.Month], fromDate: date)
-		let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: calendar.dateFromComponents(monthUnit)!)
-		return range.length;
+
+		switch monthUnit {
+		case 1, 3, 5, 7, 8, 10, 12:
+			return 31
+		case 2:
+			let range = calendar.rangeOfUnit(.Day, inUnit: .Month, forDate: calendar.dateFromComponents(monthUnit)!)
+			return range.length
+		default:
+			return 30
+		}
 	}
 
 	/**
@@ -92,8 +99,8 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		{
 			return nextDate
 		}
-        
-        let calendar = NSCalendar.currentCalendar()
+
+		let calendar = NSCalendar.currentCalendar()
 		let midnightComponents = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Weekday], fromDate: date)
 		midnightComponents.hour = 0
 		midnightComponents.minute = 0

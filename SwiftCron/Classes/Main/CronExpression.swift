@@ -84,6 +84,11 @@ public class CronExpression
 
 	func getNextRunDate(date: NSDate, skip: Int) -> NSDate?
 	{
+		guard matchIsTheoreticallyPossible(date) else
+		{
+			return nil
+		}
+
 		var timesToSkip = skip
 		let calendar = NSCalendar.currentCalendar()
 		let components = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Weekday], fromDate: date)
@@ -142,6 +147,31 @@ public class CronExpression
 			return satisfied ? nextRun : nil
 		}
 		return nil
+	}
+
+	private func matchIsTheoreticallyPossible(date: NSDate) -> Bool
+	{
+		// TODO: Handle lists and steps
+		guard let year = Int(cronRepresentation.year) else
+		{
+			return true
+		}
+
+		let components = NSDateComponents()
+		components.year = year
+		if let month = Int(cronRepresentation.month)
+		{
+			components.month = month
+		}
+		if let day = Int(cronRepresentation.day)
+		{
+			components.day = day
+		}
+		if let dateFromComponents = NSCalendar.currentCalendar().dateFromComponents(components)
+		{
+			return date.compare(dateFromComponents) == .OrderedAscending
+		}
+		return true
 	}
 
 	func isDue(currentTime: NSDate) -> Bool

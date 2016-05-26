@@ -2,6 +2,11 @@ import Foundation
 
 class DayOfWeekField: Field, FieldCheckerInterface
 {
+	static let currentCalendarWithMondayAsFirstDay: NSCalendar = {
+		let calendar = NSCalendar.currentCalendar()
+		calendar.firstWeekday = 2
+		return calendar
+	}()
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool
 	{
@@ -14,23 +19,14 @@ class DayOfWeekField: Field, FieldCheckerInterface
 
 		let units: NSCalendarUnit = [.Year, .Month, .Day, .Weekday]
 
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("SUN", withString: "0")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("MON", withString: "1")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("TUE", withString: "2")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("WED", withString: "3")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("THU", withString: "4")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("FRI", withString: "5")
-		valueToSatisfy = valueToSatisfy.stringByReplacingOccurrencesOfString("SAT", withString: "6")
-
-		let calendar = NSCalendar.currentCalendar()
-		calendar.firstWeekday = 2
+		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: date)
 
-		var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 
 		// Find out if this is the last specific weekday of the month
 		if valueToSatisfy.containsString("L")
 		{
+            var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 			let weekday = valueToSatisfy.substringToIndex((valueToSatisfy.rangeOfString("L")?.startIndex)!)
 			let tcomponents = calendar.components(units, fromDate: date)
 			tcomponents.day = lastDayOfMonth
@@ -50,6 +46,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		// Handle # hash tokens
 		if valueToSatisfy.containsString("#")
 		{
+            var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 			var parts = valueToSatisfy.componentsSeparatedByString("#")
 			let weekday = Int(parts[0])!
 			let nth = Int(parts[1])!

@@ -49,6 +49,10 @@ extension NSDate
 		case NSCalendarUnit.Era:
 			components.era = valueToMatch
 		case NSCalendarUnit.Year:
+			if calendar.component(.Year, fromDate: self) >= valueToMatch
+			{
+				return nil
+			}
 			components.year = valueToMatch
 		case NSCalendarUnit.Month:
 			components.month = valueToMatch
