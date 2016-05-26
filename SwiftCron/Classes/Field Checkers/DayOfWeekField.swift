@@ -10,7 +10,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 
 	func isSatisfiedBy(date: NSDate, value: String) -> Bool
 	{
-		var valueToSatisfy = value
+		let valueToSatisfy = value
 
 		if valueToSatisfy == "?"
 		{
@@ -22,11 +22,10 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: date)
 
-
 		// Find out if this is the last specific weekday of the month
 		if valueToSatisfy.containsString("L")
 		{
-            var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
+			var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 			let weekday = valueToSatisfy.substringToIndex((valueToSatisfy.rangeOfString("L")?.startIndex)!)
 			let tcomponents = calendar.components(units, fromDate: date)
 			tcomponents.day = lastDayOfMonth
@@ -46,7 +45,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		// Handle # hash tokens
 		if valueToSatisfy.containsString("#")
 		{
-            var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
+			let lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 			var parts = valueToSatisfy.componentsSeparatedByString("#")
 			let weekday = Int(parts[0])!
 			let nth = Int(parts[1])!
