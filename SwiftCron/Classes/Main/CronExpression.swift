@@ -31,9 +31,9 @@ public class CronExpression
 		self.init(cronRepresentaion: cronRepresentation)
 	}
 
-	public convenience init?(minute: String = "*", hour: String = "*", day: String = "*", month: String = "*", weekday: String = "*", year: String = "*")
+	public convenience init?(minute: CronFieldTranslatable = "*", hour: CronFieldTranslatable = "*", day: CronFieldTranslatable = "*", month: CronFieldTranslatable = "*", weekday: CronFieldTranslatable = "*", year: CronFieldTranslatable = "*")
 	{
-		let cronRepresentation = CronRepresentation(minute: minute, hour: hour, day: day, month: month, weekday: weekday, year: year)
+		let cronRepresentation = CronRepresentation(minute: minute.cronFieldRepresentation, hour: hour.cronFieldRepresentation, day: day.cronFieldRepresentation, month: month.cronFieldRepresentation, weekday: weekday.cronFieldRepresentation, year: year.cronFieldRepresentation)
 		self.init(cronRepresentaion: cronRepresentation)
 	}
 

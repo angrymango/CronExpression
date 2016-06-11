@@ -7,6 +7,15 @@
 //
 
 import Foundation
+
+extension Int: CronFieldTranslatable
+{
+	public var cronFieldRepresentation: String
+	{
+		return String(self)
+	}
+}
+
 extension Int
 {
 	private static let ordinalNumberFormatter: NSNumberFormatter =

@@ -20,6 +20,8 @@
 		701A36E1066782BB60F3041519F2BB2F /* Pods-SwiftCronExampleTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 8522CBDAA48C0171D82D96128A98B859 /* Pods-SwiftCronExampleTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		71EBF6F952087534C815D4DE12BDAA17 /* DayOfWeekField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095DC63A89646D3BBC0F263E0E7495D5 /* DayOfWeekField.swift */; };
 		844703F47FE94718BC5DAD9A2B8915BC /* YearField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58FA60E47A3C1C5B96FDA61047594991 /* YearField.swift */; };
+		89F462996BE635C86F437325 /* CronFieldTranslatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F46274FFC2B3F3829E945A /* CronFieldTranslatable.swift */; };
+		89F46B362ABF01D33EB6C4E1 /* String+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89F46055825B9A926E12575D /* String+Extensions.swift */; };
 		943B4FA965143BC7DD3F6DDD2C6A51BC /* SwiftCron-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 6B9F67F8F7B19DCB609B0186DF1666BE /* SwiftCron-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		B65BCFE5301AE62452FEB126E1A2D811 /* FieldInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7911D4FC7774933CAF87221F91216DB1 /* FieldInterface.swift */; };
 		C5B12FE80A9F36F08A96F45D60D3FE50 /* CronDescriptionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC75D451599B1E5B71706BE5CA1D3A29 /* CronDescriptionBuilder.swift */; };
@@ -70,6 +72,8 @@
 		7911D4FC7774933CAF87221F91216DB1 /* FieldInterface.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = FieldInterface.swift; sourceTree = "<group>"; };
 		8522CBDAA48C0171D82D96128A98B859 /* Pods-SwiftCronExampleTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-SwiftCronExampleTests-umbrella.h"; sourceTree = "<group>"; };
 		86B8E1C6479A41628A518578882F6F95 /* Pods-SwiftCronExampleTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-SwiftCronExampleTests.modulemap"; sourceTree = "<group>"; };
+		89F46055825B9A926E12575D /* String+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extensions.swift"; sourceTree = "<group>"; };
+		89F46274FFC2B3F3829E945A /* CronFieldTranslatable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CronFieldTranslatable.swift; sourceTree = "<group>"; };
 		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		94B4663D0E4B92CEBC3DBC0A1C1A61BC /* Pods-SwiftCronExampleTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-SwiftCronExampleTests-resources.sh"; sourceTree = "<group>"; };
 		9C38BC03FFA666A62E3587D62481E148 /* Pods-SwiftCronExample-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-SwiftCronExample-acknowledgements.plist"; sourceTree = "<group>"; };
@@ -153,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				7911D4FC7774933CAF87221F91216DB1 /* FieldInterface.swift */,
+				89F46274FFC2B3F3829E945A /* CronFieldTranslatable.swift */,
 			);
 			path = Interfaces;
 			sourceTree = "<group>";
@@ -202,6 +207,7 @@
 				B1F3CEFF81D5994A22048D818DD6B168 /* Int+Extensions.swift */,
 				D11721081572F3704A62ACD1309B6EAD /* NSDate+Extensions.swift */,
 				22B9DFE4EE5268109113CD8BE433C802 /* NSDateFormatter+Extensions.swift */,
+				89F46055825B9A926E12575D /* String+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -439,6 +445,8 @@
 				02471A3FD5F80FB4737079D413A9112E /* NSDateFormatter+Extensions.swift in Sources */,
 				4B1D623771E39A31E8D585056892F70F /* SwiftCron-dummy.m in Sources */,
 				844703F47FE94718BC5DAD9A2B8915BC /* YearField.swift in Sources */,
+				89F462996BE635C86F437325 /* CronFieldTranslatable.swift in Sources */,
+				89F46B362ABF01D33EB6C4E1 /* String+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
