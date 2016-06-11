@@ -58,6 +58,7 @@
 		8679D2B01CE1F51F0071D783 /* YearTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearTests.swift; sourceTree = "<group>"; };
 		8679D2B71CE1FA760071D783 /* DescriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTests.swift; sourceTree = "<group>"; };
 		86D78E8B1CF58EEE000CAD8A /* SwiftCron.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCron.framework; path = "../../../Library/Developer/Xcode/DerivedData/SwiftCronExample-cjweqqzmcjxhcufttvfiyyabbzfi/Build/Products/Debug-iphonesimulator/SwiftCron/SwiftCron.framework"; sourceTree = "<group>"; };
+		95BBA9DA1D0C16C3004C765A /* SwiftCron.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCron.framework; path = "../../../Library/Developer/Xcode/DerivedData/SwiftCronExample-adstpubkvtswoaboiajnrzswdzah/Build/Products/Debug-iphonesimulator/SwiftCron/SwiftCron.framework"; sourceTree = "<group>"; };
 		9A585942BE5510532D56F9F1 /* Pods_SwiftCronExampleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SwiftCronExampleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FC712B82D2D075E149E73AB /* Pods-SwiftCronExampleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCronExampleTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCronExampleTests/Pods-SwiftCronExampleTests.release.xcconfig"; sourceTree = "<group>"; };
 		A8CB7B09FFB21F86177ED344 /* Pods-SwiftCronExample.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SwiftCronExample.release.xcconfig"; path = "Pods/Target Support Files/Pods-SwiftCronExample/Pods-SwiftCronExample.release.xcconfig"; sourceTree = "<group>"; };
@@ -87,6 +88,7 @@
 		4C8B47A9EA0B22235461D031 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				95BBA9DA1D0C16C3004C765A /* SwiftCron.framework */,
 				86D78E8B1CF58EEE000CAD8A /* SwiftCron.framework */,
 				EB8E7C90A033C373325A9FC6 /* Pods_SwiftCronExample.framework */,
 				9A585942BE5510532D56F9F1 /* Pods_SwiftCronExampleTests.framework */,
@@ -163,12 +165,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8679D28E1CE1F4740071D783 /* Build configuration list for PBXNativeTarget "SwiftCronExample" */;
 			buildPhases = (
-				E87025957E0569C2E0F11DA7 /* 📦 Check Pods Manifest.lock */,
+				E87025957E0569C2E0F11DA7 /* [CP] Check Pods Manifest.lock */,
 				8679D26D1CE1F4730071D783 /* Sources */,
 				8679D26E1CE1F4730071D783 /* Frameworks */,
 				8679D26F1CE1F4730071D783 /* Resources */,
-				42C8277495ABC8132337E07F /* 📦 Embed Pods Frameworks */,
-				32DF2E51192F05F6A8F079E6 /* 📦 Copy Pods Resources */,
+				42C8277495ABC8132337E07F /* [CP] Embed Pods Frameworks */,
+				32DF2E51192F05F6A8F079E6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -183,12 +185,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8679D2911CE1F4740071D783 /* Build configuration list for PBXNativeTarget "SwiftCronExampleTests" */;
 			buildPhases = (
-				5C3A63B070FA8E0262619C5B /* 📦 Check Pods Manifest.lock */,
+				5C3A63B070FA8E0262619C5B /* [CP] Check Pods Manifest.lock */,
 				8679D2811CE1F4740071D783 /* Sources */,
 				8679D2821CE1F4740071D783 /* Frameworks */,
 				8679D2831CE1F4740071D783 /* Resources */,
-				FB1006182B176A61E545DAAD /* 📦 Embed Pods Frameworks */,
-				1E27C67471A351797CF56101 /* 📦 Copy Pods Resources */,
+				FB1006182B176A61E545DAAD /* [CP] Embed Pods Frameworks */,
+				1E27C67471A351797CF56101 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -259,14 +261,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E27C67471A351797CF56101 /* 📦 Copy Pods Resources */ = {
+		1E27C67471A351797CF56101 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -274,14 +276,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftCronExampleTests/Pods-SwiftCronExampleTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		32DF2E51192F05F6A8F079E6 /* 📦 Copy Pods Resources */ = {
+		32DF2E51192F05F6A8F079E6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Copy Pods Resources";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -289,14 +291,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftCronExample/Pods-SwiftCronExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		42C8277495ABC8132337E07F /* 📦 Embed Pods Frameworks */ = {
+		42C8277495ABC8132337E07F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -304,14 +306,14 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SwiftCronExample/Pods-SwiftCronExample-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		5C3A63B070FA8E0262619C5B /* 📦 Check Pods Manifest.lock */ = {
+		5C3A63B070FA8E0262619C5B /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,14 +321,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		E87025957E0569C2E0F11DA7 /* 📦 Check Pods Manifest.lock */ = {
+		E87025957E0569C2E0F11DA7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Check Pods Manifest.lock";
+			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -334,14 +336,14 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		FB1006182B176A61E545DAAD /* 📦 Embed Pods Frameworks */ = {
+		FB1006182B176A61E545DAAD /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "📦 Embed Pods Frameworks";
+			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,7 +518,7 @@
 		};
 		8679D2921CE1F4740071D783 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0F8ABF1B000AF874C484BB4D /* Pods-SwiftCronExample.debug.xcconfig */;
+			baseConfigurationReference = 4E2C5421749CD7878ECB54E4 /* Pods-SwiftCronExampleTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;

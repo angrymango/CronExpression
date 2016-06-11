@@ -8,6 +8,6 @@ pod 'SwiftCron', :path => '../'
 end
 
 target 'SwiftCronExampleTests' do
-
+pod 'SwiftCron', :path => '../'
 end
 
