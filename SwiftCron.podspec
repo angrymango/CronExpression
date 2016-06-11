@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SwiftCron"
-  s.version          = "0.3.5"
+  s.version          = "0.3.6"
   s.summary          = "Cron expression parser."
 
 
