@@ -22,18 +22,18 @@ class MinuteTests: XCTestCase {
 	}
 
 	func testEvery30thMinute() {
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		let dateToTestFrom = TestData.may11
 
-		let components = calendar.components([.Day, .Year, .Month, .Hour], fromDate: dateToTestFrom)
+		var components = (calendar as NSCalendar).components([.day, .year, .month, .hour], from: dateToTestFrom)
 		components.minute = 30
-		let expectedDate = calendar.dateFromComponents(components)
+		let expectedDate = calendar.date(from: components)
 
 		let every30thMinuteCron = CronExpression(minute: "30")
 		let nextRunDate = every30thMinuteCron?.getNextRunDate(dateToTestFrom)
 
-		XCTAssertTrue(calendar.isDate(nextRunDate!, equalToDate: expectedDate!, toUnitGranularity: .Minute))
+		XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate!, equalTo: expectedDate!, toUnitGranularity: .minute))
 	}
 
 }

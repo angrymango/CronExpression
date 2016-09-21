@@ -1,10 +1,40 @@
 import Foundation
 
+private func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
+private func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l >= r
+  default:
+    return !(lhs < rhs)
+  }
+}
+
+private func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l <= r
+  default:
+    return !(rhs < lhs)
+  }
+}
+
+
 class Field
 {
 	var fields: NSMutableArray?
 
-	func isSatisfied(dateValue: String, value: String) -> Bool
+	func isSatisfied(_ dateValue: String, value: String) -> Bool
 	{
 		if isIncrementsOfRanges(value)
 		{
@@ -18,35 +48,35 @@ class Field
 		return value == "*" || dateValue == value
 	}
 
-	func isRange(value: String) -> Bool
+	func isRange(_ value: String) -> Bool
 	{
-		return value.rangeOfString("-") != nil
+		return value.range(of: "-") != nil
 	}
 
-	func isIncrementsOfRanges(value: String) -> Bool
+	func isIncrementsOfRanges(_ value: String) -> Bool
 	{
-		return value.rangeOfString("/") != nil
+		return value.range(of: "/") != nil
 	}
 
-	func isInRange(dateValue: String, withValue value: String) -> Bool
+	func isInRange(_ dateValue: String, withValue value: String) -> Bool
 	{
-		let parts = value.componentsSeparatedByString("-")
+		let parts = value.components(separatedBy: "-")
 
 		return Int(dateValue) >= Int(parts[0]) && Int(dateValue) <= Int(parts[1])
 	}
 
-	func isInIncrementsOfRanges(dateValue: String, withValue value: String) -> Bool
+	func isInIncrementsOfRanges(_ dateValue: String, withValue value: String) -> Bool
 	{
-		let parts = value.componentsSeparatedByString("/")
+		let parts = value.components(separatedBy: "/")
 		if parts[0] != "*" && Int(parts[0]) != 0
 		{
-			guard parts[0].rangeOfString("-") != nil else
+			guard parts[0].range(of: "-") != nil else
 			{
 				NSLog("Cannot increment a range! \(value)")
 				return false
 			}
 
-			let range = parts[0].componentsSeparatedByString("-")
+			let range = parts[0].components(separatedBy: "-")
 			if Int(dateValue) == Int(range[0])
 			{
 				return true

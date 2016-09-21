@@ -22,18 +22,18 @@ class HourTests: XCTestCase {
 	}
 
 	func testEvery11thHour() {
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		let dateToTestFrom = TestData.may11
 
-		let components = calendar.components([.Day, .Year, .Month, .Hour], fromDate: dateToTestFrom)
+		var components = (calendar as NSCalendar).components([.day, .year, .month, .hour], from: dateToTestFrom)
 		components.hour = 11
-		let expectedDate = calendar.dateFromComponents(components)
+		let expectedDate = calendar.date(from: components)
 
 		let every11thHourCron = CronExpression(minute: "0", hour: "11")
 		let nextRunDate = every11thHourCron?.getNextRunDate(dateToTestFrom)
 
-		XCTAssertTrue(calendar.isDate(nextRunDate!, equalToDate: expectedDate!, toUnitGranularity: .Hour))
+		XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate!, equalTo: expectedDate!, toUnitGranularity: .hour))
 	}
 
 }

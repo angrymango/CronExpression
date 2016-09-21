@@ -22,14 +22,14 @@ class YearTests: XCTestCase {
 	}
 
 	func testEveryYearOn1stJanRunsNextYear() {
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		let dateToTestFrom = TestData.may11
 
 		let firstDayOfMonthCron = CronExpression(minute: "0", hour: "0", day: "1", month: "1")
 		let nextRunDate = firstDayOfMonthCron?.getNextRunDate(dateToTestFrom)
 
-		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAsDate: nextRunDate!))
+		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAs: nextRunDate!))
 	}
 
 }

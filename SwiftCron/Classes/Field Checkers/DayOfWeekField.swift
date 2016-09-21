@@ -2,13 +2,13 @@ import Foundation
 
 class DayOfWeekField: Field, FieldCheckerInterface
 {
-	static let currentCalendarWithMondayAsFirstDay: NSCalendar = {
-		let calendar = NSCalendar.currentCalendar()
+	static let currentCalendarWithMondayAsFirstDay: Calendar = {
+		var calendar = Calendar.current
 		calendar.firstWeekday = 2
 		return calendar
 	}()
 
-	func isSatisfiedBy(date: NSDate, value: String) -> Bool
+	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let valueToSatisfy = value
 
@@ -17,36 +17,36 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			return true
 		}
 
-		let units: NSCalendarUnit = [.Year, .Month, .Day, .Weekday]
+		let units: NSCalendar.Unit = [.year, .month, .day, .weekday]
 
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
-		var weekdayWithMondayAsFirstDay = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: date)
+		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)
 
 		// Find out if this is the last specific weekday of the month
-		if valueToSatisfy.containsString("L")
+		if valueToSatisfy.contains("L")
 		{
 			var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
-			let weekday = valueToSatisfy.substringToIndex((valueToSatisfy.rangeOfString("L")?.startIndex)!)
-			let tcomponents = calendar.components(units, fromDate: date)
+			let weekday = valueToSatisfy.substring(to: (valueToSatisfy.range(of: "L")?.lowerBound)!)
+			var tcomponents = (calendar as NSCalendar).components(units, from: date)
 			tcomponents.day = lastDayOfMonth
-			var tdate = calendar.dateFromComponents(tcomponents)!
-			var tcomponentsWeekdayWithMondayFirst = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
+			var tdate = calendar.date(from: tcomponents)!
+			var tcomponentsWeekdayWithMondayFirst = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
 
 			while tcomponentsWeekdayWithMondayFirst != Int(weekday) {
 				lastDayOfMonth -= 1
 				tcomponents.day = lastDayOfMonth
-				tdate = calendar.dateFromComponents(tcomponents)!
-				tcomponentsWeekdayWithMondayFirst = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
+				tdate = calendar.date(from: tcomponents)!
+				tcomponentsWeekdayWithMondayFirst = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
 			}
-			let componentsToMatch = calendar.components(units, fromDate: date)
+			let componentsToMatch = (calendar as NSCalendar).components(units, from: date)
 			return componentsToMatch.day == lastDayOfMonth
 		}
 
 		// Handle # hash tokens
-		if valueToSatisfy.containsString("#")
+		if valueToSatisfy.contains("#")
 		{
 			let lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
-			var parts = valueToSatisfy.componentsSeparatedByString("#")
+			var parts = valueToSatisfy.components(separatedBy: "#")
 			let weekday = Int(parts[0])!
 			let nth = Int(parts[1])!
 
@@ -55,7 +55,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 				NSLog("Invalid Argument. There are never more than 5 of a given weekday in a month")
 				return false
 			}
-			var tcomponents = calendar.components(units, fromDate: date)
+			var tcomponents = (calendar as NSCalendar).components(units, from: date)
 			// The current weekday must match the targeted weekday to proceed
 			if weekdayWithMondayAsFirstDay != weekday
 			{
@@ -63,12 +63,12 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			}
 
 			tcomponents.day = 1
-			var tdate = calendar.dateFromComponents(tcomponents)!
+			var tdate = calendar.date(from: tcomponents)!
 			var dayCount = 0
 			var currentDay = 1
 			while currentDay < lastDayOfMonth + 1
 			{
-				let ordinalWeekday = calendar.ordinalityOfUnit(.Weekday, inUnit: .WeekOfYear, forDate: tdate)
+				let ordinalWeekday = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
 				if ordinalWeekday == weekday
 				{
 					dayCount += 1
@@ -77,12 +77,12 @@ class DayOfWeekField: Field, FieldCheckerInterface
 						break
 					}
 				}
-				tcomponents = calendar.components(units, fromDate: tdate)
+				tcomponents = (calendar as NSCalendar).components(units, from: tdate)
 				currentDay += 1
 				tcomponents.day = currentDay
-				tdate = calendar.dateFromComponents(tcomponents)!
+				tdate = calendar.date(from: tcomponents)!
 			}
-			tcomponents = calendar.components(units, fromDate: date)
+			tcomponents = (calendar as NSCalendar).components(units, from: date)
 			return tcomponents.day == currentDay
 		}
 
@@ -94,39 +94,39 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		return self.isSatisfied(String(format: "%d", weekdayWithMondayAsFirstDay), value: valueToSatisfy)
 	}
 
-	private func isSunday(components: NSDateComponents) -> Bool
+	private func isSunday(_ components: DateComponents) -> Bool
 	{
 		return components.weekday == 1
 	}
 
-	func increment(date: NSDate, toMatchValue: String) -> NSDate
+	func increment(_ date: Date, toMatchValue: String) -> Date
 	{
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		// TODO issue 13: handle list items
 		if let toMatchInt = Int(toMatchValue)
 		{
-			let converted = NSDate.convertWeekdayWithMondayFirstToSundayFirst(toMatchInt)
-			if let nextDate = date.nextDate(matchingUnit: .Weekday, value: String(converted))
+			let converted = Date.convertWeekdayWithMondayFirstToSundayFirst(toMatchInt)
+			if let nextDate = date.nextDate(matchingUnit: .weekday, value: String(converted))
 			{
 				return nextDate
 			}
 		}
 
-		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
-		let components = NSDateComponents()
+		let midnightComponents = (calendar as NSCalendar).components([.day, .month, .year], from: date)
+		var components = DateComponents()
 		components.day = 1
-		return calendar.dateByAddingComponents(components, toDate: calendar.dateFromComponents(midnightComponents)!, options: [])!
+		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
 	}
 
-	func validate(value: String) -> Bool
+	func validate(_ value: String) -> Bool
 	{
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: .CaseInsensitive) else
+		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: .caseInsensitive) else
 		{
 			NSLog("\(#function): Could not create regex")
 			return false
 		}
 
-		return regex.numberOfMatchesInString(value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
 }

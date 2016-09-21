@@ -62,27 +62,27 @@ public class CronExpression
 
 	public var shortDescription: String
 	{
-		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Short)
+		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .short)
 	}
 
 	public var longDescription: String
 	{
-		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .Long)
+		return CronDescriptionBuilder.buildDescription(cronRepresentation, length: .long)
 	}
 
 	// MARK: - Get Next Run Date
 
-	public func getNextRunDateFromNow() -> NSDate?
+	public func getNextRunDateFromNow() -> Date?
 	{
-		return getNextRunDate(NSDate())
+		return getNextRunDate(Date())
 	}
 
-	public func getNextRunDate(date: NSDate) -> NSDate?
+	public func getNextRunDate(_ date: Date) -> Date?
 	{
 		return getNextRunDate(date, skip: 0)
 	}
 
-	func getNextRunDate(date: NSDate, skip: Int) -> NSDate?
+	func getNextRunDate(_ date: Date, skip: Int) -> Date?
 	{
 		guard matchIsTheoreticallyPossible(date) else
 		{
@@ -90,17 +90,17 @@ public class CronExpression
 		}
 
 		var timesToSkip = skip
-		let calendar = NSCalendar.currentCalendar()
-		let components = calendar.components([.Year, .Month, .Day, .Hour, .Minute, .Weekday], fromDate: date)
+		let calendar = Calendar.current
+		var components = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		components.second = 0
-		guard var nextRun = calendar.dateFromComponents(components) else
+		guard var nextRun = calendar.date(from: components) else
 		{
 			NSLog("\(#function): could not get a date from components \(components)")
 			return nil
 		}
 
 		// MARK: Issue 3: Instantiate enum instances with the right value
-		let allFieldsInExpression: Array<CronField> = [.Minute, .Hour, .Day, .Month, .Weekday, .Year]
+		let allFieldsInExpression: Array<CronField> = [.minute, .hour, .day, .month, .weekday, .year]
 
 		// Set a hard limit to bail on an impossible date
 		iteration: for _: Int in 0 ..< 1000
@@ -113,13 +113,13 @@ public class CronExpression
 				let part = cronRepresentation[cronField.rawValue]
 				let fieldChecker = cronField.getFieldChecker()
 
-				if part.containsString(",") == false
+				if part.contains(",") == false
 				{
 					satisfied = fieldChecker.isSatisfiedBy(nextRun, value: part)
 				}
 				else
 				{
-					for listPart: String in part.componentsSeparatedByString(",")
+					for listPart: String in part.components(separatedBy: ",")
 					{
 						satisfied = fieldChecker.isSatisfiedBy(nextRun, value: listPart)
 						if satisfied
@@ -139,7 +139,7 @@ public class CronExpression
 				// Skip this match if needed
 				if (timesToSkip > 0)
 				{
-					CronField(rawValue: 0)!.getFieldChecker().increment(nextRun, toMatchValue: part)
+					let _ = CronField(rawValue: 0)!.getFieldChecker().increment(nextRun, toMatchValue: part)
 					timesToSkip -= 1
 				}
 				continue currentFieldLoop
@@ -149,7 +149,7 @@ public class CronExpression
 		return nil
 	}
 
-	private func matchIsTheoreticallyPossible(date: NSDate) -> Bool
+	private func matchIsTheoreticallyPossible(_ date: Date) -> Bool
 	{
 		// TODO: Handle lists and steps
 		guard let year = Int(cronRepresentation.year) else
@@ -157,7 +157,7 @@ public class CronExpression
 			return true
 		}
 
-		let components = NSDateComponents()
+		var components = DateComponents()
 		components.year = year
 		if let month = Int(cronRepresentation.month)
 		{
@@ -167,14 +167,14 @@ public class CronExpression
 		{
 			components.day = day
 		}
-		if let dateFromComponents = NSCalendar.currentCalendar().dateFromComponents(components)
+		if let dateFromComponents = Calendar.current.date(from: components)
 		{
-			return date.compare(dateFromComponents) == .OrderedAscending
+			return date.compare(dateFromComponents) == .orderedAscending
 		}
 		return true
 	}
 
-	func isDue(currentTime: NSDate) -> Bool
+	func isDue(_ currentTime: Date) -> Bool
 	{
 		NSLog("\(#function): Not implemented from legacy project")
 		return true

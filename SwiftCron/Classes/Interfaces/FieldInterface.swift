@@ -17,7 +17,7 @@ protocol FieldCheckerInterface {
 	 *
 	 * @return bool Returns TRUE if satisfied, FALSE otherwise
 	 */
-	func isSatisfiedBy(date: NSDate, value: String) -> Bool
+	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 
 	/**
 	 * When a CRON expression is not satisfied, this method is used to increment
@@ -27,7 +27,7 @@ protocol FieldCheckerInterface {
 	 *
 	 * @return FieldCheckerInterface
 	 */
-	func increment(date: NSDate, toMatchValue: String) -> NSDate
+	func increment(_ date: Date, toMatchValue: String) -> Date
 
 	/**
 	 * Validates a CRON expression for a given field
@@ -36,5 +36,5 @@ protocol FieldCheckerInterface {
 	 *
 	 * @return bool Returns TRUE if valid, FALSE otherwise
 	 */
-	func validate(value: String) -> Bool
+	func validate(_ value: String) -> Bool
 }

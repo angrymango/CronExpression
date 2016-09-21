@@ -3,30 +3,33 @@ import Foundation
 class YearField: Field, FieldCheckerInterface
 {
 
-	func isSatisfiedBy(date: NSDate, value: String) -> Bool
+	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
-		let calendar = NSCalendar.currentCalendar()
-		let components = calendar.components([.Year], fromDate: date)
-		return self.isSatisfied(String(format: "%d", components.year), value: value)
+		let calendar = Calendar.current
+		let components = (calendar as NSCalendar).components([.year], from: date)
+        
+        guard let year = components.year else { return false }
+        
+		return self.isSatisfied(String(format: "%d", year), value: value)
 	}
 
-	func increment(date: NSDate, toMatchValue: String) -> NSDate
+	func increment(_ date: Date, toMatchValue: String) -> Date
 	{
-		if let nextDate = date.nextDate(matchingUnit: .Year, value: toMatchValue)
+		if let nextDate = date.nextDate(matchingUnit: .year, value: toMatchValue)
 		{
 			return nextDate
 		}
 
-		let calendar = NSCalendar.currentCalendar()
-		let midnightComponents = calendar.components([.Day, .Month, .Year], fromDate: date)
+		let calendar = Calendar.current
+		let midnightComponents = (calendar as NSCalendar).components([.day, .month, .year], from: date)
 
-		let components = NSDateComponents()
+		var components = DateComponents()
 		components.year = 1;
 
-		return calendar.dateByAddingComponents(components, toDate: calendar.dateFromComponents(midnightComponents)!, options: [])!
+		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
 	}
 
-	func validate(value: String) -> Bool
+	func validate(_ value: String) -> Bool
 	{
 
 		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: []) else
@@ -35,6 +38,6 @@ class YearField: Field, FieldCheckerInterface
 			return false
 		}
 
-		return regex.numberOfMatchesInString(value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
 }

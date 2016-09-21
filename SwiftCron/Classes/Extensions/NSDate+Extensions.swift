@@ -7,9 +7,9 @@
 //
 
 import Foundation
-extension NSDate
+extension Date
 {
-	static func convertWeekdayWithMondayFirstToSundayFirst(weekday: Int) -> Int
+	static func convertWeekdayWithMondayFirstToSundayFirst(_ weekday: Int) -> Int
 	{
 		let sundayWhenFirstDayOfWeek = 1
 		let sundayWhenMondayFirst = 7
@@ -22,13 +22,13 @@ extension NSDate
 		return weekday + 1
 	}
 
-	func nextDate(matchingUnit unit: NSCalendarUnit, value: String) -> NSDate?
+	func nextDate(matchingUnit unit: NSCalendar.Unit, value: String) -> Date?
 	{
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		var valueToMatch: Int!
 
-		if value.containsString(CronRepresentation.listIdentifier)
+		if value.contains(CronRepresentation.listIdentifier)
 		{
 			// TODO: issue 13: Match list items
 			return nil
@@ -43,46 +43,46 @@ extension NSDate
 			return nil
 		}
 
-		let components = NSDateComponents()
+		var components = DateComponents()
 
 		switch unit {
-		case NSCalendarUnit.Era:
+		case NSCalendar.Unit.era:
 			components.era = valueToMatch
-		case NSCalendarUnit.Year:
-			if calendar.component(.Year, fromDate: self) >= valueToMatch
+		case NSCalendar.Unit.year:
+			if (calendar as NSCalendar).component(.year, from: self) >= valueToMatch
 			{
 				return nil
 			}
 			components.year = valueToMatch
-		case NSCalendarUnit.Month:
+		case NSCalendar.Unit.month:
 			components.month = valueToMatch
-		case NSCalendarUnit.Day:
+		case NSCalendar.Unit.day:
 			components.day = valueToMatch
-		case NSCalendarUnit.Hour:
+		case NSCalendar.Unit.hour:
 			components.hour = valueToMatch
-		case NSCalendarUnit.Minute:
+		case NSCalendar.Unit.minute:
 			components.minute = valueToMatch
-		case NSCalendarUnit.Second:
+		case NSCalendar.Unit.second:
 			components.second = valueToMatch
-		case NSCalendarUnit.Weekday:
+		case NSCalendar.Unit.weekday:
 			components.weekday = valueToMatch
-		case NSCalendarUnit.WeekdayOrdinal:
+		case NSCalendar.Unit.weekdayOrdinal:
 			components.weekdayOrdinal = valueToMatch
-		case NSCalendarUnit.Quarter:
+		case NSCalendar.Unit.quarter:
 			components.quarter = valueToMatch
-		case NSCalendarUnit.WeekOfMonth:
+		case NSCalendar.Unit.weekOfMonth:
 			components.weekOfMonth = valueToMatch
-		case NSCalendarUnit.WeekOfYear:
+		case NSCalendar.Unit.weekOfYear:
 			components.weekOfYear = valueToMatch
-		case NSCalendarUnit.YearForWeekOfYear:
+		case NSCalendar.Unit.yearForWeekOfYear:
 			components.yearForWeekOfYear = valueToMatch
-		case NSCalendarUnit.Nanosecond:
+		case NSCalendar.Unit.nanosecond:
 			components.nanosecond = valueToMatch
 		default:
 			print("\(#function): Not a valid calendar unit for this function.")
 			return nil
 		}
 
-		return calendar.nextDateAfterDate(self, matchingComponents: components, options: .MatchStrictly)
+		return (calendar as NSCalendar).nextDate(after: self, matching: components, options: .matchStrictly)
 	}
 }

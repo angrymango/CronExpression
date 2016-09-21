@@ -3,36 +3,38 @@ import Foundation
 class HoursField: Field, FieldCheckerInterface
 {
 
-	func isSatisfiedBy(date: NSDate, value: String) -> Bool
+	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
-
-		let calendar = NSCalendar.currentCalendar()
-		let components = calendar.components([.Hour], fromDate: date)
-
-		return isSatisfied(String(format: "%d", components.hour), value: value)
+		let calendar = Calendar.current
+		let components = (calendar as NSCalendar).components([.hour], from: date)
+        guard let hour = components.hour else {
+            return false
+        }
+        
+		return isSatisfied(String(format: "%d", hour), value: value)
 	}
 
-	func increment(date: NSDate, toMatchValue: String) -> NSDate
+	func increment(_ date: Date, toMatchValue: String) -> Date
 	{
-		if let nextDate = date.nextDate(matchingUnit: .Hour, value: toMatchValue)
+		if let nextDate = date.nextDate(matchingUnit: .hour, value: toMatchValue)
 		{
 			return nextDate
 		}
 
-		let calendar = NSCalendar.currentCalendar()
-		let components = NSDateComponents()
+		let calendar = Calendar.current
+		var components = DateComponents()
 		components.hour = 1;
-		return calendar.dateByAddingComponents(components, toDate: date, options: [])!
+		return (calendar as NSCalendar).date(byAdding: components, to: date, options: [])!
 	}
 
-	func validate(value: String) -> Bool
+	func validate(_ value: String) -> Bool
 	{
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .CaseInsensitive) else
+		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .caseInsensitive) else
 		{
 			NSLog("\(#function): Cannot create regular expression")
 			return false
 		}
 
-		return regex.numberOfMatchesInString(value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
 }

@@ -18,33 +18,33 @@ extension Int: CronFieldTranslatable
 
 extension Int
 {
-	private static let ordinalNumberFormatter: NSNumberFormatter =
+	private static let ordinalNumberFormatter: NumberFormatter =
 		{
-			let formatter = NSNumberFormatter()
-			formatter.numberStyle = .OrdinalStyle
+			let formatter = NumberFormatter()
+			formatter.numberStyle = .ordinal
 			return formatter
 	}()
 
-	private static let monthFormatter: NSDateFormatter =
+	private static let monthFormatter: DateFormatter =
 		{
-			let formatter = NSDateFormatter()
+			let formatter = DateFormatter()
 			formatter.dateFormat = "MMMM"
 			return formatter
 	}()
 
 	var ordinal: String
 	{
-		return Int.ordinalNumberFormatter.stringFromNumber(self)!
+        return Int.ordinalNumberFormatter.string(from: NSNumber(value: self))!
 	}
 
 	func convertToMonth() -> String
 	{
 		assert(self < 13 && self > 0, "Not a valid month")
 
-		let calendar = NSCalendar.currentCalendar()
-		let components = NSDateComponents()
+		let calendar = Calendar.current
+		var components = DateComponents()
 		components.month = self
-		let date = calendar.dateFromComponents(components)!
-		return Int.monthFormatter.stringFromDate(date)
+		let date = calendar.date(from: components)!
+		return Int.monthFormatter.string(from: date)
 	}
 }

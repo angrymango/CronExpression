@@ -22,13 +22,13 @@ class DayTests: XCTestCase {
 	}
 
 	func testEvery8thDayOfMonth() {
-		let calendar = NSCalendar.currentCalendar()
+		let calendar = Calendar.current
 
 		let dateToTestFrom = TestData.may11
 
 		let every8thDayCron = CronExpression(minute: "0", hour: "0", day: "8")
 		let nextRunDate = every8thDayCron?.getNextRunDate(dateToTestFrom)
 
-		XCTAssertTrue(calendar.isDate(TestData.june8, inSameDayAsDate: nextRunDate!))
+		XCTAssertTrue(calendar.isDate(TestData.june8, inSameDayAs: nextRunDate!))
 	}
 }

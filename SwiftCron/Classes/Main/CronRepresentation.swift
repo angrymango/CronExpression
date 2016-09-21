@@ -10,7 +10,7 @@ import Foundation
 
 enum CronField: Int
 {
-	case Minute, Hour, Day, Month, Weekday, Year
+	case minute, hour, day, month, weekday, year
 	private static let fieldCheckers: Array<FieldCheckerInterface> = [MinutesField(), HoursField(), DayOfMonthField(), MonthField(), DayOfWeekField(), YearField()]
 
 	func getFieldChecker() -> FieldCheckerInterface
@@ -37,11 +37,11 @@ public struct CronRepresentation
 	{
 		let defaultValue = CronRepresentation.defaultValue
 
-		if year != defaultValue { return CronField.Year }
-		if month != defaultValue { return CronField.Month }
-		if day != defaultValue { return CronField.Day }
-		if hour != defaultValue { return CronField.Hour }
-		if minute != defaultValue { return CronField.Minute }
+		if year != defaultValue { return CronField.year }
+		if month != defaultValue { return CronField.month }
+		if day != defaultValue { return CronField.day }
+		if hour != defaultValue { return CronField.hour }
+		if minute != defaultValue { return CronField.minute }
 		return nil
 	}
 
@@ -66,7 +66,7 @@ public struct CronRepresentation
 
 	init?(cronString: String)
 	{
-		let parts = cronString.componentsSeparatedByString(" ")
+		let parts = cronString.components(separatedBy: " ")
 		guard parts.count == CronRepresentation.NumberOfComponentsInValidString else
 		{
 			return nil
@@ -76,7 +76,7 @@ public struct CronRepresentation
 	}
 
 	// MARK: Issue 3: pass in enum. Get value out of enum and check if it matches the default value?
-	static func isDefault(field: String) -> Bool
+	static func isDefault(_ field: String) -> Bool
 	{
 		return field == CronRepresentation.defaultValue
 	}
