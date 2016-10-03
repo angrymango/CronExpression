@@ -28,11 +28,7 @@ class MonthField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: []) else
-		{
-			NSLog("\(#function): Could not get regular expression")
-			return false
-		}
+        let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: [])
 		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
 }
