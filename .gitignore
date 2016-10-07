@@ -3,6 +3,8 @@
 *~.nib
 */Pods/**
 Pods/**
+Example/Pods/**
+Example/Podfile.lock
 build/
 
 *.pbxuser
