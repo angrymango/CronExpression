@@ -15,7 +15,7 @@ SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build SwiftCron.
+> CocoaPods 1.0.0+ is required to build SwiftCron.
 
 To integrate SwiftCron into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
@@ -76,5 +76,6 @@ let nextRunDate = myCronExpression.getNextRunDate(dateToStartSearchOn)
 
 ## Requirements
 
-- iOS 8.0+
-- Xcode 7.0+
+- iOS 9.0 or greater
+- Xcode 8.0 or greater
+- Swift 3 or greater
