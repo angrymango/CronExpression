@@ -1,7 +1,7 @@
 SwiftCron
 ==============
 
-A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 8.0 and above.
+A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 9.0 and above.
 
 <br/>
 SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://www.prolificidea.com/)**. You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
