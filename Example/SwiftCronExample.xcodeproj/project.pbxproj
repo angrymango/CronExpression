@@ -20,6 +20,7 @@
 		8679D2B51CE1F51F0071D783 /* WeekdayTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8679D2AF1CE1F51F0071D783 /* WeekdayTests.swift */; };
 		8679D2B61CE1F51F0071D783 /* YearTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8679D2B01CE1F51F0071D783 /* YearTests.swift */; };
 		8679D2B81CE1FA760071D783 /* DescriptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8679D2B71CE1FA760071D783 /* DescriptionTests.swift */; };
+		9529D3581DD37D91005ACCE0 /* CronExpressionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9529D3571DD37D91005ACCE0 /* CronExpressionTests.swift */; };
 		959A1B451D944A2700E685B3 /* MonthFieldTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A1B441D944A2700E685B3 /* MonthFieldTests.swift */; };
 		959A1B481D944CE400E685B3 /* DateBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A1B471D944CE400E685B3 /* DateBuilder.swift */; };
 		959A1B4D1D94518B00E685B3 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 959A1B4C1D94518B00E685B3 /* TestData.swift */; };
@@ -59,6 +60,7 @@
 		8679D2B01CE1F51F0071D783 /* YearTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YearTests.swift; sourceTree = "<group>"; };
 		8679D2B71CE1FA760071D783 /* DescriptionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DescriptionTests.swift; sourceTree = "<group>"; };
 		86D78E8B1CF58EEE000CAD8A /* SwiftCron.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftCron.framework; path = "../../../Library/Developer/Xcode/DerivedData/SwiftCronExample-cjweqqzmcjxhcufttvfiyyabbzfi/Build/Products/Debug-iphonesimulator/SwiftCron/SwiftCron.framework"; sourceTree = "<group>"; };
+		9529D3571DD37D91005ACCE0 /* CronExpressionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CronExpressionTests.swift; sourceTree = "<group>"; };
 		959A1B441D944A2700E685B3 /* MonthFieldTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MonthFieldTests.swift; path = "Field Specific Tests/MonthFieldTests.swift"; sourceTree = "<group>"; };
 		959A1B471D944CE400E685B3 /* DateBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DateBuilder.swift; path = "Data Builders/DateBuilder.swift"; sourceTree = "<group>"; };
 		959A1B4C1D94518B00E685B3 /* TestData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 				8679D28B1CE1F4740071D783 /* Info.plist */,
 				8679D2A61CE1F5130071D783 /* SwiftCronExampleTests-Bridging-Header.h */,
 				8679D2B71CE1FA760071D783 /* DescriptionTests.swift */,
+				9529D3571DD37D91005ACCE0 /* CronExpressionTests.swift */,
 			);
 			path = SwiftCronExampleTests;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				8679D2B21CE1F51F0071D783 /* MonthTests.swift in Sources */,
 				8679D2B51CE1F51F0071D783 /* WeekdayTests.swift in Sources */,
 				8679D2B11CE1F51F0071D783 /* MinuteTests.swift in Sources */,
+				9529D3581DD37D91005ACCE0 /* CronExpressionTests.swift in Sources */,
 				8679D2B31CE1F51F0071D783 /* SwiftCronTests.swift in Sources */,
 				8679D2A91CE1F5140071D783 /* DayTests.swift in Sources */,
 				8679D2B61CE1F51F0071D783 /* YearTests.swift in Sources */,

@@ -31,5 +31,14 @@ class YearTests: XCTestCase {
 
 		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAs: nextRunDate!))
 	}
+    
+    func testNextRunDateIsNilWhenDateIsInPast() {
+        let dateToTestFrom = DateBuilder().with(month: 5).with(year: 2015).build()
+        
+        let firstDayOfFirstMonthInPastCron = CronExpression(minute: "0", hour: "0", day: "1", month: "1", year: "2014")
+        let nextRunDate = firstDayOfFirstMonthInPastCron?.getNextRunDate(dateToTestFrom)
+        
+        XCTAssertNil(nextRunDate)
+    }
 
 }

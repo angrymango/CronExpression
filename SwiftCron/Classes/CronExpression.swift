@@ -28,16 +28,16 @@ public class CronExpression
 		{
 			return nil
 		}
-		self.init(cronRepresentaion: cronRepresentation)
+		self.init(cronRepresentation: cronRepresentation)
 	}
 
 	public convenience init?(minute: CronFieldTranslatable = "*", hour: CronFieldTranslatable = "*", day: CronFieldTranslatable = "*", month: CronFieldTranslatable = "*", weekday: CronFieldTranslatable = "*", year: CronFieldTranslatable = "*")
 	{
 		let cronRepresentation = CronRepresentation(minute: minute.cronFieldRepresentation, hour: hour.cronFieldRepresentation, day: day.cronFieldRepresentation, month: month.cronFieldRepresentation, weekday: weekday.cronFieldRepresentation, year: year.cronFieldRepresentation)
-		self.init(cronRepresentaion: cronRepresentation)
+		self.init(cronRepresentation: cronRepresentation)
 	}
 
-	private init?(cronRepresentaion theCronRepresentation: CronRepresentation)
+	private init?(cronRepresentation theCronRepresentation: CronRepresentation)
 	{
 		cronRepresentation = theCronRepresentation
 
@@ -93,11 +93,8 @@ public class CronExpression
 		let calendar = Calendar.current
 		var components = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		components.second = 0
-		guard var nextRun = calendar.date(from: components) else
-		{
-			NSLog("\(#function): could not get a date from components \(components)")
-			return nil
-		}
+        
+		var nextRun = calendar.date(from: components)!
 
 		// MARK: Issue 3: Instantiate enum instances with the right value
 		let allFieldsInExpression: Array<CronField> = [.minute, .hour, .day, .month, .weekday, .year]
@@ -139,7 +136,7 @@ public class CronExpression
 				// Skip this match if needed
 				if (timesToSkip > 0)
 				{
-					let _ = CronField(rawValue: 0)!.getFieldChecker().increment(nextRun, toMatchValue: part)
+					_ = CronField(rawValue: 0)!.getFieldChecker().increment(nextRun, toMatchValue: part)
 					timesToSkip -= 1
 				}
 				continue currentFieldLoop
@@ -167,16 +164,7 @@ public class CronExpression
 		{
 			components.day = day
 		}
-		if let dateFromComponents = Calendar.current.date(from: components)
-		{
-			return date.compare(dateFromComponents) == .orderedAscending
-		}
-		return true
-	}
-
-	func isDue(_ currentTime: Date) -> Bool
-	{
-		NSLog("\(#function): Not implemented from legacy project")
-		return true
+		let dateFromComponents = Calendar.current.date(from: components)!
+        return date.compare(dateFromComponents) == .orderedAscending
 	}
 }

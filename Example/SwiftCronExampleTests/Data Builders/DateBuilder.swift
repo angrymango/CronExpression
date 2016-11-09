@@ -10,8 +10,8 @@ import Foundation
 
 class DateBuilder {
     
-    var month: Int?
-    var year: Int?
+    private var month: Int?
+    private var year: Int?
     
     func build() -> Date {
         let components = DateComponents(calendar: NSCalendar.current, year: year, month: month)

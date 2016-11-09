@@ -38,7 +38,7 @@ class CronDescriptionBuilder
 			case .month:
 				return descriptionWithMonthBiggest(cronRepresentation, length: length)
 			case .weekday:
-				return descriptionWithNoneBiggest(cronRepresentation, length: length)
+				break
 			case .year:
 				return descriptionWithYearBiggest(cronRepresentation, length: length)
 			}
@@ -69,7 +69,7 @@ class CronDescriptionBuilder
 		else
 		{
 			let weekday = DateFormatter.convertStringToDaysOfWeek(cronRepresentation.weekday)
-			return "Every hour at \(minutes) on a \(weekday)"
+			return "Every \(minutes) minutes on a \(weekday)"
 		}
 	}
 

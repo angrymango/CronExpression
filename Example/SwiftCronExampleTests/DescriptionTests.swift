@@ -185,6 +185,18 @@ class DescriptionTests: XCTestCase {
 		XCTAssertEqual(longDesc, expectedDescription)
 	}
 
+    func testEveryWeekdayAtEvery30MinutesOnATuesday()
+    {
+        let cronExpression = CronExpression(minute: "30", weekday:"2")!
+        
+        let description = cronExpression.shortDescription
+        let expectedDescription = "Every 30 minutes on a Tuesday"
+        XCTAssertEqual(description, expectedDescription)
+        
+        let longDesc = cronExpression.longDescription
+        XCTAssertEqual(longDesc, expectedDescription)
+    }
+    
 	// TODO: test all the crazy possible steps permutations
 
 }
