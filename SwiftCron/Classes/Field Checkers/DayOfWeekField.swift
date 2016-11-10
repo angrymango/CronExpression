@@ -11,13 +11,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let valueToSatisfy = value
-
-		if valueToSatisfy == "?"
-		{
-			return true
-		}
-
-		let units: NSCalendar.Unit = [.year, .month, .day, .weekday]
+        let units: NSCalendar.Unit = [.year, .month, .day, .weekday]
 
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)

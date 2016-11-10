@@ -10,11 +10,12 @@ import Foundation
 
 class DateBuilder {
     
+    private var day: Int?
     private var month: Int?
     private var year: Int?
     
     func build() -> Date {
-        let components = DateComponents(calendar: NSCalendar.current, year: year, month: month)
+        let components = DateComponents(calendar: NSCalendar.current, year: year, month: month, day: day)
         return components.date!
     }
     
@@ -25,6 +26,11 @@ class DateBuilder {
     
     func with(month: Int) -> DateBuilder {
         self.month = month
+        return self
+    }
+    
+    func with(day: Int) -> DateBuilder {
+        self.day = day
         return self
     }
     

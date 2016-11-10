@@ -165,6 +165,6 @@ public class CronExpression
 			components.day = day
 		}
 		let dateFromComponents = Calendar.current.date(from: components)!
-        return date.compare(dateFromComponents) == .orderedAscending
+        return date.compare(dateFromComponents) == .orderedAscending || date.compare(dateFromComponents) == .orderedSame
 	}
 }
