@@ -18,54 +18,8 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		}
 	}
 
-	/**
-	 * Get the nearest day of the week for a given day in a month
-	 */
-	func getNearestWeekday(currentYear: Int, currentMonth: Int, targetDay: Int) -> Date?
-	{
-		let calendar = Calendar.current
-		var components = DateComponents()
-		components.day = targetDay
-		components.month = currentMonth
-		components.year = currentYear
-
-		let target = calendar.date(from: components)!
-
-		let weekdayComponents = (calendar as NSCalendar).components([.weekday], from: target)
-		if (weekdayComponents.weekday! < 6)
-		{
-			return target
-		}
-
-		let lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(target)
-		let adjustments = [-1, 1, -2, 2]
-
-		for adjustment in adjustments
-		{
-			let adjusted = targetDay + adjustment
-
-			if adjusted > 0 && adjusted <= lastDayOfMonth
-			{
-				components.day = adjusted
-				let adjustedTarget = calendar.date(from: components)!
-				let adjustedWeekdayComponents = (calendar as NSCalendar).components([.weekday, .month], from: adjustedTarget)
-				if (adjustedWeekdayComponents.weekday! < 6 && adjustedWeekdayComponents.month! == currentMonth)
-				{
-					return adjustedTarget
-				}
-			}
-		}
-
-		return nil
-	}
-
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
-		if value == "?"
-		{
-			return true
-		}
-
 		let calendar = Calendar.current
 		let components = (calendar as NSCalendar).components([.day, .month, .year], from: date)
 
@@ -73,28 +27,8 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		{
 			return components.day == DayOfMonthField.getLastDayOfMonth(date)
 		}
-
-		if (value.contains("W"))
-		{
-			let range: Range<String.Index> = value.range(of: "W")!
-
-			let targetDay = value.substring(with: Range<String.Index>(value.startIndex ..< range.lowerBound))
-			let dayAsInt = Int(targetDay)!
-			if let nearestWeekday = getNearestWeekday(currentYear: components.year!, currentMonth: components.month!, targetDay: dayAsInt)
-			{
-				let nearestWeekdayComponents = (calendar as NSCalendar).components([.day, .month, .year], from: nearestWeekday)
-				return components.day == nearestWeekdayComponents.day
-			}
-			else
-			{
-				return false
-			}
-		}
         
-        guard let day = components.day else {
-            return false
-        }
-        
+        let day = components.day!
 		return self.isSatisfied(String(day), value: value)
 	}
 
