@@ -31,7 +31,7 @@ public class CronExpression
 		self.init(cronRepresentation: cronRepresentation)
 	}
 
-	public convenience init?(minute: CronFieldTranslatable = "*", hour: CronFieldTranslatable = "*", day: CronFieldTranslatable = "*", month: CronFieldTranslatable = "*", weekday: CronFieldTranslatable = "*", year: CronFieldTranslatable = "*")
+	public convenience init?(minute: CronFieldTranslatable = CronRepresentation.DefaultValue, hour: CronFieldTranslatable = CronRepresentation.DefaultValue, day: CronFieldTranslatable = CronRepresentation.DefaultValue, month: CronFieldTranslatable = CronRepresentation.DefaultValue, weekday: CronFieldTranslatable = CronRepresentation.DefaultValue, year: CronFieldTranslatable = CronRepresentation.DefaultValue)
 	{
 		let cronRepresentation = CronRepresentation(minute: minute.cronFieldRepresentation, hour: hour.cronFieldRepresentation, day: day.cronFieldRepresentation, month: month.cronFieldRepresentation, weekday: weekday.cronFieldRepresentation, year: year.cronFieldRepresentation)
 		self.init(cronRepresentation: cronRepresentation)
@@ -110,13 +110,13 @@ public class CronExpression
 				let part = cronRepresentation[cronField.rawValue]
 				let fieldChecker = cronField.getFieldChecker()
 
-				if part.contains(",") == false
+				if part.contains(CronRepresentation.ListIdentifier) == false
 				{
 					satisfied = fieldChecker.isSatisfiedBy(nextRun, value: part)
 				}
 				else
 				{
-					for listPart: String in part.components(separatedBy: ",")
+					for listPart: String in part.components(separatedBy: CronRepresentation.ListIdentifier)
 					{
 						satisfied = fieldChecker.isSatisfiedBy(nextRun, value: listPart)
 						if satisfied

@@ -62,7 +62,7 @@ extension DateFormatter
 	{
 
 		var daysOfWeekArray: Array<String> = []
-		let days = weekdaysString.components(separatedBy: CronRepresentation.listIdentifier)
+		let days = weekdaysString.components(separatedBy: CronRepresentation.ListIdentifier)
 
 		let calendar = Calendar.current
 		let searchDate = Date(timeIntervalSince1970: 0)

@@ -28,7 +28,7 @@ extension Date
 
 		var valueToMatch: Int!
 
-		if value.contains(CronRepresentation.listIdentifier)
+		if value.contains(CronRepresentation.ListIdentifier)
 		{
 			// TODO: issue 13: Match list items
 			return nil

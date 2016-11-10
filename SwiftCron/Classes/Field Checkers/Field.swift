@@ -45,7 +45,7 @@ class Field
 			return isInRange(dateValue, withValue: value)
 		}
 
-		return value == "*" || dateValue == value
+		return value == CronRepresentation.DefaultValue || dateValue == value
 	}
 
 	func isRange(_ value: String) -> Bool
@@ -55,7 +55,7 @@ class Field
 
 	func isIncrementsOfRanges(_ value: String) -> Bool
 	{
-		return value.range(of: "/") != nil
+		return value.range(of: CronRepresentation.StepIdentifier) != nil
 	}
 
 	func isInRange(_ dateValue: String, withValue value: String) -> Bool
@@ -67,8 +67,8 @@ class Field
 
 	func isInIncrementsOfRanges(_ dateValue: String, withValue value: String) -> Bool
 	{
-		let parts = value.components(separatedBy: "/")
-		if parts[0] != "*" && Int(parts[0]) != 0
+		let parts = value.components(separatedBy: CronRepresentation.StepIdentifier)
+		if parts[0] != CronRepresentation.DefaultValue && Int(parts[0]) != 0
 		{
 			guard parts[0].range(of: "-") != nil else
 			{

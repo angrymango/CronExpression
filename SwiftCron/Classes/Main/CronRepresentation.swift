@@ -22,9 +22,9 @@ enum CronField: Int
 public struct CronRepresentation
 {
 	static let NumberOfComponentsInValidString = 6
-	static let defaultValue = "*"
-	static let stepIdentifier = "/"
-	static let listIdentifier = ","
+	static let DefaultValue = "*"
+	static let StepIdentifier = "/"
+	static let ListIdentifier = ","
 
 	var year: String
 	var weekday: String
@@ -35,7 +35,7 @@ public struct CronRepresentation
 
 	var biggestField: CronField?
 	{
-		let defaultValue = CronRepresentation.defaultValue
+		let defaultValue = CronRepresentation.DefaultValue
 
 		if year != defaultValue { return CronField.year }
 		if month != defaultValue { return CronField.month }
@@ -51,7 +51,7 @@ public struct CronRepresentation
 		return cronParts[index]
 	}
 
-	init(minute: String = defaultValue, hour: String = defaultValue, day: String = defaultValue, month: String = defaultValue, weekday: String = defaultValue, year: String = defaultValue)
+	init(minute: String = CronRepresentation.DefaultValue, hour: String = CronRepresentation.DefaultValue, day: String = CronRepresentation.DefaultValue, month: String = CronRepresentation.DefaultValue, weekday: String = CronRepresentation.DefaultValue, year: String = CronRepresentation.DefaultValue)
 	{
 		self.minute = minute
 		self.hour = hour
@@ -78,7 +78,7 @@ public struct CronRepresentation
 	// MARK: Issue 3: pass in enum. Get value out of enum and check if it matches the default value?
 	static func isDefault(_ field: String) -> Bool
 	{
-		return field == CronRepresentation.defaultValue
+		return field == CronRepresentation.DefaultValue
 	}
 
 	public var cronString: String
