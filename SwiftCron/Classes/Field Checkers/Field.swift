@@ -46,12 +46,12 @@ class Field
 
 	func isRange(_ value: String) -> Bool
 	{
-		return value.range(of: "-") != nil
+		return value.range(of: CronRepresentation.RangeIdentifier) != nil
 	}
 
 	func isInRange(_ dateValue: String, withValue value: String) -> Bool
 	{
-		let parts = value.components(separatedBy: "-")
+		let parts = value.components(separatedBy: CronRepresentation.RangeIdentifier)
 
 		return Int(dateValue) >= Int(parts[0]) && Int(dateValue) <= Int(parts[1])
 	}

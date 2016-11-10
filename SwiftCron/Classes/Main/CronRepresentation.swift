@@ -25,6 +25,7 @@ public struct CronRepresentation
 	static let DefaultValue = "*"
 	static let StepIdentifier = "/"
 	static let ListIdentifier = ","
+    static let RangeIdentifier = "-"
 
 	var year: String
 	var weekday: String
