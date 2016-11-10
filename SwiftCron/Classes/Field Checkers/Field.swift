@@ -36,11 +36,7 @@ class Field
 
 	func isSatisfied(_ dateValue: String, value: String) -> Bool
 	{
-		if isIncrementsOfRanges(value)
-		{
-			return isInIncrementsOfRanges(dateValue, withValue: value)
-		}
-		else if isRange(value)
+		if isRange(value)
 		{
 			return isInRange(dateValue, withValue: value)
 		}
@@ -53,40 +49,10 @@ class Field
 		return value.range(of: "-") != nil
 	}
 
-	func isIncrementsOfRanges(_ value: String) -> Bool
-	{
-		return value.range(of: CronRepresentation.StepIdentifier) != nil
-	}
-
 	func isInRange(_ dateValue: String, withValue value: String) -> Bool
 	{
 		let parts = value.components(separatedBy: "-")
 
 		return Int(dateValue) >= Int(parts[0]) && Int(dateValue) <= Int(parts[1])
-	}
-
-	func isInIncrementsOfRanges(_ dateValue: String, withValue value: String) -> Bool
-	{
-		let parts = value.components(separatedBy: CronRepresentation.StepIdentifier)
-		if parts[0] != CronRepresentation.DefaultValue && Int(parts[0]) != 0
-		{
-			guard parts[0].range(of: "-") != nil else
-			{
-				NSLog("Cannot increment a range! \(value)")
-				return false
-			}
-
-			let range = parts[0].components(separatedBy: "-")
-			if Int(dateValue) == Int(range[0])
-			{
-				return true
-			}
-			else if Int(dateValue) < Int(range[0])
-			{
-				return false
-			}
-		}
-
-		return Int(dateValue)! % Int(parts[1])! == 0
 	}
 }
