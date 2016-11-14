@@ -16,50 +16,6 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)
 
-		// Handle # hash tokens
-		if valueToSatisfy.contains("#")
-		{
-			let lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
-			var parts = valueToSatisfy.components(separatedBy: "#")
-			let weekday = Int(parts[0])!
-			let nth = Int(parts[1])!
-
-			guard nth < 5 else
-			{
-				NSLog("Invalid Argument. There are never more than 5 of a given weekday in a month")
-				return false
-			}
-			var tcomponents = (calendar as NSCalendar).components(units, from: date)
-			// The current weekday must match the targeted weekday to proceed
-			if weekdayWithMondayAsFirstDay != weekday
-			{
-				return false
-			}
-
-			tcomponents.day = 1
-			var tdate = calendar.date(from: tcomponents)!
-			var dayCount = 0
-			var currentDay = 1
-			while currentDay < lastDayOfMonth + 1
-			{
-				let ordinalWeekday = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
-				if ordinalWeekday == weekday
-				{
-					dayCount += 1
-					if dayCount >= nth
-					{
-						break
-					}
-				}
-				tcomponents = (calendar as NSCalendar).components(units, from: tdate)
-				currentDay += 1
-				tcomponents.day = currentDay
-				tdate = calendar.date(from: tcomponents)!
-			}
-			tcomponents = (calendar as NSCalendar).components(units, from: date)
-			return tcomponents.day == currentDay
-		}
-
 		if Int(valueToSatisfy) == 0
 		{
 			weekdayWithMondayAsFirstDay = 0
