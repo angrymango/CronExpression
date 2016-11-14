@@ -16,26 +16,6 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)
 
-		let isLastWeekdayOfMonth = valueToSatisfy.contains("L")
-		if isLastWeekdayOfMonth
-		{
-			var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
-			let weekday = valueToSatisfy.substring(to: (valueToSatisfy.range(of: "L")?.lowerBound)!)
-			var tcomponents = (calendar as NSCalendar).components(units, from: date)
-			tcomponents.day = lastDayOfMonth
-			var tdate = calendar.date(from: tcomponents)!
-			var tcomponentsWeekdayWithMondayFirst = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
-
-			while tcomponentsWeekdayWithMondayFirst != Int(weekday) {
-				lastDayOfMonth -= 1
-				tcomponents.day = lastDayOfMonth
-				tdate = calendar.date(from: tcomponents)!
-				tcomponentsWeekdayWithMondayFirst = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: tdate)
-			}
-			let componentsToMatch = (calendar as NSCalendar).components(units, from: date)
-			return componentsToMatch.day == lastDayOfMonth
-		}
-
 		// Handle # hash tokens
 		if valueToSatisfy.contains("#")
 		{

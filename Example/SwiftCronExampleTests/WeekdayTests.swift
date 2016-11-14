@@ -49,15 +49,4 @@ class WeekdayTests: XCTestCase {
 		let nextRunDateFromWednesday = everyWeekdayCron?.getNextRunDate(wednesday)
 		XCTAssertTrue(calendar.isDate(thursday, inSameDayAs: nextRunDateFromWednesday!))
 	}
-    
-    func testGetNextDateForL() {
-        let dateToTestFrom = TestData.july11_2016
-        let cronExpression = CronExpression(minute: "0", hour: "0", day: "1", weekday: "3L")!
-        
-        let lastWednesdayOfMonth = TestData.july27_2016
-        let nextRunDate = cronExpression.getNextRunDate(dateToTestFrom)!
-        
-        XCTAssertTrue(Calendar.current.isDate(lastWednesdayOfMonth, inSameDayAs: nextRunDate))
-    }
-
 }
