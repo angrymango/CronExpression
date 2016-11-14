@@ -16,8 +16,8 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
 		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)
 
-		// Find out if this is the last specific weekday of the month
-		if valueToSatisfy.contains("L")
+		let isLastWeekdayOfMonth = valueToSatisfy.contains("L")
+		if isLastWeekdayOfMonth
 		{
 			var lastDayOfMonth = DayOfMonthField.getLastDayOfMonth(date)
 			let weekday = valueToSatisfy.substring(to: (valueToSatisfy.range(of: "L")?.lowerBound)!)

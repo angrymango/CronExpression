@@ -159,10 +159,18 @@ public class CronExpression
 		if let month = Int(cronRepresentation.month)
 		{
 			components.month = month
+            
+            if month < 1 {
+                return false
+            }
 		}
 		if let day = Int(cronRepresentation.day)
 		{
 			components.day = day
+            
+            if day < 1 {
+                return false
+            }
 		}
 		let dateFromComponents = Calendar.current.date(from: components)!
         return date.compare(dateFromComponents) == .orderedAscending || date.compare(dateFromComponents) == .orderedSame

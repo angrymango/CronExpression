@@ -52,11 +52,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-\\?LW0-9A-Za-z]+", options: .caseInsensitive) else
-		{
-			NSLog("\(#function): Couldn't create regex.")
-			return false
-		}
+		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-\\?LW0-9A-Za-z]+", options: .caseInsensitive)
 
 		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
