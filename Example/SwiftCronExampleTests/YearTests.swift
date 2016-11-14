@@ -32,10 +32,27 @@ class YearTests: XCTestCase {
 		XCTAssertTrue(calendar.isDate(TestData.jan1_2017, inSameDayAs: nextRunDate!))
 	}
     
+    func testEveryThursdayIn2018RunsIn2018() {
+        let thursdaysIn2018Cron = CronExpression(minute: "0", hour: "0", weekday: "4", year: "2018")!
+        let dateToTestFrom = TestData.may15_2016
+        let firstThursdayIn2018 = DateBuilder().with(day: 4).with(month: 1).with(year: 2018).build()
+        let nextRunDate = thursdaysIn2018Cron.getNextRunDate(dateToTestFrom)!
+        XCTAssertTrue(Calendar.current.isDate(firstThursdayIn2018, inSameDayAs: nextRunDate))
+    }
+    
     func testNextRunDateIsNilWhenDateIsInPast() {
         let dateToTestFrom = DateBuilder().with(month: 5).with(year: 2015).build()
         
         let firstDayOfFirstMonthInPastCron = CronExpression(minute: "0", hour: "0", day: "1", month: "1", year: "2014")
+        let nextRunDate = firstDayOfFirstMonthInPastCron?.getNextRunDate(dateToTestFrom)
+        
+        XCTAssertNil(nextRunDate)
+    }
+    
+    func testNextRunDateIsNilWhenDateIsNotInReasonableFuture() {
+        let dateToTestFrom = DateBuilder().with(month: 5).with(year: 2015).build()
+        
+        let firstDayOfFirstMonthInPastCron = CronExpression(minute: "0", hour: "0", day: "1", month: "1", year: "999999")
         let nextRunDate = firstDayOfFirstMonthInPastCron?.getNextRunDate(dateToTestFrom)
         
         XCTAssertNil(nextRunDate)

@@ -31,12 +31,7 @@ class YearField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: []) else
-		{
-			NSLog("\(#function): Could not create regex")
-			return false
-		}
+		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: [])
 
 		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
 	}
