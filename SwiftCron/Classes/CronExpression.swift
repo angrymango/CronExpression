@@ -164,14 +164,14 @@ public class CronExpression
                 return false
             }
 		}
-		if let day = Int(cronRepresentation.day)
-		{
+		let day = Int(cronRepresentation.day) ?? Calendar.current.date(from: components)!.getLastDayOfMonth()
+		//{
 			components.day = day
             
             if day < 1 {
                 return false
             }
-		}
+		//}
 		let dateFromComponents = Calendar.current.date(from: components)!
         return date.compare(dateFromComponents) == .orderedAscending || date.compare(dateFromComponents) == .orderedSame
 	}

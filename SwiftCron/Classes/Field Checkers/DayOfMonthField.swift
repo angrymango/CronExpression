@@ -2,22 +2,6 @@ import Foundation
 
 class DayOfMonthField: Field, FieldCheckerInterface
 {
-	static func getLastDayOfMonth(_ date: Date) -> Int
-	{
-		let calendar = Calendar.current
-		let components = (calendar as NSCalendar).components([.month], from: date)
-        
-		switch components.month! {
-		case 1, 3, 5, 7, 8, 10, 12:
-			return 31
-		case 2:
-			let range = (calendar as NSCalendar).range(of: .day, in: .month, for: calendar.date(from: components)!)
-			return range.length
-		default:
-			return 30
-		}
-	}
-
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let calendar = Calendar.current
@@ -25,7 +9,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 
 		if (value == "L")
 		{
-			return components.day == DayOfMonthField.getLastDayOfMonth(date)
+			return components.day == date.getLastDayOfMonth()
 		}
         
         let day = components.day!
@@ -46,7 +30,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		midnightComponents.second = 0
 
 		var components = DateComponents()
-		components.day = 1;
+		components.day = 1
 		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
 	}
 

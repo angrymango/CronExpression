@@ -35,5 +35,36 @@ class HourTests: XCTestCase {
 
 		XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate!, equalTo: expectedDate!, toUnitGranularity: .hour))
 	}
+    
+    func testEverySecondAndEveryFourthHourOfDay() {
+        let dateToTestFrom = TestData.may15_2016
+        
+        let everySecondAndFourthHourOfDayCron = CronExpression(minute: "0", hour: "2,4")!
+        
+        let calendar = Calendar.current
+        var components = (calendar as NSCalendar).components([.day, .year, .month, .hour], from: dateToTestFrom)
+        components.hour! += 2
+        let expectedNextRunDate = calendar.date(from: components)!
+        var nextRunDate = everySecondAndFourthHourOfDayCron.getNextRunDate(dateToTestFrom)!
+        XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate, equalTo: expectedNextRunDate, toUnitGranularity: .hour))
+        
+        components.hour! += 2
+        let expectedFollowingRunDate = calendar.date(from: components)!
+        nextRunDate = everySecondAndFourthHourOfDayCron.getNextRunDate(addMinuteTo(date: nextRunDate))!
+        XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate, equalTo: expectedFollowingRunDate, toUnitGranularity: .hour))
+        
+        components.hour! = 2
+        components.day! += 1
+        let expectedFinalRunDate = calendar.date(from: components)!
+        nextRunDate = everySecondAndFourthHourOfDayCron.getNextRunDate(addMinuteTo(date: nextRunDate))!
+        XCTAssertTrue((calendar as NSCalendar).isDate(nextRunDate, equalTo: expectedFinalRunDate, toUnitGranularity: .hour))
+    }
+    
+    func addMinuteTo(date: Date) -> Date {
+        let calendar = Calendar.current
+        var components = (calendar as NSCalendar).components([.day, .year, .month, .hour, .minute], from: date)
+        components.minute! += 1
+        return calendar.date(from: components)!
+    }
 
 }

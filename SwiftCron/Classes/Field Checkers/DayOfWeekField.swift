@@ -24,11 +24,6 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		return self.isSatisfied(String(format: "%d", weekdayWithMondayAsFirstDay), value: valueToSatisfy)
 	}
 
-	private func isSunday(_ components: DateComponents) -> Bool
-	{
-		return components.weekday == 1
-	}
-
 	func increment(_ date: Date, toMatchValue: String) -> Date
 	{
 		let calendar = Calendar.current
@@ -37,8 +32,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		if let toMatchInt = Int(toMatchValue)
 		{
 			let converted = Date.convertWeekdayWithMondayFirstToSundayFirst(toMatchInt)
-			if let nextDate = date.nextDate(matchingUnit: .weekday, value: String(converted))
-			{
+			if let nextDate = date.nextDate(matchingUnit: .weekday, value: String(converted)) {
 				return nextDate
 			}
 		}

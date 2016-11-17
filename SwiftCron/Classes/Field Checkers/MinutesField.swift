@@ -8,9 +8,7 @@ class MinutesField: Field, FieldCheckerInterface
 		let calendar = Calendar.current
 		let components = (calendar as NSCalendar).components([.minute], from: date)
 
-        guard let minute = components.minute else {
-            return false
-        }
+        guard let minute = components.minute else { return false }
         
 		return self.isSatisfied(String(format: "%d", minute), value: value)
 	}

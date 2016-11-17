@@ -7,9 +7,7 @@ class HoursField: Field, FieldCheckerInterface
 	{
 		let calendar = Calendar.current
 		let components = (calendar as NSCalendar).components([.hour], from: date)
-        guard let hour = components.hour else {
-            return false
-        }
+        guard let hour = components.hour else { return false }
         
 		return isSatisfied(String(format: "%d", hour), value: value)
 	}
@@ -23,18 +21,14 @@ class HoursField: Field, FieldCheckerInterface
 
 		let calendar = Calendar.current
 		var components = DateComponents()
-		components.hour = 1;
+		components.hour = 1
 		return (calendar as NSCalendar).date(byAdding: components, to: date, options: [])!
 	}
 
 	func validate(_ value: String) -> Bool
 	{
-		guard let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .caseInsensitive) else
-		{
-			NSLog("\(#function): Cannot create regular expression")
-			return false
-		}
-
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+        if let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .caseInsensitive) {
+            return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+        } else { return false }
 	}
 }
