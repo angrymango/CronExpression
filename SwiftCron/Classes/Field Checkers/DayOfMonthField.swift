@@ -2,13 +2,11 @@ import Foundation
 
 class DayOfMonthField: Field, FieldCheckerInterface
 {
-	func isSatisfiedBy(_ date: Date, value: String) -> Bool
-	{
+	func isSatisfiedBy(_ date: Date, value: String) -> Bool {
 		let calendar = Calendar.current
 		let components = (calendar as NSCalendar).components([.day, .month, .year], from: date)
 
-		if (value == "L")
-		{
+		if (value == "L") {
 			return components.day == date.getLastDayOfMonth()
 		}
         
