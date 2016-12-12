@@ -21,7 +21,9 @@ extension Int
 	private static let ordinalNumberFormatter: NumberFormatter =
 		{
 			let formatter = NumberFormatter()
-			formatter.numberStyle = .ordinal
+			if #available(iOS 9, OSX 10.11, *) {
+				formatter.numberStyle = .ordinal
+			}
 			return formatter
 	}()
 
