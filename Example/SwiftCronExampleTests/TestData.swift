@@ -17,11 +17,11 @@ class TestData
     static let june30_2016 = DateBuilder().with(year: 2016).with(month: 6).with(day: 30).build()
     static let july11_2016 = DateBuilder().with(year: 2016).with(month: 7).with(day: 11).build()
     static let july27_2016 = DateBuilder().with(year: 2016).with(month: 7).with(day: 27).build()
-	static let may11 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 05, day: 11, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let may12 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 05, day: 12, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let may14 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 05, day: 14, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let may16 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 05, day: 16, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let june1 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 06, day: 1, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let june8 = (Calendar.current as NSCalendar).date(era: 1, year: 2016, month: 06, day: 8, hour: 0, minute: 0, second: 0, nanosecond: 0)!
-	static let jan1_2017 = (Calendar.current as NSCalendar).date(era: 1, year: 2017, month: 01, day: 1, hour: 0, minute: 0, second: 0, nanosecond: 0)!
+    static let may11 = DateBuilder().with(year: 2016).with(month: 5).with(day: 11).build()
+    static let may12 = DateBuilder().with(year: 2016).with(month: 5).with(day: 12).build()
+    static let may14 = DateBuilder().with(year: 2016).with(month: 5).with(day: 14).build()
+    static let may16 = DateBuilder().with(year: 2016).with(month: 5).with(day: 16).build()
+    static let june1 = DateBuilder().with(year: 2016).with(month: 6).with(day: 1).build()
+    static let june8 = DateBuilder().with(year: 2016).with(month: 6).with(day: 8).build()
+    static let jan1_2017 = DateBuilder().with(year: 2017).with(month: 1).with(day: 1).build()
 }

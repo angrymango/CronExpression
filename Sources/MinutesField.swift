@@ -24,7 +24,7 @@ class MinutesField: Field, FieldCheckerInterface
 		var components = DateComponents()
 		components.minute = 1;
 
-		return (calendar as NSCalendar).date(byAdding: components, to: date, options: [])!
+		return calendar.date(byAdding: components, to: date)!
 	}
 
 	func validate(_ value: String) -> Bool

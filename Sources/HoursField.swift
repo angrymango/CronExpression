@@ -22,7 +22,7 @@ class HoursField: Field, FieldCheckerInterface
 		let calendar = Calendar.current
 		var components = DateComponents()
 		components.hour = 1
-		return (calendar as NSCalendar).date(byAdding: components, to: date, options: [])!
+        return calendar.date(byAdding: components, to: date)!
 	}
 
 	func validate(_ value: String) -> Bool

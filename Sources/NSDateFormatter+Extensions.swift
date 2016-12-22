@@ -75,7 +75,7 @@ extension DateFormatter
 
 			assert(dayNumber >= 1 && dayNumber <= 7, "Day does not fit in week")
 			components.weekday = dayNumber
-			let date = (calendar as NSCalendar).nextDate(after: searchDate, matching: components, options: .matchStrictly)!
+            let date = calendar.nextDate(after: searchDate, matching: components, matchingPolicy: .strict)!
 			let dayString = DateFormatter.weekdayFormatter.string(from: date)
 			if (days.contains(dayString) == false)
 			{

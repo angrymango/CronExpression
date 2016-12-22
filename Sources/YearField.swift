@@ -26,7 +26,7 @@ class YearField: Field, FieldCheckerInterface
 		var components = DateComponents()
 		components.year = 1;
 
-		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
+		return calendar.date(byAdding: components, to: calendar.date(from: midnightComponents)!)!
 	}
 
 	func validate(_ value: String) -> Bool

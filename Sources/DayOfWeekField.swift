@@ -13,7 +13,8 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let valueToSatisfy = value
 
 		let calendar = DayOfWeekField.currentCalendarWithMondayAsFirstDay
-		var weekdayWithMondayAsFirstDay = (calendar as NSCalendar).ordinality(of: .weekday, in: .weekOfYear, for: date)
+        var weekdayWithMondayAsFirstDay = calendar.ordinality(of: .weekday, in: .weekOfYear, for: date)!
+
 
 		if Int(valueToSatisfy) == 0
 		{
@@ -39,7 +40,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 		let midnightComponents = calendar.dateComponents([.day, .month, .year], from: date)
 		var components = DateComponents()
 		components.day = 1
-		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
+        return calendar.date(byAdding: components, to: calendar.date(from: midnightComponents)!)!
 	}
 
 	func validate(_ value: String) -> Bool

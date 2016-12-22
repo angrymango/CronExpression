@@ -29,7 +29,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 
 		var components = DateComponents()
 		components.day = 1
-		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
+        return calendar.date(byAdding: components, to: calendar.date(from: midnightComponents)!)!
 	}
 
 	func validate(_ value: String) -> Bool

@@ -44,7 +44,7 @@ class WeekdayTests: XCTestCase {
 
 		var wednesday = TestData.may11
 		// Add a minute to ensure we're not at midnight to prevent a match for wednesday
-		wednesday = (calendar as NSCalendar).date(byAdding: .minute, value: 1, to: wednesday, options: [])!
+        wednesday = calendar.date(byAdding: .minute, value: 1, to: wednesday)!
 		let thursday = TestData.may12
 		let nextRunDateFromWednesday = everyWeekdayCron?.getNextRunDate(wednesday)
 		XCTAssertTrue(calendar.isDate(thursday, inSameDayAs: nextRunDateFromWednesday!))

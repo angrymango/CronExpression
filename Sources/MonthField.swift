@@ -5,8 +5,7 @@ class MonthField: Field, FieldCheckerInterface
 
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
-		let calendar = Calendar.current
-		let month = (calendar as NSCalendar).component(.month, from: date)
+		let month = Calendar.current.component(.month, from: date)
 		return isSatisfied(String(month), value: value)
 	}
 
@@ -23,7 +22,7 @@ class MonthField: Field, FieldCheckerInterface
 		var components = DateComponents()
 		components.month = 1;
 
-		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
+        return calendar.date(byAdding: components, to: calendar.date(from: midnightComponents)!)!
 	}
 
 	func validate(_ value: String) -> Bool

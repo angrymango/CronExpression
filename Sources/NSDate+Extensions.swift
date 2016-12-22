@@ -49,7 +49,7 @@ extension Date
 		case NSCalendar.Unit.era:
 			components.era = valueToMatch
 		case NSCalendar.Unit.year:
-			if (calendar as NSCalendar).component(.year, from: self) >= valueToMatch
+			if calendar.component(.year, from: self) >= valueToMatch
 			{
 				return nil
 			}
@@ -83,7 +83,7 @@ extension Date
 			return nil
 		}
 
-		return (calendar as NSCalendar).nextDate(after: self, matching: components, options: .matchStrictly)
+        return calendar.nextDate(after: self, matching: components, matchingPolicy: .strict)
 	}
     
     func getLastDayOfMonth() -> Int {
@@ -94,8 +94,8 @@ extension Date
         case 1, 3, 5, 7, 8, 10, 12:
             return 31
         case 2:
-            let range = (calendar as NSCalendar).range(of: .day, in: .month, for: calendar.date(from: components)!)
-            return range.length
+            let range = calendar.range(of: .day, in: .month, for: calendar.date(from: components)!)!
+            return range.upperBound - range.lowerBound
         default:
             return 30
         }

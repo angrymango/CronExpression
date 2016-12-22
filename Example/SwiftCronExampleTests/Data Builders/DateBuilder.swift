@@ -15,7 +15,7 @@ class DateBuilder {
     private var year: Int?
     
     func build() -> Date {
-        let components = DateComponents(calendar: NSCalendar.current, year: year, month: month, day: day)
+        let components = DateComponents(calendar: Calendar.current, year: year, month: month, day: day)
         return components.date!
     }
     
