@@ -32,20 +32,39 @@ class DescriptionTests: XCTestCase {
 		let longDescription = cronExpression.longDescription
 		XCTAssertEqual(longDescription, expectedDescription)
 	}
-
-	// 30 * * * * *
-	func testDescriptionOfEvery30Minutes()
-	{
-		let cronExpression = CronExpression(minute: "30")!
-
-		let description = cronExpression.shortDescription
-		let expectedDescription = "Every hour at 30 minutes"
-		XCTAssertEqual(description, expectedDescription)
-
-		let longDescription = cronExpression.longDescription
-		let expectedLongDescription = "Every hour at 30 minutes"
-		XCTAssertEqual(longDescription, expectedLongDescription)
-	}
+    
+//    func testDescriptionOfEveryMinuteIn2017() {
+//        let cronExpression = CronExpression(cronString: "* * * * * 2017")!
+//        
+//        let description = cronExpression.shortDescription
+//        let expectedDescription = "Every minute"
+//        XCTAssertEqual(description, expectedDescription)
+//        
+//        let longDescription = cronExpression.longDescription
+//        XCTAssertEqual(longDescription, expectedDescription)
+//    }
+//
+//    func testDescriptionOfEveryMinuteIn2017a() {
+//        let cronExpression = CronExpression(cronString: "* 2 * * * 2017")!
+//        
+//        let description = cronExpression.shortDescription
+//        let expectedDescription = "Every minute"
+//        XCTAssertEqual(description, expectedDescription)
+//        
+//        let longDescription = cronExpression.longDescription
+//        XCTAssertEqual(longDescription, expectedDescription)
+//    }
+//    
+//    func testDescriptionOfEveryMinuteIn2017b() {
+//        let cronExpression = CronExpression(cronString: "2 * * * * 2017")!
+//        
+//        let description = cronExpression.shortDescription
+//        let expectedDescription = "Every minute"
+//        XCTAssertEqual(description, expectedDescription)
+//        
+//        let longDescription = cronExpression.longDescription
+//        XCTAssertEqual(longDescription, expectedDescription)
+//    }
 
 	// 0 12 * * * *
 	func testDescriptionOfEveryDayAtMidday()

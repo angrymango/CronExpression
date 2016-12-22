@@ -33,10 +33,10 @@ extension DateFormatter
 
 	static func timeStringWithHour(_ hour: String, minute: String) -> String
 	{
-		let theHour = Int(hour)!
-		let theMinute = Int(minute)!
-		assert(theMinute < 60 && theMinute > -1)
-		assert(theHour > -1 && theHour < 25)
+		let theHour = Int(hour)
+		let theMinute = Int(minute)
+//		assert(theMinute < 60 && theMinute > -1)
+//		assert(theHour > -1 && theHour < 25)
 
 		let calendar = Calendar.current
 		var components = DateComponents()

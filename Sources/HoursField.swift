@@ -6,7 +6,7 @@ class HoursField: Field, FieldCheckerInterface
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let calendar = Calendar.current
-		let components = (calendar as NSCalendar).components([.hour], from: date)
+		let components = calendar.dateComponents([.hour], from: date)
         guard let hour = components.hour else { return false }
         
 		return isSatisfied(String(format: "%d", hour), value: value)
@@ -27,8 +27,6 @@ class HoursField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-        if let regex = try? NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: .caseInsensitive) {
-            return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
-        } else { return false }
+        return StringValidator.isNumber(value)
 	}
 }

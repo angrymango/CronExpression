@@ -6,7 +6,7 @@ class MinutesField: Field, FieldCheckerInterface
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let calendar = Calendar.current
-		let components = (calendar as NSCalendar).components([.minute], from: date)
+		let components = calendar.dateComponents([.minute], from: date)
 
         guard let minute = components.minute else { return false }
         
@@ -29,8 +29,6 @@ class MinutesField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: [])
-
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return StringValidator.isNumber(value)
 	}
 }

@@ -4,7 +4,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 {
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool {
 		let calendar = Calendar.current
-		let components = (calendar as NSCalendar).components([.day, .month, .year], from: date)
+		let components = calendar.dateComponents([.day, .month, .year], from: date)
 
 		if (value == "L") {
 			return components.day == date.getLastDayOfMonth()
@@ -22,7 +22,7 @@ class DayOfMonthField: Field, FieldCheckerInterface
 		}
 
 		let calendar = Calendar.current
-		var midnightComponents = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .weekday], from: date)
+		var midnightComponents = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		midnightComponents.hour = 0
 		midnightComponents.minute = 0
 		midnightComponents.second = 0
@@ -34,8 +34,6 @@ class DayOfMonthField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-\\?LW0-9A-Za-z]+", options: .caseInsensitive)
-
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return StringValidator.isAlphanumeric(value)
 	}
 }

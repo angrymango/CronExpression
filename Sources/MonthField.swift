@@ -18,7 +18,7 @@ class MonthField: Field, FieldCheckerInterface
 		}
 
 		let calendar = Calendar.current
-		let midnightComponents = (calendar as NSCalendar).components([.day, .month, .year], from: date)
+		let midnightComponents = calendar.dateComponents([.day, .month, .year], from: date)
 
 		var components = DateComponents()
 		components.month = 1;
@@ -28,7 +28,6 @@ class MonthField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-        let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: [])
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+        return StringValidator.isUpperCaseOrNumber(value)
 	}
 }

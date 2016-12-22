@@ -36,7 +36,7 @@ class DayOfWeekField: Field, FieldCheckerInterface
 			}
 		}
 
-		let midnightComponents = (calendar as NSCalendar).components([.day, .month, .year], from: date)
+		let midnightComponents = calendar.dateComponents([.day, .month, .year], from: date)
 		var components = DateComponents()
 		components.day = 1
 		return (calendar as NSCalendar).date(byAdding: components, to: calendar.date(from: midnightComponents)!, options: [])!
@@ -44,8 +44,6 @@ class DayOfWeekField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9A-Z]+", options: .caseInsensitive)
-
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return StringValidator.isUpperCaseOrNumber(value)
 	}
 }

@@ -91,7 +91,7 @@ public class CronExpression
 
 		var timesToSkip = skip
 		let calendar = Calendar.current
-		var components = (calendar as NSCalendar).components([.year, .month, .day, .hour, .minute, .weekday], from: date)
+		var components = calendar.dateComponents([.year, .month, .day, .hour, .minute, .weekday], from: date)
 		components.second = 0
         
 		var nextRun = calendar.date(from: components)!

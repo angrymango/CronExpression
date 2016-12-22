@@ -88,7 +88,7 @@ extension Date
     
     func getLastDayOfMonth() -> Int {
         let calendar = Calendar.current
-        let components = (calendar as NSCalendar).components([.month], from: self)
+        let components = calendar.dateComponents([.month], from: self)
         
         switch components.month! {
         case 1, 3, 5, 7, 8, 10, 12:

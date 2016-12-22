@@ -6,7 +6,7 @@ class YearField: Field, FieldCheckerInterface
 	func isSatisfiedBy(_ date: Date, value: String) -> Bool
 	{
 		let calendar = Calendar.current
-		let components = (calendar as NSCalendar).components([.year], from: date)
+		let components = calendar.dateComponents([.year], from: date)
         
         guard let year = components.year else { return false }
         
@@ -21,7 +21,7 @@ class YearField: Field, FieldCheckerInterface
 		}
 
 		let calendar = Calendar.current
-		let midnightComponents = (calendar as NSCalendar).components([.day, .month, .year], from: date)
+		let midnightComponents = calendar.dateComponents([.day, .month, .year], from: date)
 
 		var components = DateComponents()
 		components.year = 1;
@@ -31,8 +31,6 @@ class YearField: Field, FieldCheckerInterface
 
 	func validate(_ value: String) -> Bool
 	{
-		let regex = try! NSRegularExpression(pattern: "[\\*,\\/\\-0-9]+", options: [])
-
-		return regex.numberOfMatches(in: value, options: [], range: NSMakeRange(0, value.characters.count)) > 0
+		return StringValidator.isNumber(value)
 	}
 }

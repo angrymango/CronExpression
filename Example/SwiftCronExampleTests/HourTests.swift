@@ -26,7 +26,7 @@ class HourTests: XCTestCase {
 
 		let dateToTestFrom = TestData.may11
 
-		var components = (calendar as NSCalendar).components([.day, .year, .month, .hour], from: dateToTestFrom)
+		var components = calendar.dateComponents([.day, .year, .month, .hour], from: dateToTestFrom)
 		components.hour = 11
 		let expectedDate = calendar.date(from: components)
 
@@ -42,7 +42,7 @@ class HourTests: XCTestCase {
         let everySecondAndFourthHourOfDayCron = CronExpression(minute: "0", hour: "2,4")!
         
         let calendar = Calendar.current
-        var components = (calendar as NSCalendar).components([.day, .year, .month, .hour], from: dateToTestFrom)
+        var components = calendar.dateComponents([.day, .year, .month, .hour], from: dateToTestFrom)
         components.hour! += 2
         let expectedNextRunDate = calendar.date(from: components)!
         var nextRunDate = everySecondAndFourthHourOfDayCron.getNextRunDate(dateToTestFrom)!
@@ -62,7 +62,7 @@ class HourTests: XCTestCase {
     
     func addMinuteTo(date: Date) -> Date {
         let calendar = Calendar.current
-        var components = (calendar as NSCalendar).components([.day, .year, .month, .hour, .minute], from: date)
+        var components = calendar.dateComponents([.day, .year, .month, .hour, .minute], from: date)
         components.minute! += 1
         return calendar.date(from: components)!
     }
