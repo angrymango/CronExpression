@@ -1,6 +1,6 @@
 SwiftCron
 ==============
-[![Build Status](https://travis-ci.org/Rush42/SwiftCron.svg?branch=master)](https://travis-ci.org/Rush42/SwiftCron) [![codecov](https://codecov.io/gh/Rush42/SwiftCron/branch/master/graph/badge.svg)](https://codecov.io/gh/Rush42/SwiftCron) [![CocoaPod Version](https://img.shields.io/cocoapods/v/SwiftCron.svg)](http://cocoapods.org/pods/SwiftCron)
+[![Build Status](https://travis-ci.org/TheCodedSelf/SwiftCron.svg?branch=master)](https://travis-ci.org/TheCodedSelf/SwiftCron) [![codecov](https://codecov.io/gh/TheCodedSelf/SwiftCron/branch/master/graph/badge.svg)](https://codecov.io/gh/TheCodedSelf/SwiftCron) [![CocoaPod Version](https://img.shields.io/cocoapods/v/SwiftCron.svg)](http://cocoapods.org/pods/SwiftCron)
 
 A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 9.0 and above.
 
