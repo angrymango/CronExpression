@@ -10,15 +10,7 @@ SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://
 ## Installation
 ### CocoaPods
 
-[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
-
-```bash
-$ gem install cocoapods
-```
-
-> CocoaPods 1.0.0+ is required to build SwiftCron.
-
-To integrate SwiftCron into your Xcode project using CocoaPods, specify it in your `Podfile`:
+`Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -28,10 +20,18 @@ use_frameworks!
 pod 'SwiftCron'
 ```
 
-Then, run the following command:
+### Carthage
 
-```bash
-$ pod install
+`Cartfile`:
+
+github "thecodedself/swiftcron" >= 0.4.5
+
+### Swift Package Manager
+
+Add this to your dependencies array in `Package.swift`:
+
+```
+.Package(url: "https://github.com/TheCodedSelf/SwiftCron.git", majorVersion: 0)
 ```
 
 How to
