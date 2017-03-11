@@ -24,11 +24,13 @@ pod 'SwiftCron'
 
 `Cartfile`:
 
+```
 github "thecodedself/swiftcron" >= 0.4.5
+```
 
 ### Swift Package Manager
 
-Add this to your dependencies array in `Package.swift`:
+`Package.swift`:
 
 ```
 .Package(url: "https://github.com/TheCodedSelf/SwiftCron.git", majorVersion: 0)
