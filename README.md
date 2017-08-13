@@ -54,7 +54,9 @@ let everyTuesday = CronExpression(minute: "0", hour: "18", weekday: "3")
 ```
 
 <br/>
-#### Manually create an expression
+
+##### Manually create an expression
+
 If you'd like to manually write the expression yourself, The cron format is as follows:
 
 > \* \* \* \* \* \*
@@ -68,7 +70,9 @@ let every11May = CronExpression(cronString: "0 0 11 5 * *")
 ```
 
 <br/>
-#### Get the next run date
+
+##### Get the next run date
+
 Once you have your CronExpression, you can get the next time the cron will run. Call the getNextRunDate(_:) method and pass in the date to begin the search on.
 
 ```swift
