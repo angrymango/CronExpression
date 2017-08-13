@@ -5,12 +5,12 @@ SwiftCron
 A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 9.0 and above.
 
 <br/>
-SwiftCron was built for use in an upcoming project for **[Prolific Idea](http://www.prolificidea.com/)**. You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
+SwiftCron was built for use in an upcoming project for [Prolific Idea](http://www.prolificidea.com/). You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
 
 ## Installation
 ### CocoaPods
 
-`Podfile`:
+Podfile:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
@@ -22,7 +22,7 @@ pod 'SwiftCron'
 
 ### Carthage
 
-`Cartfile`:
+Cartfile:
 
 ```
 github "thecodedself/swiftcron" >= 0.4.5
@@ -54,21 +54,23 @@ let everyTuesday = CronExpression(minute: "0", hour: "18", weekday: "3")
 ```
 
 <br/>
-##### Manually create an expression
+#### Manually create an expression
 If you'd like to manually write the expression yourself, The cron format is as follows:
 
 > \* \* \* \* \* \*
 <br/>(Minute) (Hour) (Day) (Month) (Weekday) (Year)
 
 Initialize an instance of CronExpression with a string specifying the format.
+
 ```swift
 // Every 11th May at midnight
 let every11May = CronExpression(cronString: "0 0 11 5 * *")
 ```
 
 <br/>
-##### Get the next run date
+#### Get the next run date
 Once you have your CronExpression, you can get the next time the cron will run. Call the getNextRunDate(_:) method and pass in the date to begin the search on.
+
 ```swift
 // Every Friday 13th at midday
 let myCronExpression = CronExpression(minute: "0", hour: "12", day: "13", weekday: "5")
