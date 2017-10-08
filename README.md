@@ -6,8 +6,6 @@ A cron expression parser that can take a cron string and give you the next run d
 
 <br/>
 
-SwiftCron was built for use in an upcoming project for [Prolific Idea](http://www.prolificidea.com/). You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
-
 ## Installation
 ### CocoaPods
 
