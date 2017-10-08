@@ -2,9 +2,10 @@ SwiftCron
 ==============
 [![Build Status](https://travis-ci.org/TheCodedSelf/SwiftCron.svg?branch=master)](https://travis-ci.org/TheCodedSelf/SwiftCron) [![codecov](https://codecov.io/gh/TheCodedSelf/SwiftCron/branch/master/graph/badge.svg)](https://codecov.io/gh/TheCodedSelf/SwiftCron) [![CocoaPod Version](https://img.shields.io/cocoapods/v/SwiftCron.svg)](http://cocoapods.org/pods/SwiftCron)
 
-A cron expression parser that can take a cron string and give you the next run date and time specified in the string. SwiftCron can be used on iOS 9.0 and above.
+A cron expression parser that can take a cron string and give you the next run date and time specified in the string.
 
 <br/>
+
 SwiftCron was built for use in an upcoming project for [Prolific Idea](http://www.prolificidea.com/). You can find them on [Github](https://github.com/prolific-idea), [Twitter](https://twitter.com/prolificidea), or their [website](http://www.prolificidea.com/).
 
 ## Installation
@@ -30,13 +31,13 @@ github "thecodedself/swiftcron" >= 0.4.5
 
 ### Swift Package Manager
 
-`Package.swift`:
+Package.swift:
 
 ```
 .Package(url: "https://github.com/TheCodedSelf/SwiftCron.git", majorVersion: 0)
 ```
 
-How to
+Usage
 --------
 ##### Create a Cron Expression
 Creating a cron expression is easy. Just invoke the initializer with the fields you want.
@@ -82,6 +83,11 @@ let myCronExpression = CronExpression(minute: "0", hour: "12", day: "13", weekda
 let dateToStartSearchOn = NSDate()
 let nextRunDate = myCronExpression.getNextRunDate(dateToStartSearchOn)
 ```
+
+## Contributing
+
+- Pull requests for bug fixes and new features are most welcome.
+- Pull requests will only be merged once the Travis CI build passes.
 
 ## Requirements
 
