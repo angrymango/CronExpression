@@ -1,8 +1,13 @@
 .DS_Store
 *.swp
 *~.nib
-
+*/Pods/**
+Pods/**
+Example/Pods/**
+Example/Podfile.lock
+Example/.idea
 build/
+.build/
 
 *.pbxuser
 *.perspective

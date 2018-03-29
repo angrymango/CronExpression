@@ -1,0 +1,10 @@
+use_frameworks!
+
+target 'SwiftCronExample' do
+pod 'SwiftCron', :path => '../'
+end
+
+target 'SwiftCronExampleTests' do
+pod 'SwiftCron', :path => '../'
+end
+
