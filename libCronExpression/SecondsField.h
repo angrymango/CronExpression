@@ -6,6 +6,6 @@
 #import "Field.h"
 #import "FieldInterface.h"
 
-@interface MinutesField : Field<FieldInterface>
+@interface SecondsField : Field<FieldInterface>
 
 @end

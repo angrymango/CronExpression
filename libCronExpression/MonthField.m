@@ -31,42 +31,29 @@
      ));
      
      return $this->isSatisfied($date->format('m'), $value);*/
-    
-    NSDictionary* monthMap = [NSDictionary dictionaryWithObjects:
-                              [NSArray arrayWithObjects:@"JAN", @"FEB", @"MAR", @"APR", @"MAY", @"JUN", @"JUL", @"AUG", @"SEP", @"OCT", @"NOV", @"DEC", nil] 
-                                                         forKeys:[NSArray arrayWithObjects:
-                                                                    [NSNumber numberWithInteger: 1], 
-                                                                    [NSNumber numberWithInteger: 2], 
-                                                                    [NSNumber numberWithInteger: 3], 
-                                                                    [NSNumber numberWithInteger: 4], 
-                                                                    [NSNumber numberWithInteger: 5], 
-                                                                    [NSNumber numberWithInteger: 6], 
-                                                                    [NSNumber numberWithInteger: 7], 
-                                                                    [NSNumber numberWithInteger: 8],
-                                                                    [NSNumber numberWithInteger: 9],
-                                                                    [NSNumber numberWithInteger: 10],
-                                                                    [NSNumber numberWithInteger: 11],
-                                                                    [NSNumber numberWithInteger: 12],nil]];
-
-    return [self isSatisfied: [NSString stringWithFormat:@"%d", [monthMap objectForKey:value]] withValue:value];;
+    NSCalendar* calendar = self.calendar;
+    NSDateComponents *components = [calendar components:NSCalendarUnitMonth fromDate: date];
+    long i = (long)components.month;
+    return [self isSatisfied: [NSString stringWithFormat:@"%ld", i] withValue:value];
 }
 
 -(NSDate*) increment:(NSDate*)date
 {
-    /*$date->add(new DateInterval('P1M'));
-     $date->setDate($date->format('Y'), $date->format('m'), 1);
-     $date->setTime(0, 0, 0);
-     
-     return $this;*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-    NSDateComponents *midnightComponents = [[calendar components: NSUIntegerMax fromDate: date] autorelease];
-    midnightComponents.hour = midnightComponents.minute = midnightComponents.second = 0;
-    
-    NSDateComponents* components = [[[NSDateComponents alloc] init] autorelease];
+    // 此处需要考虑多个数值匹配的问题，所以每次自增的时候，需要自增后，将下一级单位清零
+    /*
+     具体情况比如：
+     1.当前时间12:31:21，表达式0/5 2 *
+     2.则在秒钟计算正确后为12:31:25，而分钟不匹配
+     3.此时如果分钟自增而不清零秒钟，则为12:32:25，会跳过应该匹配的12:32:00等时间
+     4.所以每次自增后，需要将下一级单位清零
+     */
+    NSCalendar* calendar = self.calendar;
+    NSDateComponents *integralComponents = [calendar components:NSUIntegerMax fromDate:date];
+    integralComponents.hour = integralComponents.minute = integralComponents.second = 0;
+    integralComponents.day = 1;
+    NSDateComponents* components = [[NSDateComponents alloc] init];
     components.month = 1;
-    
-    return [calendar dateByAddingComponents: components toDate: [calendar dateFromComponents: midnightComponents] options: 0];
+    return [calendar dateByAddingComponents:components toDate:[calendar dateFromComponents: integralComponents] options:0];
 }
 
 -(BOOL) validate:(NSString*)value

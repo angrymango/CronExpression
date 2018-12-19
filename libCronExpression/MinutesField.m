@@ -14,25 +14,44 @@
 
 -(BOOL)isSatisfiedBy: (NSDate*)date byValue:(NSString*)value
 {
-     /*return $this->isSatisfied($date->format('i'), $value);*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-    NSDateComponents *components = [[calendar components: NSMinuteCalendarUnit fromDate: date] autorelease];
-    
-    return [self isSatisfied: [NSString stringWithFormat:@"%d", components.minute] withValue:value];
+    NSCalendar* calendar = self.calendar;
+    NSDateComponents *components = [calendar components: NSCalendarUnitMinute fromDate: date];
+    long i = (long)components.minute;
+    BOOL result = [self isSatisfied: [NSString stringWithFormat:@"%ld", i] withValue:value];
+    if (result)
+    {
+        [self hasSatisfied:[NSNumber numberWithLong:i]];
+    }
+    return result;
 }
 
 -(NSDate*) increment:(NSDate*)date
 {
-    /*$date->add(new DateInterval('PT1M'));
-     
-     return $this;*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier: NSGregorianCalendar] autorelease];
-    NSDateComponents* components = [[[NSDateComponents alloc] init] autorelease];
+    // 此处需要考虑多个数值匹配的问题，所以每次自增的时候，需要自增后，将下一级单位清零
+    /*
+     具体情况比如：
+     1.当前时间12:31:21，表达式0/5 2 *
+     2.则在秒钟计算正确后为12:31:25，而分钟不匹配
+     3.此时如果分钟自增而不清零秒钟，则为12:32:25，会跳过应该匹配的12:32:00等时间
+     4.所以每次自增后，需要将下一级单位清零
+     */
+    NSCalendar* calendar = self.calendar;
+    NSDateComponents *integralComponents = [calendar components:NSUIntegerMax fromDate:date];
+    NSNumber* newValue = nil;
+    if (self.canUseCache)
+    {
+        newValue = [self minisSatisfied:[NSNumber numberWithInteger:integralComponents.minute]];
+        if (newValue)
+        {
+            integralComponents.minute = [newValue integerValue];
+            return [calendar dateFromComponents:integralComponents];
+        } else {
+            integralComponents.minute = 59;
+        }
+    }
+    NSDateComponents* components = [[NSDateComponents alloc] init];
     components.minute = 1;
-    
-    return [calendar dateByAddingComponents: components toDate: date options: 0];
+    return [calendar dateByAddingComponents:components toDate:[calendar dateFromComponents: integralComponents] options:0];
 }
 
 -(BOOL) validate:(NSString*)value

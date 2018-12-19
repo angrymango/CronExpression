@@ -8,11 +8,8 @@
 #import <Foundation/Foundation.h>
 #import "FieldInterface.h"
 
-@interface FieldFactory : NSObject{
-        
-@private	
-	NSMutableArray *fields;
-}
+@interface FieldFactory : NSObject
+@property (nonatomic, strong, readonly) NSCalendar* calendar;
 
 /**
  * Get an instance of a field object for a cron expression position
@@ -23,5 +20,6 @@
  * @throws InvalidArgumentException if a position is not valide
  */
 -(id<FieldInterface>)getField:(NSUInteger)position;
+-(void)resetFieldCache;
 
 @end
