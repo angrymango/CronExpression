@@ -2,12 +2,13 @@
 
 @implementation CronExpression
 
-int const MINUTE = 0;
-int const HOUR = 1;
-int const DAY = 2;
-int const MONTH = 3;
-int const WEEKDAY = 4;
-int const YEAR = 5;
+int const SECOND = 0;
+int const MINUTE = 1;
+int const HOUR = 2;
+int const DAY = 3;
+int const MONTH = 4;
+int const WEEKDAY = 5;
+int const YEAR = 6;
 
 -(id)init:(NSString*)schedule withFieldFactory:(FieldFactory*) fieldFactory
 {
@@ -16,7 +17,7 @@ int const YEAR = 5;
      
      if (count($this->cronParts) < 5) {
         throw new InvalidArgumentException(
-            $schedule . ' is not a valid CRON expression'
+            $schedule . ' is not a valid CRON expression's
         );
      }
      
@@ -30,11 +31,12 @@ int const YEAR = 5;
     
     self = [super init];
     if (self) {
-        order = [NSArray arrayWithObjects: [NSNumber numberWithInteger:YEAR], [NSNumber numberWithInteger:MONTH], [NSNumber numberWithInteger:DAY], [NSNumber numberWithInteger:WEEKDAY], [NSNumber numberWithInteger:HOUR], [NSNumber numberWithInteger:MINUTE], nil];
+        // 顺序很重要，需要从粒度最小的单位开始适配，这样低产生进位后，可以保证正常的匹配
+        order = [NSArray arrayWithObjects: [NSNumber numberWithInteger:SECOND], [NSNumber numberWithInteger:MINUTE], [NSNumber numberWithInteger:HOUR], [NSNumber numberWithInteger:DAY], [NSNumber numberWithInteger:WEEKDAY], [NSNumber numberWithInteger:MONTH], [NSNumber numberWithInteger:YEAR], nil];
         _fieldFactory = fieldFactory;
         cronParts = [schedule componentsSeparatedByString: @" "];
         
-        if([cronParts count] < 5)
+        if([cronParts count] < 6)
         {
             [NSException raise:@"Invalid cron expression" format:@"%@ is not a valid CRON expression", schedule];
         }
@@ -42,7 +44,7 @@ int const YEAR = 5;
         [cronParts enumerateObjectsUsingBlock:^(id object, NSUInteger idx, BOOL *stop) {
             if(![[_fieldFactory getField: idx] validate: (NSString*)object])
             {
-                [NSException raise:@"Invalid cron part" format:@"Invalid CRON field value %@ as position %@", object, idx];
+                [NSException raise:@"Invalid cron part" format:@"Invalid CRON field value %@ as position %lu", object, (unsigned long)idx];
             }
         }];
     }
@@ -50,7 +52,7 @@ int const YEAR = 5;
     return self;
 }
 
-+(CronExpression*) factory:(NSString*)expression: (FieldFactory*) fieldFactory
++(CronExpression*)expression:(NSString*)expression factory:(FieldFactory*) fieldFactory
 {
     /*$mappings = array(
      '@yearly' => '0 0 1 1 *',
@@ -94,7 +96,7 @@ int const YEAR = 5;
     return [[CronExpression alloc] init: expression withFieldFactory:fieldFactory];
 }
 
--(NSDate*)getNextRunDate: (NSDate*)currentTime: (NSInteger)nth
+-(NSDate*)getNextRunDate:(NSDate*)currentTime nth:(NSInteger)nth
 {
     /*$currentDate = $currentTime instanceof DateTime
      ? $currentTime
@@ -147,24 +149,29 @@ int const YEAR = 5;
      // @codeCoverageIgnoreStart
      throw new RuntimeException('Impossible CRON expression');
      // @codeCoverageIgnoreEnd*/
-    
-    NSCalendar* calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar]autorelease];
-    NSDateComponents* components = [[calendar components:NSUIntegerMax fromDate:currentTime]autorelease];
-    components.second = 0;
-    NSDate* nextRun = [calendar dateFromComponents:components];
-    
+
+    NSDate* nextRun = currentTime;
     // Set a hard limit to bail on an impossible date
-    for (int i = 0; i < 1000; i++) 
+    // 实测最坏运算次数为1078次，先设置1500次/每轮
+    NSInteger limit = 1500;
+    if (nth > 0)
     {
-        for(NSNumber *position in order)
+        // 由于nth表示需要循环多少次，所以此处将极限值乘以次数，得出循环的最大值
+        limit = (nth + 1) * limit;
+    }
+    for (NSInteger i = 0; i < limit; i++)
+    {
+        BOOL satisfied = NO;
+        for(int fieldIndex = 0; fieldIndex < order.count; fieldIndex++)
         {
+            NSNumber *position = [order objectAtIndex:fieldIndex];
+            //由于变量移动到了外部循环，每次内部循环时需要重置标识位
+            satisfied = NO;
             NSString* part = [self getExpression: [position intValue]];
             if (part == nil) 
             {
                 continue;
             }
-            
-            BOOL satisfied = NO;
             
             id<FieldInterface> field = [_fieldFactory getField: [position intValue]];
             
@@ -183,25 +190,26 @@ int const YEAR = 5;
                     }
                 }
             }
-            
             // If the field is not satisfied, then start over
             if (!satisfied) {
-                [field increment: nextRun];
+                nextRun = [field increment: nextRun];
                 break;
             }
-            
-            // Skip this match if needed
-            if (--nth > -1) 
-            {
-                [[_fieldFactory getField: 0] increment: nextRun];
-                continue;
-            }
-            
-            return nextRun;
         }
+        // 此处由于无法直接从内层循环直接continue外层循环，所以增加标识位，在外层循环处再判断一次。
+        if (!satisfied) {
+            continue;
+        }
+        // Skip this match if needed
+        if (--nth > -1)
+        {
+            nextRun = [[_fieldFactory getField: 0] increment: nextRun];
+            continue;
+        }
+        return nextRun;
     }
     
-    [NSException raise:@"Invalid Argument" format:@"Impossible CRON expression"];
+//    [NSException raise:@"Invalid Argument" format:@"Impossible CRON expression"];
     return nil;
 }
 
@@ -248,12 +256,21 @@ int const YEAR = 5;
     return YES;
 }
 
--(void)dealloc
+- (NSArray<NSDate*>*)getNextRunDays:(NSDate*)startTime
+                            endTime:(NSDate*)endTime
 {
-    [super dealloc];
-    [cronParts release];
-    [order release];
-    [_fieldFactory release];
+    NSDate* resultDate = startTime;
+    NSMutableArray* result = [NSMutableArray arrayWithCapacity:20];
+    while (resultDate.timeIntervalSince1970 < endTime.timeIntervalSince1970 && resultDate)
+    {
+        resultDate = [self getNextRunDate:resultDate nth:0];
+        if ([endTime compare:resultDate] == NSOrderedDescending)
+        {
+            [result addObject:resultDate];
+        }
+        resultDate = [resultDate dateByAddingTimeInterval:1];
+    }
+    return [result copy];
 }
 
 @end

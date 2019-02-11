@@ -1,10 +1,18 @@
 #import "FieldFactory.h"
 #import "MinutesField.h"
+#import "SecondsField.h"
 #import "HoursField.h"
 #import "DayOfMonthField.h"
 #import "MonthField.h"
 #import "DayOfWeekField.h"
 #import "YearField.h"
+
+@interface FieldFactory()
+{
+@private
+    NSMutableArray *fields;
+}
+@end
 
 @implementation FieldFactory
 
@@ -12,10 +20,21 @@
 {
     self = [super init];
     if (self) {
-        fields = [NSMutableArray arrayWithObjects:[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],nil];
+        _calendar = [[NSCalendar alloc] initWithCalendarIdentifier: NSCalendarIdentifierGregorian];
+        fields = [NSMutableArray arrayWithObjects:[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],[NSNull null],nil];
     }
     
     return self;
+}
+
+-(void)resetFieldCache
+{
+    [fields enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:[Field class]])
+        {
+            [((Field*)obj) resetCache];
+        }
+    }];
 }
 
 -(id<FieldInterface>)getField:(NSUInteger)position
@@ -51,41 +70,47 @@
 
     if(position >= [fields count])
     {
-        [NSException raise:@"Invalid argument" format:@"%d is not a valid position", position];
+        int i = (int)position;
+        [NSException raise:@"Invalid argument" format:@"%d is not a valid position", i];
     }
-    
+    id<FieldInterface> field = [fields objectAtIndex: position];
     if([fields objectAtIndex: position] == [NSNull null])
     {
+        Field* f = nil;
         switch(position)
         {
             case 0:
-                [fields insertObject:[[MinutesField alloc] init] atIndex:position];
+                f = field = [[SecondsField alloc] init];
                 break;
             case 1:
-                [fields insertObject:[[HoursField alloc] init] atIndex:position];
+                f = field = [[MinutesField alloc] init];
                 break;
             case 2:
-                [fields insertObject:[[DayOfMonthField alloc] init] atIndex:position];
+                f = field = [[HoursField alloc] init];
                 break;
             case 3:
-                [fields insertObject:[[MonthField alloc] init] atIndex:position];
+                f = field = [[DayOfMonthField alloc] init];
                 break;
             case 4:
-                [fields insertObject:[[DayOfWeekField alloc] init] atIndex:position];
+                f = field = [[MonthField alloc] init];
                 break;
             case 5:
-                [fields insertObject:[[YearField alloc] init] atIndex:position];
+                f = field = [[DayOfWeekField alloc] init];
+                break;
+            case 6:
+                f = field = [[YearField alloc] init];
                 break;
         }
+        f.calendar = self.calendar;
+        [fields insertObject:field atIndex:position];
     }
-    
-    return [fields objectAtIndex: position];
+    return field;
 }
 
 -(void)dealloc
 {
     [super dealloc];
-    [fields release];
+//    [fields release];
 }
 
 @end

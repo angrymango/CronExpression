@@ -1,14 +1,6 @@
-//
-//  YearField.m
-//  Vision
-//
-//  Created by c 4 on 11/08/11.
-//  Copyright 2011 __MyCompanyName__. All rights reserved.
-//
+#import "SecondsField.h"
 
-#import "YearField.h"
-
-@implementation YearField
+@implementation SecondsField
 
 - (id)init
 {
@@ -16,18 +8,21 @@
     if (self) {
         // Initialization code here.
     }
-    
     return self;
 }
 
 -(BOOL)isSatisfiedBy: (NSDate*)date byValue:(NSString*)value
 {
-    /*return $this->isSatisfied($date->format('Y'), $value);*/
-    
+     /*return $this->isSatisfied($date->format('i'), $value);*/
     NSCalendar* calendar = self.calendar;
-    NSDateComponents *components = [calendar components: NSCalendarUnitYear fromDate: date];
-    long i = (long)components.year;
-    return [self isSatisfied: [NSString stringWithFormat:@"%ld", i] withValue:value];
+    NSDateComponents *components = [calendar components: NSCalendarUnitSecond fromDate: date];
+    long i = (long)components.second;
+    BOOL result = [self isSatisfied: [NSString stringWithFormat:@"%ld", i] withValue:value];
+    if (result)
+    {
+        [self hasSatisfied:[NSNumber numberWithLong:i]];
+    }
+    return result;
 }
 
 -(NSDate*) increment:(NSDate*)date
@@ -40,17 +35,29 @@
      3.此时如果分钟自增而不清零秒钟，则为12:32:25，会跳过应该匹配的12:32:00等时间
      4.所以每次自增后，需要将下一级单位清零
      */
+    // 但是由于秒钟没有下一级单位了，无所谓了
     NSCalendar* calendar = self.calendar;
-    NSDateComponents *integralComponents = [calendar components:NSUIntegerMax fromDate:date];
-    integralComponents.day = 1;
+    NSDateComponents *integralComponents = [calendar components:NSUIntegerMax fromDate: date];
+    NSNumber* newSecond = nil;
+    if (self.canUseCache)
+    {
+        newSecond = [self minisSatisfied:[NSNumber numberWithInteger:integralComponents.second]];
+        if (newSecond)
+        {
+            integralComponents.second = [newSecond integerValue];
+            return [calendar dateFromComponents:integralComponents];
+        } else {
+            integralComponents.second = 59;
+        }
+    }
     NSDateComponents* components = [[NSDateComponents alloc] init];
-    components.month = 1;
-    return [calendar dateByAddingComponents:components toDate:[calendar dateFromComponents: integralComponents] options:0];\
+    components.second = 1;
+    return [calendar dateByAddingComponents:components toDate:[calendar dateFromComponents: integralComponents] options:0];
 }
 
 -(BOOL) validate:(NSString*)value
 {
-    /*return (bool) preg_match('/[\*,\/\-0-9]+/', $value);*/
+     /*return (bool) preg_match('/[\*,\/\-0-9]+/', $value);*/
     
     NSError *error = NULL;
     NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[\\*,\\/\\-0-9]+" options:NSRegularExpressionCaseInsensitive error:&error];

@@ -55,7 +55,7 @@ extern int const YEAR;
  *
  * @return CronExpression
  */
-+(CronExpression*) factory:(NSString*)$expression: (FieldFactory*) fieldFactory;
++(CronExpression*)expression:(NSString*)expression factory:(FieldFactory*) fieldFactory;
 
 /**
  * Parse a CRON expression
@@ -81,7 +81,7 @@ extern int const YEAR;
  *
  * @return DateTime
  */
--(NSDate*)getNextRunDate: (NSDate*)currentTime: (NSInteger)nth;
+-(NSDate*)getNextRunDate:(NSDate*)currentTime nth:(NSInteger)nth;
 
 /**
  * Get all or part of the CRON expression
@@ -108,5 +108,6 @@ extern int const YEAR;
  * @return bool Returns TRUE if the cron is due to run or FALSE if not
  */
 -(BOOL)isDue: (NSDate*)currentTime;
-
+- (NSArray<NSDate*>*)getNextRunDays:(NSDate*)startTime
+                            endTime:(NSDate*)endTime;
 @end
